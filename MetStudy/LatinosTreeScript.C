@@ -76,6 +76,30 @@ double M_Muon(0.105);
    vector<float>   *std_vector_lepton_eta;
    vector<float>   *std_vector_lepton_phi;
 
+   Float_t         metGeneta;
+   Float_t         metGenphi;
+   Float_t         metGenpt;
+   Float_t         metLHEeta;
+   Float_t         metLHEphi;
+   Float_t         metLHEpt;
+   Float_t         metPfNoHf;
+   Float_t         metPfProj;
+   Float_t         metPfRaw;
+   Float_t         metPfRawPhi;
+   Float_t         metPfRawSumEt;
+   Float_t         metPfType1;
+   Float_t         metPfType1ElecDn;
+   Float_t         metPfType1ElecUp;
+   Float_t         metPfType1JetDn;
+   Float_t         metPfType1JetUp;
+   Float_t         metPfType1MuonDn;
+   Float_t         metPfType1MuonUp;
+   Float_t         metPfType1Phi;
+   Float_t         metPfType1SumEt;
+   Float_t         metPuppi;
+   Float_t         metTtrk;
+   Float_t         metTtrkPhi;
+
 //------------------------------------------------------------------------------
 // LatinosTreeScript
 //------------------------------------------------------------------------------
@@ -85,7 +109,7 @@ void LatinosTreeScript(Float_t luminosity,
 		TString theSample,
 		Bool_t  verbose)
 {
-	TH1::SetDefaultSumw2();
+	//TH1::SetDefaultSumw2();
 
 	TString path = Form("rootfiles/%djet/%s/", jetChannel, flavorChannel.Data());
 
@@ -95,7 +119,14 @@ void LatinosTreeScript(Float_t luminosity,
 	//TString NameFout=path + theSample +".txt";
 	//ofstream Fout(NameFout);
 
-TH1D*   hMmumu = new TH1D("hMmumu","hMmumu",50,0,15);    ;
+        TH1D* h_ = new TH1D("h_","h_",20,0,120);
+        TH1D* h_metPfType1 = new TH1D("h_metPfType1","h_metPfType1",20,0,120);
+        TH1D* h_metPfType1ElecDn = new TH1D("h_metPfType1ElecDn","h_metPfType1ElecDn",20,0,120);
+        TH1D* h_metPfType1ElecUp = new TH1D("h_metPfType1ElecUp","h_metPfType1ElecUp",20,0,120);
+        TH1D* h_metPfType1MuonDn = new TH1D("h_metPfType1MuonDn","h_metPfType1MuonDn",20,0,120);
+        TH1D* h_metPfType1MuonUp = new TH1D("h_metPfType1MuonUp","h_metPfType1MuonUp",20,0,120);
+        TH1D* h_metPfType1JetDn = new TH1D("h_metPfType1JetDn","h_metPfType1JetDn",20,0,120);
+        TH1D* h_metPfType1JetUp = new TH1D("h_metPfType1JetUp","h_metPfType1JetUp",20,0,120);
 
 	// Histograms
 	//----------------------------------------------------------------------------
@@ -135,7 +166,7 @@ TH1D*   hMmumu = new TH1D("hMmumu","hMmumu",50,0,15);    ;
 	TChain* tree = new TChain("latino", "latino");
 
 	if (theSample == "Test") {
-		tree->Add("./latino_stepB_numEvent100.root");
+		tree->Add("./latino_stepB.root");
 	}
 	else if (theSample == "DataRun2015_D") {
 		tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part0.root");
@@ -336,6 +367,13 @@ TH1D*   hMmumu = new TH1D("hMmumu","hMmumu",50,0,15);    ;
         tree->SetBranchAddress("std_vector_lepton_pt", &std_vector_lepton_pt);
         tree->SetBranchAddress("std_vector_lepton_phi",&std_vector_lepton_phi);
         tree->SetBranchAddress("std_vector_lepton_eta",&std_vector_lepton_eta);
+	tree->SetBranchAddress("metPfType1",      &metPfType1);
+	tree->SetBranchAddress("metPfType1ElecDn",&metPfType1ElecDn);
+	tree->SetBranchAddress("metPfType1ElecUp",&metPfType1ElecUp);
+	tree->SetBranchAddress("metPfType1JetDn" ,&metPfType1JetDn);
+	tree->SetBranchAddress("metPfType1JetUp" ,&metPfType1JetUp);
+	tree->SetBranchAddress("metPfType1MuonDn",&metPfType1MuonDn);
+	tree->SetBranchAddress("metPfType1MuonUp",&metPfType1MuonUp);
 
 	//if (theSample.Contains("WJetsFakes"))
 //		tree->SetBranchAddress("fakeW", &fakeW);
@@ -377,59 +415,19 @@ TH1D*   hMmumu = new TH1D("hMmumu","hMmumu",50,0,15);    ;
 	  //v_muon4d=0;
 	  // dump variable
 	  tree->GetEntry(ievent);
+	  h_metPfType1->Fill(metPfType1);
+	  h_metPfType1ElecDn->Fill(metPfType1ElecDn);
+	  h_metPfType1ElecUp->Fill(metPfType1ElecUp);
+	  h_metPfType1MuonDn->Fill(metPfType1MuonDn);
+	  h_metPfType1MuonUp->Fill(metPfType1MuonUp);
+	  h_metPfType1JetDn->Fill(metPfType1JetDn);
+	  h_metPfType1JetUp->Fill(metPfType1JetUp);
 	  //cout<<" baseW: "<<baseW<<"\t"<<"channel: "<<channel<<endl;
 	  //cout<<"Lepton flavor:          pt"<<endl;
 	  //for(int iLept(0); iLept<std_vector_lepton_flavour->size();iLept++)
 	  //{
 	  //}
-	  int iLept(0);
-	  double lepton_pt, lepton_eta, lepton_phi, lepton_flv;
-	  while((*std_vector_lepton_flavour)[iLept] >-9999)
-	  {
-	    lepton_flv  = (*std_vector_lepton_flavour)[iLept];
-	    lepton_pt    = (*std_vector_lepton_pt)[iLept];
-	    lepton_eta   = (*std_vector_lepton_eta)[iLept];
-	    lepton_phi   = (*std_vector_lepton_phi)[iLept];
-	    //cout<<iLept<<"\t"<<lepton_flv<<
-	    //  "\t"<<lepton_pt<<"\t"<<lepton_eta<<"\t"<<lepton_phi<<endl;
-	    if(fabs(lepton_flv) ==13)
-	    {
-	      muon4d.SetPtEtaPhiM(lepton_pt,lepton_eta,lepton_phi,M_Muon);
-	      v_muon4d->push_back(muon4d);
-	      v_muonFlv->push_back(lepton_flv);
-	    }
-
-	    iLept++;
-
-	  }
-	  int Nmuon = v_muon4d->size();
-	  bool WGstarMuonPtCut(false);
-	  if( (*v_muon4d)[0].Pt() > 20 && (*v_muon4d)[0].Pt() > 10 && (*v_muon4d)[0].Pt() > 3)
-	    WGstarMuonPtCut = true;
-	  if( Nmuon == 3 && WGstarMuonPtCut){
-	    //cout<<"WG* Sample!"<<endl;
-	    double M_mumu(1000000000.);
-	    if( (*v_muonFlv)[0] * (*v_muonFlv)[1] < 0)
-	    {
-	      TLorentzVector mumu4d = (*v_muon4d)[0];
-	      mumu4d += (*v_muon4d)[1];
-	      M_mumu = mumu4d.M();
-	    }
-	    if( (*v_muonFlv)[0] * (*v_muonFlv)[2] < 0)
-	    {
-	      TLorentzVector mumu4d = (*v_muon4d)[0];
-	      mumu4d += (*v_muon4d)[2];
-	      if( mumu4d.M() < M_mumu ) M_mumu = mumu4d.M();
-	    }
-	    if( (*v_muonFlv)[1] * (*v_muonFlv)[2] < 0)
-	    {
-	      TLorentzVector mumu4d = (*v_muon4d)[1];
-	      mumu4d += (*v_muon4d)[2];
-	      if( mumu4d.M() < M_mumu ) M_mumu = mumu4d.M();
-	    }
-	    //cout<<"M_mumu: "<<M_mumu<<endl;
-	    if(M_mumu < 15) hMmumu->Fill(M_mumu);
-	  }
+	  /************
 
 	  totalW      = -999;
 
@@ -451,328 +449,9 @@ TH1D*   hMmumu = new TH1D("hMmumu","hMmumu",50,0,15);    ;
 			totalW = baseW * luminosity;
 		}
 
-/***********************
-		// Help variables
-		//--------------------------------------------------------------------------
-		Int_t dphiv = ((njet <= 1 && dphiveto) || (njet > 1 && dphilljetjet < 165.*TMath::DegToRad()));
-
-		Float_t metvar = (njet <= 1) ? mpmet : pfmet;
-
-		Float_t jetbin = njet;
-
-		if (njet == 3) jetbin = 2;
-
-		Int_t vbfsel = ((jetpt3 <= 30 || !(jetpt3 > 30 && ((jeteta1-jeteta3 > 0 && jeteta2-jeteta3 < 0) || (jeteta2-jeteta3 > 0 && jeteta1-jeteta3 < 0)))));
-
-		// The selection begins here
-		//--------------------------------------------------------------------------
-		Bool_t accept_WGstar = (chmet < (0.75*pt1+100) && chmet < (0.75*jetpt1+100));
-
-		if ((dataset == 36 || dataset == 37) && mctruth == 2)                    continue;
-		if (dataset == 82 && !accept_WGstar)                                     continue;
-		if (dataset == 86 && (flavorChannel == "MuMu" || flavorChannel == "EE")) continue;
-		if ((SelectedChannel != -1) && (channel != SelectedChannel))             continue;
-		if (run == 201191)                                                       continue;
-		if (!trigger)                                                            continue;
-		if (pt1 <= 20)                                                           continue;
-		if (pt2 <= 10)                                                           continue; // Legacy and SS study
-		//if (pt2 <= 20)                                                           continue; // off shell
-		// For Same sign "--" or "++"
-		//if(ch1*ch2 >0){
-		//  cout<<"ch1: "<<ch1<<"  ch2: "<<ch2<<endl;
-		//}
-		if (flavorChannel == "SSEMuPlus" || flavorChannel == "SSMuEPlus"){
-		  if (ch1 < 0 || ch2 <0) continue;
-		  if(nextra != 0) continue; // third lepton veto
-		}else if (flavorChannel == "SSEMuMinus" || flavorChannel == "SSMuEMinus"){
-		  if (ch1 > 0 || ch2 >0) continue;
-		  if(nextra != 0) continue; // third lepton veto
-		}else if (ch1*ch2 > 0)                                                         continue;
-
-		//cout<<"fakeW"<<"\t"<<fakeW<<"\t"<<"HwidthMVAbkg"<<"\t"<<HwidthMVAbkg<<endl;
-		//if (mth <= 30)                                                           continue;
-		if (mll <= 70)                                                           continue; // off shell
-
-
-		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		//
-		// Data-driven methods
-		//
-		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		if (pfmet > 20 && mpmet > 20 && mll > 70 && nextra == 0 && (dphiv || !sameflav)) {
-
-			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-			//
-			// Z+jets
-			//
-			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-			if (dphiv && jetbin == jetChannel && bveto_mu && (bveto_ip && (nbjettche == 0 || njet > 3))) {
-
-
-				// Loop over the metvar bins
-				//----------------------------------------------------------------------
-				for (size_t mc=0; mc<numberMetCuts; mc ++) {
-
-					if (metvar > MetCut[mc] && fabs(mll - ZMASS) < 7.5) {
-						hNinLooseZevents[mc]->Fill(1,totalW);
-					}
-
-					if (metvar > MetCut[mc] && metvar < MetCut[mc+1]) {   
-						if (fabs(mll - ZMASS) < 7.5) {
-							hNinZevents[mc]   ->Fill(  1, totalW);
-							hMassInZevents[mc]->Fill(mll, totalW);
-						}
-						else if (fabs(mll - ZMASS) > 15) {  
-							hNoutZevents[mc]   ->Fill(  1, totalW);
-							hMassOutZevents[mc]->Fill(mll, totalW);
-						}
-					}
-				}
-			}
-
-
-			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-			//
-			// Top
-			//
-			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-			if (zveto && metvar > (20 + 25*sameflav)) {
-
-				// btag_eff denominator
-				if ((jetChannel == 0 && njet == 1 && nbjet == 1) ||
-						(jetChannel == 1 && njet == 2 && jettche2 > 2.1) ||
-						(jetChannel == 2)) {
-
-					hNTopControlRegion->Fill(1, totalW);
-					hbTagDisNTopControlRegion->Fill(jettche2, totalW);
-					hbTagDisNTopControlRegion_dphill   -> Fill(dphill*TMath::RadToDeg(), totalW);
-					hbTagDisNTopControlRegion_channel  -> Fill(channel,  totalW);
-					hbTagDisNTopControlRegion_jetpt1   -> Fill(jetpt1,   totalW);
-					hbTagDisNTopControlRegion_jetmva1  -> Fill(jetmva1,  totalW);
-					hbTagDisNTopControlRegion_softtche -> Fill(softtche, totalW);
-					hbTagDisNTopControlRegion_hardtche -> Fill(hardtche, totalW);
-					hbTagDisNTopControlRegion_mll      -> Fill(mll,      totalW);
-					hbTagDisNTopControlRegion_mth      -> Fill(mth,      totalW);
-					hbTagDisNTopControlRegion_bdt1     -> Fill(bdt1,     totalW);
-					hbTagDisNTopControlRegion_bdt2     -> Fill(bdt2,     totalW);
-					hbTagDisNTopControlRegion_HwidthMVAbkg     -> Fill(HwidthMVAbkg,     totalW);
-					//Fout<<run<<"\t"<<totalW<<"\t"<<HwidthMVAbkg<<endl;
-
-					// btag_eff numerator
-					if ((jetChannel == 0 && !bveto_nj30) ||
-							(jetChannel == 1 && jettche1 > 2.1) ||
-							(jetChannel == 2)) {
-
-						hNTopTaggedTopControlRegion->Fill(1, totalW);
-						hbTagDisNTopTaggedTopControlRegion->Fill(jettche2, totalW);
-						hbTagDisNTopTaggedTopControlRegion_dphill   -> Fill(dphill*TMath::RadToDeg(), totalW);
-						hbTagDisNTopTaggedTopControlRegion_channel  -> Fill(channel,  totalW);
-						hbTagDisNTopTaggedTopControlRegion_jetpt1   -> Fill(jetpt1,   totalW);
-						hbTagDisNTopTaggedTopControlRegion_jetmva1  -> Fill(jetmva1,  totalW);
-						hbTagDisNTopTaggedTopControlRegion_softtche -> Fill(softtche, totalW);
-						hbTagDisNTopTaggedTopControlRegion_hardtche -> Fill(hardtche, totalW);
-						hbTagDisNTopTaggedTopControlRegion_mll      -> Fill(mll,      totalW);
-						hbTagDisNTopTaggedTopControlRegion_mth      -> Fill(mth,      totalW);
-						hbTagDisNTopTaggedTopControlRegion_bdt1     -> Fill(bdt1,     totalW);
-						hbTagDisNTopTaggedTopControlRegion_bdt2     -> Fill(bdt2,     totalW);
-						hbTagDisNTopTaggedTopControlRegion_HwidthMVAbkg     -> Fill(HwidthMVAbkg,     totalW);
-					}
-				}
-			}
-
-			// Top-tagged events for ttbar estimation
-			//----------------------------------------------------------------------~~
-			if (zveto && metvar > (20 + 25*sameflav)) {
-
-				if ((jetChannel == 0 && njet == 0 && !bveto) ||// bveto:passes the anti-b-tagging requirements
-						(jetChannel == 1 && njet == 1 && bveto && jettche1 > 2.1) || //this is the origin
-						(jetChannel == 2) // this is the origin
-						)
-				{
-
-					hTopTaggedEvents->Fill(1, totalW);
-					hbTagDisTopTaggedEvents->Fill(jettche2, totalW);
-					hbTagDisTopTaggedEvents_dphill   -> Fill(dphill*TMath::RadToDeg(), totalW);
-					hbTagDisTopTaggedEvents_channel  -> Fill(channel,  totalW);
-					hbTagDisTopTaggedEvents_jetpt1   -> Fill(jetpt1,   totalW);
-					hbTagDisTopTaggedEvents_jetmva1  -> Fill(jetmva1,  totalW);
-					hbTagDisTopTaggedEvents_softtche -> Fill(softtche, totalW);
-					hbTagDisTopTaggedEvents_hardtche -> Fill(hardtche, totalW);
-					hbTagDisTopTaggedEvents_mll      -> Fill(mll,      totalW);
-					hbTagDisTopTaggedEvents_mth      -> Fill(mth,      totalW);
-					hbTagDisTopTaggedEvents_bdt1     -> Fill(bdt1,     totalW);
-					hbTagDisTopTaggedEvents_bdt2     -> Fill(bdt2,     totalW);
-					hbTagDisTopTaggedEvents_HwidthMVAbkg     -> Fill(HwidthMVAbkg,     totalW);
-				}
-				if ((jetChannel == 0 && njet == 0 && !bveto) ||// bveto:passes the anti-b-tagging requirements
-						(jetChannel == 1 && njet == 1 && !bveto && jettche1 > 2.1 ) || // this is for top dominant region
-						(jetChannel == 2) // this is the origin
-				)
-				{
-
-					hTopTaggedEvents_nobveto_tche1->Fill(1, totalW);
-					hbTagDisTopTaggedEvents_nobveto_tche1->Fill(jettche2, totalW);
-					hbTagDisTopTaggedEvents_dphill_nobveto_tche1   -> Fill(dphill*TMath::RadToDeg(), totalW);
-					hbTagDisTopTaggedEvents_channel_nobveto_tche1  -> Fill(channel,  totalW);
-					hbTagDisTopTaggedEvents_jetpt1_nobveto_tche1   -> Fill(jetpt1,   totalW);
-					hbTagDisTopTaggedEvents_jetmva1_nobveto_tche1  -> Fill(jetmva1,  totalW);
-					hbTagDisTopTaggedEvents_softtche_nobveto_tche1 -> Fill(softtche, totalW);
-					hbTagDisTopTaggedEvents_hardtche_nobveto_tche1 -> Fill(hardtche, totalW);
-					hbTagDisTopTaggedEvents_mll_nobveto_tche1      -> Fill(mll,      totalW);
-					hbTagDisTopTaggedEvents_mth_nobveto_tche1      -> Fill(mth,      totalW);
-					hbTagDisTopTaggedEvents_bdt1_nobveto_tche1     -> Fill(bdt1,     totalW);
-					hbTagDisTopTaggedEvents_bdt2_nobveto_tche1     -> Fill(bdt2,     totalW);
-					hbTagDisTopTaggedEvents_HwidthMVAbkg_nobveto_tche1     -> Fill(HwidthMVAbkg,     totalW);
-				}
-				if ((jetChannel == 0 && njet == 0 && !bveto) ||// bveto:passes the anti-b-tagging requirements
-						(jetChannel == 1 && njet == 1 && jettche1 > 2.1 ) || // this is for top dominant region
-						(jetChannel == 2) // this is the origin
-				)
-				{
-
-					hTopTaggedEvents_tche1->Fill(1, totalW);
-					hbTagDisTopTaggedEvents_tche1->Fill(jettche2, totalW);
-					hbTagDisTopTaggedEvents_dphill_tche1   -> Fill(dphill*TMath::RadToDeg(), totalW);
-					hbTagDisTopTaggedEvents_channel_tche1  -> Fill(channel,  totalW);
-					hbTagDisTopTaggedEvents_jetpt1_tche1   -> Fill(jetpt1,   totalW);
-					hbTagDisTopTaggedEvents_jetmva1_tche1  -> Fill(jetmva1,  totalW);
-					hbTagDisTopTaggedEvents_softtche_tche1 -> Fill(softtche, totalW);
-					hbTagDisTopTaggedEvents_hardtche_tche1 -> Fill(hardtche, totalW);
-					hbTagDisTopTaggedEvents_mll_tche1      -> Fill(mll,      totalW);
-					hbTagDisTopTaggedEvents_mth_tche1      -> Fill(mth,      totalW);
-					hbTagDisTopTaggedEvents_bdt1_tche1     -> Fill(bdt1,     totalW);
-					hbTagDisTopTaggedEvents_bdt2_tche1     -> Fill(bdt2,     totalW);
-					hbTagDisTopTaggedEvents_HwidthMVAbkg_tche1     -> Fill(HwidthMVAbkg,     totalW);
-				}
-				if ((jetChannel == 0 && njet == 0 && !bveto) ||// bveto:passes the anti-b-tagging requirements
-						(jetChannel == 1 && njet == 1 && !bveto ) || // this is for top dominant region
-						(jetChannel == 2) // this is the origin
-				)
-				{
-
-					hTopTaggedEvents_nobveto->Fill(1, totalW);
-					hbTagDisTopTaggedEvents_nobveto->Fill(jettche2, totalW);
-					hbTagDisTopTaggedEvents_dphill_nobveto   -> Fill(dphill*TMath::RadToDeg(), totalW);
-					hbTagDisTopTaggedEvents_channel_nobveto  -> Fill(channel,  totalW);
-					hbTagDisTopTaggedEvents_jetpt1_nobveto   -> Fill(jetpt1,   totalW);
-					hbTagDisTopTaggedEvents_jetmva1_nobveto  -> Fill(jetmva1,  totalW);
-					hbTagDisTopTaggedEvents_softtche_nobveto -> Fill(softtche, totalW);
-					hbTagDisTopTaggedEvents_hardtche_nobveto -> Fill(hardtche, totalW);
-					hbTagDisTopTaggedEvents_mll_nobveto      -> Fill(mll,      totalW);
-					hbTagDisTopTaggedEvents_mth_nobveto      -> Fill(mth,      totalW);
-					hbTagDisTopTaggedEvents_bdt1_nobveto     -> Fill(bdt1,     totalW);
-					hbTagDisTopTaggedEvents_bdt2_nobveto     -> Fill(bdt2,     totalW);
-					hbTagDisTopTaggedEvents_HwidthMVAbkg_nobveto     -> Fill(HwidthMVAbkg,     totalW);
-				}
-			}
-		}
-
-
-		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		//
-		// Main analysis
-		//
-		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		for (UInt_t ilevel=0; ilevel<nLevels; ilevel++) {
-
-			FillHistograms(TriggerLevel, ilevel);
-
-			if ((pfmet > 20 && mpmet > 20) || (ilevel == MetCutLevel)) {
-
-				FillHistograms(MetCutLevel, ilevel);
-
-				if ((mll > 70) || (ilevel == LowMinvLevel)) {
-
-					FillHistograms(LowMinvLevel, ilevel);
-
-					if (zveto || (ilevel == ZVetoLevel)) {
-
-						FillHistograms(ZVetoLevel, ilevel);
-
-						if ((metvar > (20 + 25*sameflav)) || (ilevel == pMetCutLevel)) {
-
-							FillHistograms(pMetCutLevel, ilevel);
-
-							if ((jetbin == jetChannel) || (ilevel == JetVetoLevel)) {
-
-								FillHistograms(JetVetoLevel, ilevel);
-
-								if (dphiv || !sameflav || (ilevel == DeltaPhiJetLevel)) {
-
-									FillHistograms(DeltaPhiJetLevel, ilevel);
-
-									if (bveto_mu || (ilevel == SoftMuVetoLevel)) {
-
-										FillHistograms(SoftMuVetoLevel, ilevel);
-
-										if ((nextra == 0) || (ilevel == ExtraLeptonLevel)) {
-
-											FillHistograms(ExtraLeptonLevel, ilevel);
-
-											Bool_t top_veto = (bveto_ip && (nbjettche == 0 || njet > 3) && (njet <= 1 || vbfsel));
-
-											if (top_veto || (ilevel == TopTaggingLevel)) {
-
-												FillHistograms(TopTaggingLevel, ilevel);
-
-												hWeff_NM1           [ilevel]->Fill(1,         efficiencyW);
-												hW_NM1              [ilevel]->Fill(1,         totalW);
-												hPtLepton1_NM1      [ilevel]->Fill(pt1,       totalW);
-												hPtLepton2_NM1      [ilevel]->Fill(pt2,       totalW);
-												hBDT1_NM1           [ilevel]->Fill(bdt1,       totalW);
-												hBDT2_NM1           [ilevel]->Fill(bdt2,       totalW);
-												hPtDiLepton_NM1     [ilevel]->Fill(ptll,      totalW);
-												hMinv_NM1           [ilevel]->Fill(mll,       totalW);
-												hMt_NM1             [ilevel]->Fill(mth,       totalW);
-												hNJets30_NM1        [ilevel]->Fill(njet,      totalW);
-												hpfMet_NM1          [ilevel]->Fill(pfmet,     totalW);
-												hppfMet_NM1         [ilevel]->Fill(ppfmet,    totalW);
-												hchMet_NM1          [ilevel]->Fill(chmet,     totalW);
-												hpchMet_NM1         [ilevel]->Fill(pchmet,    totalW);
-												hpminMet_NM1        [ilevel]->Fill(mpmet,     totalW);
-												hDeltaRLeptons_NM1  [ilevel]->Fill(drll,      totalW);
-												hDeltaPhiLeptons_NM1[ilevel]->Fill(dphill,    totalW);
-												hDPhiPtllJet_NM1    [ilevel]->Fill(dphilljet, totalW);
-												hHwidthMVA_NM1      [ilevel]->Fill(HwidthMVAbkg,       totalW);
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		************/
+	************/
 	}
 
-/***************
-	// Print
-	//----------------------------------------------------------------------------
-	if (verbose) {
-
-		printf("\n Expected number of RAW events for %s\n", theSample.Data());
-		printf(" -------------------+-----------\n");
-
-		for (UInt_t i=0; i<nLevels; i++)
-			printf(" %18s | %.0f\n", sLevel[i].Data(), hW[i]->GetEntries());
-
-		printf("\n");
-
-		if (!theSample.Contains("Data")) {
-
-			printf("\n Normalized to %.3f 1/fb\n", luminosity);
-			printf(" -------------------+-----------\n");
-
-			for (UInt_t i=0; i<nLevels; i++)
-				printf(" %18s | %.0f\n", sLevel[i].Data(), hW[i]->GetSumOfWeights());
-
-			printf("\n");
-		}
-	}
-
-**************/
 	// Save the histograms
 	//----------------------------------------------------------------------------
 	output->cd();

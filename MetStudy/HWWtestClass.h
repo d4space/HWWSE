@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Wed Dec 16 15:37:15 2015 by ROOT version 6.04/12
+// Wed Dec 16 15:42:40 2015 by ROOT version 6.02/13
 // from TChain latino/
 //////////////////////////////////////////////////////////
 
