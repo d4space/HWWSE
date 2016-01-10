@@ -166,7 +166,7 @@ void LatinosTreeScript(Float_t luminosity,
 	TChain* tree = new TChain("latino", "latino");
 
 	if (theSample == "Test") {
-		tree->Add("./latino_stepB.root");
+		tree->Add("./latino_stepB_numEvent100.root");
 	}
 	else if (theSample == "DataRun2015_D") {
 		tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part0.root");

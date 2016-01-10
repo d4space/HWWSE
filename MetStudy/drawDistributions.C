@@ -155,7 +155,7 @@ void drawDistributions(Int_t    njet       = 0,
   h_metPfType1JetDn->SetLineColor(kGreen);
   h_metPfType1JetUp->SetLineColor(kGreen+2);
 
-  h_metPfType1JetUp->SetMaximum(300);
+  //h_metPfType1JetUp->SetMaximum(300);
   h_metPfType1JetUp->Draw();
   h_metPfType1->Draw("same");
   h_metPfType1ElecDn->Draw("same");
