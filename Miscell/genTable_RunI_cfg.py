@@ -23,9 +23,7 @@ process.load("SimGeneral.HepPDTESSource.pythiapdt_cfi")
 process.printTree = cms.EDAnalyzer("ParticleListDrawer",
     maxEventsToPrint = cms.untracked.int32(100),
     printVertex = cms.untracked.bool(False),
-    printOnlyHardInteraction = cms.untracked.bool(False), # Print only status=3 particles. This will not work for Pythia8, which does not have any such particles.
-    src = cms.InputTag("prunedGenParticles")
-    #src = cms.InputTag("genParticles")
+    src = cms.InputTag("genParticles")
     )
 #process.load("TerraNova.NtupleMaker.Sources.WplusToMuNu_S8_8TeV_AODSIM_PatSkim_local_cff")
 
