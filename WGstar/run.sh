@@ -42,7 +42,7 @@ for CHANNEL in $CHANNELS; do
 
     for SAMPLE in $SAMPLES; do 
 	
-	root -l -b -q "LatinosTreeScript.C+($LUMINOSITY,$NJETS,\"$CHANNEL\",\"$SAMPLE\",\"true\")"
+	root -l -b -q "LatinosTreeScript.C+($LUMINOSITY,$NJETS,\"$CHANNEL\",\"$SAMPLE\",\"true\",\"true\")"
 	#root -l -b -q "runLatinosTreeScript.C($LUMINOSITY,$NJETS,\"$CHANNEL\",\"$SAMPLE\")"
   
     done
