@@ -79,7 +79,7 @@ double M_Muon(0.105);
 //------------------------------------------------------------------------------
 // LatinosTreeScript
 //------------------------------------------------------------------------------
-void LatinosTreeScript(Float_t luminosity,
+void LatinosTreeScript_l2sel(Float_t luminosity,
 		Int_t   jetChannel,
 		TString flavorChannel,
 		TString theSample,
@@ -144,7 +144,17 @@ void LatinosTreeScript(Float_t luminosity,
   	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel" + "latino_Run2015D_05Oct2015_SingleMuon_0001__part0.root");
   }
   else if (theSample == "WJetsFakes_Total") {
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu__part0.root");
+  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu_HT100_200__part0.root");
+  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu_HT100_200__part1.root");
+  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu_HT200_400.root");
+  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu_HT400_600.root");
+  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu_HT600_800.root");
+  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu_HT800_1200.root");
+  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu_HT1200_2500.root");
+  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu_HT2500_inf.root");
+  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu_HT2500_inf__part0.root");
+  	
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu__part0.root");
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu__part1.root");
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu__part2.root");
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu__part3.root");
@@ -194,11 +204,91 @@ void LatinosTreeScript(Float_t luminosity,
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part22.root");
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part23.root");
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part24.root");
+  	
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Nu__part0.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Nu__part1.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Nu__part2.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Nu__part3.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Nu__part4.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Nu__part5.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Nu__part6.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Nu__part7.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Nu__part8.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Nu__part9.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Nu__part10.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Nu__part11.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Nu__part12.root");
+
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo4L__part0.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo4L__part1.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo4L__part2.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo4L__part3.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo4L__part4.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo4L__part5.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo4L__part6.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo4L__part7.root");
   }
   else if (theSample == "TTbar") {
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTTo2L2Nu__part0.root");
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTTo2L2Nu__part1.root");
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTTo2L2Nu__part2.root");
+  	
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part0.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part1.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part2.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part3.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part4.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part5.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part6.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part7.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part8.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part9.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part10.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part11.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part12.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part13.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part14.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part15.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part16.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part17.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part18.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part19.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part20.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part21.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part22.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part23.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part24.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part25.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part26.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part27.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part28.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part29.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part30.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part31.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part32.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part33.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part34.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part35.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part36.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part37.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part38.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part39.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part40.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part41.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part42.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part43.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part44.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part45.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTJets__part46.root");
+	
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TT__part0.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TT__part1.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TT__part2.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TT__part3.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TT__part4.root");
+	
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTWJetsToLNu.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTZToLLNuNu_M-10.root");
   }
   else if (theSample == "TW") {
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ST_tW_antitop.root");
@@ -315,6 +405,12 @@ void LatinosTreeScript(Float_t luminosity,
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_GluGluHToTauTau_M125.root");
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_VBFHToTauTau_M125.root");
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_VBFHToWWTo2L2NuAMCNLO_M125.root");
+  	
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_GluGluHToWWTo2L2Nu_M125.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_HWminusJ_HToTauTau_M125.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_HWminusJ_HToWW_M125.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_HWplusJ_HToTauTau_M125.root");
+	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_HWplusJ_HToWW_M125.root");
   }
   else if (theSample == "Zgamma") { 
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_Zg__part1.root");
