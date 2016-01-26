@@ -70,6 +70,7 @@ double M_Muon(0.105);
 // Tree variables
 //------------------------------------------------------------------------------
    Float_t baseW;
+   Float_t fakeW;
    Float_t channel;
    vector<float>   *std_vector_lepton_flavour;
    vector<float>   *std_vector_lepton_pt;
@@ -83,11 +84,11 @@ void LatinosTreeScript(Float_t luminosity,
 		Int_t   jetChannel,
 		TString flavorChannel,
 		TString theSample,
-		Bool_t  isMC,
+		Bool_t  GEnStudy,
 		Bool_t  verbose)
 {
-  TH1D*   hMmumu = new TH1D("hMmumu","hMmumu",50,0,15);    ;
   TH1::SetDefaultSumw2();
+
   
   TString path = Form("rootfiles/%djet/%s/", jetChannel, flavorChannel.Data());
   
@@ -97,6 +98,7 @@ void LatinosTreeScript(Float_t luminosity,
   //TString NameFout=path + theSample +".txt";
   //ofstream Fout(NameFout);
   
+  TH1D*   hMmumu = new TH1D("hMmumu","hMmumu",50,0,15);    ;
   
   // Histograms
   //----------------------------------------------------------------------------
@@ -117,9 +119,8 @@ void LatinosTreeScript(Float_t luminosity,
   }
   
   
-  // Data-driven methods: Top
+  // Data-driven methods:
   //----------------------------------------------------------------------------
-  TH1F* hTopTaggedEvents            = new TH1F("hTopTaggedEvents",            "", 3, 0, 3);
   
   //----------------------------------------------------------------------------
   // Input files
@@ -165,7 +166,8 @@ void LatinosTreeScript(Float_t luminosity,
   	//tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo2L2Q__part2.root");
   	//tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo2L2Q__part3.root");
   	//tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZ.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo3LNu.root");
+  	//tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo3LNu.root");
+  	tree->Add("/terranova_0/HWWSE/LatinoTreesTest/latino_stepB_numEvent1000.root");
   }
   else if (theSample == "ZZ") {
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZ.root");
@@ -334,12 +336,11 @@ void LatinosTreeScript(Float_t luminosity,
   tree->SetBranchAddress("std_vector_lepton_phi",&std_vector_lepton_phi);
   tree->SetBranchAddress("std_vector_lepton_eta",&std_vector_lepton_eta);
   
-  //if (theSample.Contains("WJetsFakes"))
-  	tree->SetBranchAddress("fakeW", &fakeW);
+  if(theSample.Contains("WJetsFakes"))
+    tree->SetBranchAddress("fakeW", &fakeW);
   
   //if (!theSample.Contains("WJetsFakes") && !theSample.Contains("Data"))
   //	tree->SetBranchAddress("puW", &puW);
-  
   
   // Set the channel
   //----------------------------------------------------------------------------
@@ -368,6 +369,7 @@ void LatinosTreeScript(Float_t luminosity,
   
   TLorentzVector muon4d;
   for (int ievent=0; ievent<TotNtry; ievent++) {
+
     // initialize
     v_muon4d->clear();
     v_muonFlv->clear();
@@ -384,9 +386,9 @@ void LatinosTreeScript(Float_t luminosity,
     while((*std_vector_lepton_flavour)[iLept] >-9999)
     {
       lepton_flv  = (*std_vector_lepton_flavour)[iLept];
-      lepton_pt    = (*std_vector_lepton_pt)[iLept];
-      lepton_eta   = (*std_vector_lepton_eta)[iLept];
-      lepton_phi   = (*std_vector_lepton_phi)[iLept];
+      lepton_pt   = (*std_vector_lepton_pt)[iLept];
+      lepton_eta  = (*std_vector_lepton_eta)[iLept];
+      lepton_phi  = (*std_vector_lepton_phi)[iLept];
       //cout<<iLept<<"\t"<<lepton_flv<<
       //  "\t"<<lepton_pt<<"\t"<<lepton_eta<<"\t"<<lepton_phi<<endl;
       if(fabs(lepton_flv) ==13)
@@ -400,6 +402,7 @@ void LatinosTreeScript(Float_t luminosity,
 
     }
     int Nmuon = v_muon4d->size();
+    if(Nmuon < 3)continue;
     bool WGstarMuonPtCut(false);
     if( (*v_muon4d)[0].Pt() > 20 && (*v_muon4d)[0].Pt() > 10 && (*v_muon4d)[0].Pt() > 3)
       WGstarMuonPtCut = true;
@@ -446,35 +449,8 @@ void LatinosTreeScript(Float_t luminosity,
     	//totalW = (1 + 0.6 * (dataset >= 82 && dataset <= 84)) * baseW * efficiencyW * luminosity;
     	totalW = baseW * luminosity;
     }
-
   }
 
-/***************
-	// Print
-	//----------------------------------------------------------------------------
-	if (verbose) {
-
-		printf("\n Expected number of RAW events for %s\n", theSample.Data());
-		printf(" -------------------+-----------\n");
-
-		for (UInt_t i=0; i<nLevels; i++)
-			printf(" %18s | %.0f\n", sLevel[i].Data(), hW[i]->GetEntries());
-
-		printf("\n");
-
-		if (!theSample.Contains("Data")) {
-
-			printf("\n Normalized to %.3f 1/fb\n", luminosity);
-			printf(" -------------------+-----------\n");
-
-			for (UInt_t i=0; i<nLevels; i++)
-				printf(" %18s | %.0f\n", sLevel[i].Data(), hW[i]->GetSumOfWeights());
-
-			printf("\n");
-		}
-	}
-
-**************/
   // Save the histograms
   //----------------------------------------------------------------------------
   output->cd();
