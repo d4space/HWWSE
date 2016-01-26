@@ -72,6 +72,15 @@ double M_Muon(0.105);
    Float_t baseW;
    Float_t fakeW;
    Float_t channel;
+   Float_t Gen_ZGstar_deltaR;
+   Float_t Gen_ZGstar_mass;
+   Float_t Gen_ZGstar_mu1_eta;
+   Float_t Gen_ZGstar_mu1_phi;
+   Float_t Gen_ZGstar_mu1_pt;
+   Float_t Gen_ZGstar_mu2_eta;
+   Float_t Gen_ZGstar_mu2_phi;
+   Float_t Gen_ZGstar_mu2_pt;
+
    vector<float>   *std_vector_lepton_flavour;
    vector<float>   *std_vector_lepton_pt;
    vector<float>   *std_vector_lepton_eta;
@@ -98,7 +107,8 @@ void LatinosTreeScript(Float_t luminosity,
   //TString NameFout=path + theSample +".txt";
   //ofstream Fout(NameFout);
   
-  TH1D*   hMmumu = new TH1D("hMmumu","hMmumu",50,0,15);    ;
+  TH1D*   hInvDimu_Recon = new TH1D("hInvDimu_Recon","hInvDimu_Recon",50,0,15);    ;
+  TH1D*   hInvDimu_Gen   = new TH1D("hInvDimu_Gen","hInvDimu_Gen",50,0,15);    ;
   
   // Histograms
   //----------------------------------------------------------------------------
@@ -167,7 +177,7 @@ void LatinosTreeScript(Float_t luminosity,
   	//tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo2L2Q__part3.root");
   	//tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZ.root");
   	//tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo3LNu.root");
-  	tree->Add("/terranova_0/HWWSE/LatinoTreesTest/latino_stepB_numEvent1000.root");
+  	tree->Add("/terranova_0/HWWSE/LatinoTreesTest/latino_stepB_WZJet_n1000ForEachData.root");
   }
   else if (theSample == "ZZ") {
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZ.root");
@@ -331,6 +341,15 @@ void LatinosTreeScript(Float_t luminosity,
   //----------------------------------------------------------------------------
   tree->SetBranchAddress("baseW",        &baseW);
   tree->SetBranchAddress("channel",      &channel);
+  tree->SetBranchAddress("Gen_ZGstar_deltaR",      &Gen_ZGstar_deltaR);
+  tree->SetBranchAddress("Gen_ZGstar_mass",        &Gen_ZGstar_mass);
+  tree->SetBranchAddress("Gen_ZGstar_mu1_eta",     &Gen_ZGstar_mu1_eta);
+  tree->SetBranchAddress("Gen_ZGstar_mu1_phi",     &Gen_ZGstar_mu1_phi);
+  tree->SetBranchAddress("Gen_ZGstar_mu1_pt",      &Gen_ZGstar_mu1_pt);
+  tree->SetBranchAddress("Gen_ZGstar_mu2_eta",     &Gen_ZGstar_mu2_eta);
+  tree->SetBranchAddress("Gen_ZGstar_mu2_phi",     &Gen_ZGstar_mu2_phi);
+  tree->SetBranchAddress("Gen_ZGstar_mu2_pt",      &Gen_ZGstar_mu2_pt);
+
   tree->SetBranchAddress("std_vector_lepton_flavour", &std_vector_lepton_flavour);
   tree->SetBranchAddress("std_vector_lepton_pt", &std_vector_lepton_pt);
   tree->SetBranchAddress("std_vector_lepton_phi",&std_vector_lepton_phi);
@@ -362,18 +381,24 @@ void LatinosTreeScript(Float_t luminosity,
   //----------------------------------------------------------------------------
   int TotNtry=tree->GetEntries();
   //TotNtry=50;
-  std::vector<TLorentzVector> *v_muon4d;
-  std::vector<int> *v_muonFlv;
-  v_muon4d  = new std::vector<TLorentzVector>;
-  v_muonFlv = new std::vector<int>;
+  std::vector<TLorentzVector> *v_muon4d_recon;
+  std::vector<TLorentzVector> *v_muon4d_gen;
+  std::vector<int> *v_muonFlv_recon;
+  std::vector<int> *v_muonFlv_gen;
+  v_muon4d_recon  = new std::vector<TLorentzVector>;
+  v_muon4d_gen  = new std::vector<TLorentzVector>;
+  v_muonFlv_recon = new std::vector<int>;
+  v_muonFlv_gen   = new std::vector<int>;
   
   TLorentzVector muon4d;
   for (int ievent=0; ievent<TotNtry; ievent++) {
 
     // initialize
-    v_muon4d->clear();
-    v_muonFlv->clear();
-    //v_muon4d=0;
+    v_muon4d_recon->clear();
+    v_muon4d_gen->clear();
+    v_muonFlv_recon->clear();
+    v_muonFlv_gen->clear();
+    //v_muon4d_recon=0;
     // dump variable
     tree->GetEntry(ievent);
     //cout<<" baseW: "<<baseW<<"\t"<<"channel: "<<channel<<endl;
@@ -394,42 +419,77 @@ void LatinosTreeScript(Float_t luminosity,
       if(fabs(lepton_flv) ==13)
       {
         muon4d.SetPtEtaPhiM(lepton_pt,lepton_eta,lepton_phi,M_Muon);
-        v_muon4d->push_back(muon4d);
-        v_muonFlv->push_back(lepton_flv);
+        v_muon4d_recon->push_back(muon4d);
+        v_muonFlv_recon->push_back(lepton_flv);
       }
       
       iLept++;
 
     }
-    int Nmuon = v_muon4d->size();
+    int Nmuon = v_muon4d_recon->size();
     if(Nmuon < 3)continue;
     bool WGstarMuonPtCut(false);
-    if( (*v_muon4d)[0].Pt() > 20 && (*v_muon4d)[0].Pt() > 10 && (*v_muon4d)[0].Pt() > 3)
+    if( (*v_muon4d_recon)[0].Pt() >=(*v_muon4d_recon)[1].Pt() )
+    if( (*v_muon4d_recon)[1].Pt() >=(*v_muon4d_recon)[2].Pt() )
+    if( (*v_muon4d_recon)[0].Pt() > 20 && (*v_muon4d_recon)[1].Pt() > 10 && (*v_muon4d_recon)[2].Pt() > 3)
       WGstarMuonPtCut = true;
+
+    if( (*v_muon4d_recon)[0].Pt() >=(*v_muon4d_recon)[1].Pt() )
+    if( (*v_muon4d_recon)[2].Pt() >=(*v_muon4d_recon)[1].Pt() )
+    if( (*v_muon4d_recon)[0].Pt() >=(*v_muon4d_recon)[2].Pt() )
+    if( (*v_muon4d_recon)[0].Pt() > 20 && (*v_muon4d_recon)[2].Pt() > 10 && (*v_muon4d_recon)[1].Pt() > 3)
+      WGstarMuonPtCut = true;
+    if( (*v_muon4d_recon)[0].Pt() >=(*v_muon4d_recon)[1].Pt() )
+    if( (*v_muon4d_recon)[2].Pt() >=(*v_muon4d_recon)[1].Pt() )
+    if( (*v_muon4d_recon)[2].Pt() >=(*v_muon4d_recon)[0].Pt() )
+    if( (*v_muon4d_recon)[2].Pt() > 20 && (*v_muon4d_recon)[0].Pt() > 10 && (*v_muon4d_recon)[1].Pt() > 3)
+      WGstarMuonPtCut = true;
+    if( (*v_muon4d_recon)[1].Pt() >=(*v_muon4d_recon)[0].Pt() )
+    if( (*v_muon4d_recon)[2].Pt() >=(*v_muon4d_recon)[0].Pt() )
+    if( (*v_muon4d_recon)[2].Pt() >=(*v_muon4d_recon)[1].Pt() )
+    if( (*v_muon4d_recon)[2].Pt() > 20 && (*v_muon4d_recon)[1].Pt() > 10 && (*v_muon4d_recon)[0].Pt() > 3)
+      WGstarMuonPtCut = true;
+    if( (*v_muon4d_recon)[1].Pt() >=(*v_muon4d_recon)[0].Pt() )
+    if( (*v_muon4d_recon)[2].Pt() >=(*v_muon4d_recon)[0].Pt() )
+    if( (*v_muon4d_recon)[1].Pt() >=(*v_muon4d_recon)[2].Pt() )
+    if( (*v_muon4d_recon)[1].Pt() > 20 && (*v_muon4d_recon)[2].Pt() > 10 && (*v_muon4d_recon)[0].Pt() > 3)
+      WGstarMuonPtCut = true;
+    if( (*v_muon4d_recon)[1].Pt() >=(*v_muon4d_recon)[2].Pt() )
+    if( (*v_muon4d_recon)[0].Pt() >=(*v_muon4d_recon)[2].Pt() )
+    if( (*v_muon4d_recon)[1].Pt() >=(*v_muon4d_recon)[0].Pt() )
+    if( (*v_muon4d_recon)[1].Pt() > 20 && (*v_muon4d_recon)[0].Pt() > 10 && (*v_muon4d_recon)[2].Pt() > 3)
+      WGstarMuonPtCut = true;
+
     if( Nmuon == 3 && WGstarMuonPtCut){
       //cout<<"WG* Sample!"<<endl;
       double M_mumu(1000000000.);
-      if( (*v_muonFlv)[0] * (*v_muonFlv)[1] < 0)
+      if( (*v_muonFlv_recon)[0] * (*v_muonFlv_recon)[1] < 0)
       {
-        TLorentzVector mumu4d = (*v_muon4d)[0];
-        mumu4d += (*v_muon4d)[1];
+        TLorentzVector mumu4d = (*v_muon4d_recon)[0];
+        mumu4d += (*v_muon4d_recon)[1];
         M_mumu = mumu4d.M();
       }
-      if( (*v_muonFlv)[0] * (*v_muonFlv)[2] < 0)
+      if( (*v_muonFlv_recon)[0] * (*v_muonFlv_recon)[2] < 0)
       {
-        TLorentzVector mumu4d = (*v_muon4d)[0];
-        mumu4d += (*v_muon4d)[2];
+        TLorentzVector mumu4d = (*v_muon4d_recon)[0];
+        mumu4d += (*v_muon4d_recon)[2];
         if( mumu4d.M() < M_mumu ) M_mumu = mumu4d.M();
       }
-      if( (*v_muonFlv)[1] * (*v_muonFlv)[2] < 0)
+      if( (*v_muonFlv_recon)[1] * (*v_muonFlv_recon)[2] < 0)
       {
-        TLorentzVector mumu4d = (*v_muon4d)[1];
-        mumu4d += (*v_muon4d)[2];
+        TLorentzVector mumu4d = (*v_muon4d_recon)[1];
+        mumu4d += (*v_muon4d_recon)[2];
         if( mumu4d.M() < M_mumu ) M_mumu = mumu4d.M();
       }
       //cout<<"M_mumu: "<<M_mumu<<endl;
-      if(M_mumu < 15) hMmumu->Fill(M_mumu);
+      if(M_mumu < 15)
+      {
+	hInvDimu_Recon->Fill(M_mumu);
+	hInvDimu_Gen->Fill(Gen_ZGstar_mass);
+      }
     }
+
+
     totalW      = -999;
 
     if (theSample.Contains("Data"))
