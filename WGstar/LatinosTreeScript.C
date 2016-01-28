@@ -97,18 +97,17 @@ void LatinosTreeScript(Float_t luminosity,
 		Bool_t  verbose)
 {
   TH1::SetDefaultSumw2();
-
   
   TString path = Form("rootfiles/%djet/%s/", jetChannel, flavorChannel.Data());
   
   gSystem->mkdir(path, kTRUE);
   
   TFile* output = new TFile(path + theSample + ".root", "recreate");
-  //TString NameFout=path + theSample +".txt";
-  //ofstream Fout(NameFout);
+  TString NameFout=path + theSample +".txt";
+  ofstream Fout(NameFout);
   
-  TH1D*   hInvDimu_Recon = new TH1D("hInvDimu_Recon","hInvDimu_Recon",50,0,15);    ;
-  TH1D*   hInvDimu_Gen   = new TH1D("hInvDimu_Gen","hInvDimu_Gen",50,0,15);    ;
+  TH1D*   hInvDimu_Recon = new TH1D("hInvDimu_Recon","hInvDimu_Recon",50,0,15);
+  TH1D*   hInvDimu_Gen   = new TH1D("hInvDimu_Gen","hInvDimu_Gen",50,0,15); 
   
   // Histograms
   //----------------------------------------------------------------------------
@@ -127,7 +126,6 @@ void LatinosTreeScript(Float_t luminosity,
   	hMassInZevents  [nC] = new TH1F(Form("hMassInZevents%.2f",   MetCut[nC]), "", 200, 0, 200);
   	hMassOutZevents [nC] = new TH1F(Form("hMassOutZevents%.2f",  MetCut[nC]), "", 200, 0, 200);
   }
-  
   
   // Data-driven methods:
   //----------------------------------------------------------------------------
