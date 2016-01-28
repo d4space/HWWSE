@@ -13,44 +13,8 @@
 //typedef ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double> > LorentzVector;
 // Constants
 //------------------------------------------------------------------------------
-const Bool_t runAtOviedo = true;
 
 const Double_t ZMASS = 91.1876;  // GeV
-
-const UInt_t numberMetCuts = 5;
-
-const Double_t MetCut[numberMetCuts] = {20, 25, 30, 45, 1000};  // GeV
-
-const UInt_t nLevels = 10;
-
-const Int_t HwidthMVA_NoBin = 17 ;// sizeof(HwidthMVA_Bins);
-const Double_t HwidthMVA_Bins[HwidthMVA_NoBin+1] = {-1.00, -0.70, -0.60, -0.50, -0.40, -0.30, -0.20, -0.10, 0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 1.00};
-
-enum {
-	TriggerLevel,
-	MetCutLevel,
-	LowMinvLevel,
-	ZVetoLevel,
-	pMetCutLevel,
-	JetVetoLevel,
-	DeltaPhiJetLevel,
-	SoftMuVetoLevel,
-	ExtraLeptonLevel,
-	TopTaggingLevel
-};
-
-const TString sLevel[nLevels] = {
-	"Trigger",
-	"MetCut",
-	"LowMinv",
-	"ZVeto",
-	"pMetCut",
-	"JetVeto",
-	"DeltaPhiJet",
-	"SoftMuVeto",
-	"ExtraLepton",
-	"TopTagging"
-};
 
 
 // Member functions
@@ -61,21 +25,22 @@ void    FillHistograms(UInt_t level,
 
 // Data members
 //------------------------------------------------------------------------------
-TH1F*   hWeff           [nLevels];
 
-Float_t efficiencyW;
 Float_t totalW;
 double M_Muon(0.105);
 
 // Tree variables
 //------------------------------------------------------------------------------
-   Float_t baseW;
-   Float_t fakeW;
-   Float_t channel;
-   vector<float>   *std_vector_lepton_flavour;
-   vector<float>   *std_vector_lepton_pt;
-   vector<float>   *std_vector_lepton_eta;
-   vector<float>   *std_vector_lepton_phi;
+   Float_t weightNominalLHE;
+   Float_t m2MuFromZorGstar;
+   Float_t ZGstarMu1_pt;
+   Float_t ZGstarMu1_eta;
+   Float_t ZGstarMu1_phi;
+   Float_t ZGstarMu2_pt;
+   Float_t ZGstarMu2_eta;
+   Float_t ZGstarMu2_phi;
+   Float_t ZGstarDimu_DelaR;
+   //vector<float>   *std_vector_lepton_pt;
 
 //------------------------------------------------------------------------------
 // LatinosTreeScript
@@ -97,367 +62,350 @@ void GenDumperTree(Float_t luminosity,
   TFile* output = new TFile(path + theSample + ".root", "recreate");
   //TString NameFout=path + theSample +".txt";
   //ofstream Fout(NameFout);
-  
-  TH1D*   hMmumu = new TH1D("hMmumu","hMmumu",50,0,15);    ;
-  
+  //
+  //-------------------------------------------------------------------
   // Histograms
   //----------------------------------------------------------------------------
   
+  TH1D*   hMmumu = new TH1D("hMmumu","hMmumu",50,0,15);    ;
   
   
-  TString filesPath = "/u/user/sangilpark/RunIIData/CernBoxHWW2015/";
   
-  TChain* tree = new TChain("latino", "latino");
+  
+  TString filesPath = "/u/user/salee/Latino/CMSSW7414_WgStar/src/LatinoTreesGEN/GenDumper/test/BatchJob/";
+  
+  TChain* tree = new TChain("Analyzer/myTree", "Analyzer/myTree");
 
-  if (theSample == "DataRun2015_D") {
-  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part0.root");
-  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part1.root");
-  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part2.root");
-  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part3.root");
-  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part4.root");
-  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel" + "latino_Run2015D_05Oct2015_SingleMuon_0001__part0.root");
-  }
-  else if (theSample == "WJetsFakes_Total") {
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu__part0.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu__part1.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu__part2.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu__part3.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu__part4.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu__part5.root");
-  }
-  else if (theSample == "ggWWto2L") {
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_GluGluWWTo2L2Nu_MCFM__part0.root");
-  }
-  else if (theSample == "WWTo2L2Nu") {
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WWTo2L2Nu.root");
-  }
-  else if (theSample == "WZ") {
-  	//tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZJets__part0.root");
-  	//tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZJets__part1.root");
-  	//tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo2L2Q__part0.root");
-  	//tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo2L2Q__part1.root");
-  	//tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo2L2Q__part2.root");
-  	//tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo2L2Q__part3.root");
-  	//tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZ.root");
-  	//tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo3LNu.root");
-  	tree->Add("/terranova_0/HWWSE/LatinoTreesTest/latino_stepB_numEvent1000.root");
-  }
-  else if (theSample == "ZZ") {
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZ.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part0.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part1.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part2.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part3.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part4.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part5.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part6.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part7.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part8.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part9.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part10.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part11.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part12.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part13.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part14.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part15.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part16.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part17.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part18.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part19.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part20.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part21.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part22.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part23.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZTo2L2Q__part24.root");
-  }
-  else if (theSample == "TTbar") {
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTTo2L2Nu__part0.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTTo2L2Nu__part1.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_TTTo2L2Nu__part2.root");
-  }
-  else if (theSample == "TW") {
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ST_tW_antitop.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ST_tW_top.root");
-  }
-  else if (theSample == "DY") {
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_00.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_01.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_02.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_03.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_04.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_05.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_06.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_07.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_08.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_09.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_10.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_11.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_12.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_13.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_14.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_15.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_16.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_17.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_18.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_19.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_20.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_21.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_22.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_23.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_24.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_25.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_26.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_27.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_28.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_29.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_30.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_31.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_32.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_33.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_34.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_35.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-10to50_0000_36.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_00.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_01.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_02.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_03.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_04.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_05.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_06.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_07.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_08.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_09.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_10.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_11.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_12.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_13.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_14.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_15.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_16.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_17.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_18.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_19.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_20.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_21.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_22.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_23.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_24.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_25.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_26.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_27.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_28.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_29.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_30.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_31.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_32.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_33.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_34.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_35.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_36.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_37.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_38.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_39.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_40.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_41.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_42.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_43.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_44.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_45.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_46.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_47.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_48.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_DYJetsToLL_M-50_0000_49.root");
-  }
-  else if (theSample == "DYtautau") {
-  	//tree->Add("/afs/cern.ch/work/x/xjanssen/public/LatinoTrees/R53X_S1_V08_S2_V09_S3_V13/MoriondeffWPuWtriggW/TauTau_btagvar/latino_DYtt_19.5fb.root");
-  	//tree->Add(filesPath + "latino_DYtt_19.5fb.root");
-  }
-  else if (theSample == "WgammaNoStar") {
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_Wg.root");
-  }
-  else if (theSample == "WgammaStar") {
-  	//tree->Add(filesPath + "latino_082_WGstarToElNuMad.root");
-  	//tree->Add(filesPath + "latino_083_WGstarToMuNuMad.root");
-  	//tree->Add(filesPath + "latino_084_WGstarToTauNuMad.root");
-  }
-  else if (theSample == "HWW125") { 
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_GluGluHToWWTo2L2NuAMCNLO_M125__part0.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_GluGluHToWWTo2L2NuAMCNLO_M125__part1.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_GluGluHToWWTo2L2NuAMCNLO_M125__part2.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_GluGluHToWWTo2L2NuAMCNLO_M125__part3.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_GluGluHToTauTau_M125.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_VBFHToTauTau_M125.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_VBFHToWWTo2L2NuAMCNLO_M125.root");
-  }
-  else if (theSample == "Zgamma") { 
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_Zg__part1.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_Zg__part2.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_Zg__part3.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_Zg__part4.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_Zg__part5.root");
-  }
-  else {
-  	return;
-  }
+  	//tree->Add(filesPath +  "latino_Run2015D_05Oct2015_SingleMuon_0000__part0.root");
+        tree->Add(filesPath + "WZJets_13TeV_0.root");
+        tree->Add(filesPath + "WZJets_13TeV_100.root");
+        tree->Add(filesPath + "WZJets_13TeV_101.root");
+        tree->Add(filesPath + "WZJets_13TeV_102.root");
+        tree->Add(filesPath + "WZJets_13TeV_103.root");
+        tree->Add(filesPath + "WZJets_13TeV_104.root");
+        tree->Add(filesPath + "WZJets_13TeV_105.root");
+        tree->Add(filesPath + "WZJets_13TeV_106.root");
+        tree->Add(filesPath + "WZJets_13TeV_107.root");
+        tree->Add(filesPath + "WZJets_13TeV_108.root");
+        tree->Add(filesPath + "WZJets_13TeV_109.root");
+        tree->Add(filesPath + "WZJets_13TeV_10.root");
+        tree->Add(filesPath + "WZJets_13TeV_110.root");
+        tree->Add(filesPath + "WZJets_13TeV_111.root");
+        tree->Add(filesPath + "WZJets_13TeV_112.root");
+        tree->Add(filesPath + "WZJets_13TeV_113.root");
+        tree->Add(filesPath + "WZJets_13TeV_114.root");
+        tree->Add(filesPath + "WZJets_13TeV_115.root");
+        tree->Add(filesPath + "WZJets_13TeV_116.root");
+        tree->Add(filesPath + "WZJets_13TeV_117.root");
+        tree->Add(filesPath + "WZJets_13TeV_118.root");
+        tree->Add(filesPath + "WZJets_13TeV_119.root");
+        tree->Add(filesPath + "WZJets_13TeV_11.root");
+        tree->Add(filesPath + "WZJets_13TeV_120.root");
+        tree->Add(filesPath + "WZJets_13TeV_121.root");
+        tree->Add(filesPath + "WZJets_13TeV_122.root");
+        tree->Add(filesPath + "WZJets_13TeV_123.root");
+        tree->Add(filesPath + "WZJets_13TeV_124.root");
+        tree->Add(filesPath + "WZJets_13TeV_125.root");
+        tree->Add(filesPath + "WZJets_13TeV_126.root");
+        tree->Add(filesPath + "WZJets_13TeV_127.root");
+        tree->Add(filesPath + "WZJets_13TeV_128.root");
+        tree->Add(filesPath + "WZJets_13TeV_129.root");
+        tree->Add(filesPath + "WZJets_13TeV_12.root");
+        tree->Add(filesPath + "WZJets_13TeV_130.root");
+        tree->Add(filesPath + "WZJets_13TeV_131.root");
+        tree->Add(filesPath + "WZJets_13TeV_132.root");
+        tree->Add(filesPath + "WZJets_13TeV_133.root");
+        tree->Add(filesPath + "WZJets_13TeV_134.root");
+        tree->Add(filesPath + "WZJets_13TeV_135.root");
+        tree->Add(filesPath + "WZJets_13TeV_136.root");
+        tree->Add(filesPath + "WZJets_13TeV_137.root");
+        tree->Add(filesPath + "WZJets_13TeV_138.root");
+        tree->Add(filesPath + "WZJets_13TeV_139.root");
+        tree->Add(filesPath + "WZJets_13TeV_13.root");
+        tree->Add(filesPath + "WZJets_13TeV_140.root");
+        tree->Add(filesPath + "WZJets_13TeV_141.root");
+        tree->Add(filesPath + "WZJets_13TeV_142.root");
+        tree->Add(filesPath + "WZJets_13TeV_143.root");
+        tree->Add(filesPath + "WZJets_13TeV_144.root");
+        tree->Add(filesPath + "WZJets_13TeV_145.root");
+        tree->Add(filesPath + "WZJets_13TeV_146.root");
+        tree->Add(filesPath + "WZJets_13TeV_147.root");
+        tree->Add(filesPath + "WZJets_13TeV_148.root");
+        tree->Add(filesPath + "WZJets_13TeV_149.root");
+        tree->Add(filesPath + "WZJets_13TeV_14.root");
+        tree->Add(filesPath + "WZJets_13TeV_150.root");
+        tree->Add(filesPath + "WZJets_13TeV_151.root");
+        tree->Add(filesPath + "WZJets_13TeV_152.root");
+        tree->Add(filesPath + "WZJets_13TeV_153.root");
+        tree->Add(filesPath + "WZJets_13TeV_154.root");
+        tree->Add(filesPath + "WZJets_13TeV_155.root");
+        tree->Add(filesPath + "WZJets_13TeV_156.root");
+        tree->Add(filesPath + "WZJets_13TeV_157.root");
+        tree->Add(filesPath + "WZJets_13TeV_158.root");
+        tree->Add(filesPath + "WZJets_13TeV_159.root");
+        tree->Add(filesPath + "WZJets_13TeV_15.root");
+        tree->Add(filesPath + "WZJets_13TeV_160.root");
+        tree->Add(filesPath + "WZJets_13TeV_161.root");
+        tree->Add(filesPath + "WZJets_13TeV_162.root");
+        tree->Add(filesPath + "WZJets_13TeV_163.root");
+        tree->Add(filesPath + "WZJets_13TeV_164.root");
+        tree->Add(filesPath + "WZJets_13TeV_165.root");
+        tree->Add(filesPath + "WZJets_13TeV_166.root");
+        tree->Add(filesPath + "WZJets_13TeV_167.root");
+        tree->Add(filesPath + "WZJets_13TeV_168.root");
+        tree->Add(filesPath + "WZJets_13TeV_169.root");
+        tree->Add(filesPath + "WZJets_13TeV_16.root");
+        tree->Add(filesPath + "WZJets_13TeV_170.root");
+        tree->Add(filesPath + "WZJets_13TeV_171.root");
+        tree->Add(filesPath + "WZJets_13TeV_172.root");
+        tree->Add(filesPath + "WZJets_13TeV_173.root");
+        tree->Add(filesPath + "WZJets_13TeV_174.root");
+        tree->Add(filesPath + "WZJets_13TeV_175.root");
+        tree->Add(filesPath + "WZJets_13TeV_176.root");
+        tree->Add(filesPath + "WZJets_13TeV_177.root");
+        tree->Add(filesPath + "WZJets_13TeV_178.root");
+        tree->Add(filesPath + "WZJets_13TeV_179.root");
+        tree->Add(filesPath + "WZJets_13TeV_17.root");
+        tree->Add(filesPath + "WZJets_13TeV_180.root");
+        tree->Add(filesPath + "WZJets_13TeV_181.root");
+        tree->Add(filesPath + "WZJets_13TeV_182.root");
+        tree->Add(filesPath + "WZJets_13TeV_183.root");
+        tree->Add(filesPath + "WZJets_13TeV_184.root");
+        tree->Add(filesPath + "WZJets_13TeV_185.root");
+        tree->Add(filesPath + "WZJets_13TeV_186.root");
+        tree->Add(filesPath + "WZJets_13TeV_187.root");
+        tree->Add(filesPath + "WZJets_13TeV_188.root");
+        tree->Add(filesPath + "WZJets_13TeV_189.root");
+        tree->Add(filesPath + "WZJets_13TeV_18.root");
+        tree->Add(filesPath + "WZJets_13TeV_190.root");
+        tree->Add(filesPath + "WZJets_13TeV_191.root");
+        tree->Add(filesPath + "WZJets_13TeV_192.root");
+        tree->Add(filesPath + "WZJets_13TeV_193.root");
+        tree->Add(filesPath + "WZJets_13TeV_194.root");
+        tree->Add(filesPath + "WZJets_13TeV_195.root");
+        tree->Add(filesPath + "WZJets_13TeV_196.root");
+        tree->Add(filesPath + "WZJets_13TeV_197.root");
+        tree->Add(filesPath + "WZJets_13TeV_198.root");
+        tree->Add(filesPath + "WZJets_13TeV_199.root");
+        tree->Add(filesPath + "WZJets_13TeV_19.root");
+        tree->Add(filesPath + "WZJets_13TeV_1.root");
+        tree->Add(filesPath + "WZJets_13TeV_200.root");
+        tree->Add(filesPath + "WZJets_13TeV_201.root");
+        tree->Add(filesPath + "WZJets_13TeV_202.root");
+        tree->Add(filesPath + "WZJets_13TeV_203.root");
+        tree->Add(filesPath + "WZJets_13TeV_204.root");
+        tree->Add(filesPath + "WZJets_13TeV_205.root");
+        tree->Add(filesPath + "WZJets_13TeV_206.root");
+        tree->Add(filesPath + "WZJets_13TeV_207.root");
+        tree->Add(filesPath + "WZJets_13TeV_208.root");
+        tree->Add(filesPath + "WZJets_13TeV_209.root");
+        tree->Add(filesPath + "WZJets_13TeV_20.root");
+        tree->Add(filesPath + "WZJets_13TeV_210.root");
+        tree->Add(filesPath + "WZJets_13TeV_211.root");
+        tree->Add(filesPath + "WZJets_13TeV_212.root");
+        tree->Add(filesPath + "WZJets_13TeV_213.root");
+        tree->Add(filesPath + "WZJets_13TeV_214.root");
+        tree->Add(filesPath + "WZJets_13TeV_215.root");
+        tree->Add(filesPath + "WZJets_13TeV_216.root");
+        tree->Add(filesPath + "WZJets_13TeV_217.root");
+        tree->Add(filesPath + "WZJets_13TeV_218.root");
+        tree->Add(filesPath + "WZJets_13TeV_219.root");
+        tree->Add(filesPath + "WZJets_13TeV_21.root");
+        tree->Add(filesPath + "WZJets_13TeV_220.root");
+        tree->Add(filesPath + "WZJets_13TeV_221.root");
+        tree->Add(filesPath + "WZJets_13TeV_222.root");
+        tree->Add(filesPath + "WZJets_13TeV_223.root");
+        tree->Add(filesPath + "WZJets_13TeV_224.root");
+        tree->Add(filesPath + "WZJets_13TeV_225.root");
+        tree->Add(filesPath + "WZJets_13TeV_226.root");
+        tree->Add(filesPath + "WZJets_13TeV_227.root");
+        tree->Add(filesPath + "WZJets_13TeV_228.root");
+        tree->Add(filesPath + "WZJets_13TeV_229.root");
+        tree->Add(filesPath + "WZJets_13TeV_22.root");
+        tree->Add(filesPath + "WZJets_13TeV_230.root");
+        tree->Add(filesPath + "WZJets_13TeV_231.root");
+        tree->Add(filesPath + "WZJets_13TeV_232.root");
+        tree->Add(filesPath + "WZJets_13TeV_233.root");
+        tree->Add(filesPath + "WZJets_13TeV_234.root");
+        tree->Add(filesPath + "WZJets_13TeV_235.root");
+        tree->Add(filesPath + "WZJets_13TeV_236.root");
+        tree->Add(filesPath + "WZJets_13TeV_237.root");
+        tree->Add(filesPath + "WZJets_13TeV_238.root");
+        tree->Add(filesPath + "WZJets_13TeV_239.root");
+        tree->Add(filesPath + "WZJets_13TeV_23.root");
+        tree->Add(filesPath + "WZJets_13TeV_240.root");
+        tree->Add(filesPath + "WZJets_13TeV_241.root");
+        tree->Add(filesPath + "WZJets_13TeV_242.root");
+        tree->Add(filesPath + "WZJets_13TeV_243.root");
+        tree->Add(filesPath + "WZJets_13TeV_244.root");
+        tree->Add(filesPath + "WZJets_13TeV_245.root");
+        tree->Add(filesPath + "WZJets_13TeV_246.root");
+        tree->Add(filesPath + "WZJets_13TeV_247.root");
+        tree->Add(filesPath + "WZJets_13TeV_248.root");
+        tree->Add(filesPath + "WZJets_13TeV_249.root");
+        tree->Add(filesPath + "WZJets_13TeV_24.root");
+        tree->Add(filesPath + "WZJets_13TeV_250.root");
+        tree->Add(filesPath + "WZJets_13TeV_251.root");
+        tree->Add(filesPath + "WZJets_13TeV_252.root");
+        tree->Add(filesPath + "WZJets_13TeV_253.root");
+        tree->Add(filesPath + "WZJets_13TeV_254.root");
+        tree->Add(filesPath + "WZJets_13TeV_255.root");
+        tree->Add(filesPath + "WZJets_13TeV_256.root");
+        tree->Add(filesPath + "WZJets_13TeV_257.root");
+        tree->Add(filesPath + "WZJets_13TeV_258.root");
+        tree->Add(filesPath + "WZJets_13TeV_259.root");
+        tree->Add(filesPath + "WZJets_13TeV_25.root");
+        tree->Add(filesPath + "WZJets_13TeV_260.root");
+        tree->Add(filesPath + "WZJets_13TeV_261.root");
+        tree->Add(filesPath + "WZJets_13TeV_262.root");
+        tree->Add(filesPath + "WZJets_13TeV_263.root");
+        tree->Add(filesPath + "WZJets_13TeV_264.root");
+        tree->Add(filesPath + "WZJets_13TeV_265.root");
+        tree->Add(filesPath + "WZJets_13TeV_266.root");
+        tree->Add(filesPath + "WZJets_13TeV_267.root");
+        tree->Add(filesPath + "WZJets_13TeV_268.root");
+        tree->Add(filesPath + "WZJets_13TeV_269.root");
+        tree->Add(filesPath + "WZJets_13TeV_26.root");
+        tree->Add(filesPath + "WZJets_13TeV_270.root");
+        tree->Add(filesPath + "WZJets_13TeV_271.root");
+        tree->Add(filesPath + "WZJets_13TeV_272.root");
+        tree->Add(filesPath + "WZJets_13TeV_273.root");
+        tree->Add(filesPath + "WZJets_13TeV_274.root");
+        tree->Add(filesPath + "WZJets_13TeV_275.root");
+        tree->Add(filesPath + "WZJets_13TeV_276.root");
+        tree->Add(filesPath + "WZJets_13TeV_277.root");
+        tree->Add(filesPath + "WZJets_13TeV_278.root");
+        tree->Add(filesPath + "WZJets_13TeV_279.root");
+        tree->Add(filesPath + "WZJets_13TeV_27.root");
+        tree->Add(filesPath + "WZJets_13TeV_280.root");
+        tree->Add(filesPath + "WZJets_13TeV_281.root");
+        tree->Add(filesPath + "WZJets_13TeV_282.root");
+        tree->Add(filesPath + "WZJets_13TeV_283.root");
+        tree->Add(filesPath + "WZJets_13TeV_284.root");
+        tree->Add(filesPath + "WZJets_13TeV_285.root");
+        tree->Add(filesPath + "WZJets_13TeV_286.root");
+        tree->Add(filesPath + "WZJets_13TeV_287.root");
+        tree->Add(filesPath + "WZJets_13TeV_288.root");
+        tree->Add(filesPath + "WZJets_13TeV_289.root");
+        tree->Add(filesPath + "WZJets_13TeV_28.root");
+        tree->Add(filesPath + "WZJets_13TeV_290.root");
+        tree->Add(filesPath + "WZJets_13TeV_291.root");
+        tree->Add(filesPath + "WZJets_13TeV_292.root");
+        tree->Add(filesPath + "WZJets_13TeV_293.root");
+        tree->Add(filesPath + "WZJets_13TeV_294.root");
+        tree->Add(filesPath + "WZJets_13TeV_295.root");
+        tree->Add(filesPath + "WZJets_13TeV_296.root");
+        tree->Add(filesPath + "WZJets_13TeV_297.root");
+        tree->Add(filesPath + "WZJets_13TeV_298.root");
+        tree->Add(filesPath + "WZJets_13TeV_299.root");
+        tree->Add(filesPath + "WZJets_13TeV_29.root");
+        tree->Add(filesPath + "WZJets_13TeV_2.root");
+        tree->Add(filesPath + "WZJets_13TeV_300.root");
+        tree->Add(filesPath + "WZJets_13TeV_301.root");
+        tree->Add(filesPath + "WZJets_13TeV_30.root");
+        tree->Add(filesPath + "WZJets_13TeV_31.root");
+        tree->Add(filesPath + "WZJets_13TeV_32.root");
+        tree->Add(filesPath + "WZJets_13TeV_33.root");
+        tree->Add(filesPath + "WZJets_13TeV_34.root");
+        tree->Add(filesPath + "WZJets_13TeV_35.root");
+        tree->Add(filesPath + "WZJets_13TeV_36.root");
+        tree->Add(filesPath + "WZJets_13TeV_37.root");
+        tree->Add(filesPath + "WZJets_13TeV_38.root");
+        tree->Add(filesPath + "WZJets_13TeV_39.root");
+        tree->Add(filesPath + "WZJets_13TeV_3.root");
+        tree->Add(filesPath + "WZJets_13TeV_40.root");
+        tree->Add(filesPath + "WZJets_13TeV_41.root");
+        tree->Add(filesPath + "WZJets_13TeV_42.root");
+        tree->Add(filesPath + "WZJets_13TeV_43.root");
+        tree->Add(filesPath + "WZJets_13TeV_44.root");
+        tree->Add(filesPath + "WZJets_13TeV_45.root");
+        tree->Add(filesPath + "WZJets_13TeV_46.root");
+        tree->Add(filesPath + "WZJets_13TeV_47.root");
+        tree->Add(filesPath + "WZJets_13TeV_48.root");
+        tree->Add(filesPath + "WZJets_13TeV_49.root");
+        tree->Add(filesPath + "WZJets_13TeV_4.root");
+        tree->Add(filesPath + "WZJets_13TeV_50.root");
+        tree->Add(filesPath + "WZJets_13TeV_51.root");
+        tree->Add(filesPath + "WZJets_13TeV_52.root");
+        tree->Add(filesPath + "WZJets_13TeV_53.root");
+        tree->Add(filesPath + "WZJets_13TeV_54.root");
+        tree->Add(filesPath + "WZJets_13TeV_55.root");
+        tree->Add(filesPath + "WZJets_13TeV_56.root");
+        tree->Add(filesPath + "WZJets_13TeV_57.root");
+        tree->Add(filesPath + "WZJets_13TeV_58.root");
+        tree->Add(filesPath + "WZJets_13TeV_59.root");
+        tree->Add(filesPath + "WZJets_13TeV_5.root");
+        tree->Add(filesPath + "WZJets_13TeV_60.root");
+        tree->Add(filesPath + "WZJets_13TeV_61.root");
+        tree->Add(filesPath + "WZJets_13TeV_62.root");
+        tree->Add(filesPath + "WZJets_13TeV_63.root");
+        tree->Add(filesPath + "WZJets_13TeV_64.root");
+        tree->Add(filesPath + "WZJets_13TeV_65.root");
+        tree->Add(filesPath + "WZJets_13TeV_66.root");
+        tree->Add(filesPath + "WZJets_13TeV_67.root");
+        tree->Add(filesPath + "WZJets_13TeV_68.root");
+        tree->Add(filesPath + "WZJets_13TeV_69.root");
+        tree->Add(filesPath + "WZJets_13TeV_6.root");
+        tree->Add(filesPath + "WZJets_13TeV_70.root");
+        tree->Add(filesPath + "WZJets_13TeV_71.root");
+        tree->Add(filesPath + "WZJets_13TeV_72.root");
+        tree->Add(filesPath + "WZJets_13TeV_73.root");
+        tree->Add(filesPath + "WZJets_13TeV_74.root");
+        tree->Add(filesPath + "WZJets_13TeV_75.root");
+        tree->Add(filesPath + "WZJets_13TeV_76.root");
+        tree->Add(filesPath + "WZJets_13TeV_77.root");
+        tree->Add(filesPath + "WZJets_13TeV_78.root");
+        tree->Add(filesPath + "WZJets_13TeV_79.root");
+        tree->Add(filesPath + "WZJets_13TeV_7.root");
+        tree->Add(filesPath + "WZJets_13TeV_80.root");
+        tree->Add(filesPath + "WZJets_13TeV_81.root");
+        tree->Add(filesPath + "WZJets_13TeV_82.root");
+        tree->Add(filesPath + "WZJets_13TeV_83.root");
+        tree->Add(filesPath + "WZJets_13TeV_84.root");
+        tree->Add(filesPath + "WZJets_13TeV_85.root");
+        tree->Add(filesPath + "WZJets_13TeV_86.root");
+        tree->Add(filesPath + "WZJets_13TeV_87.root");
+        tree->Add(filesPath + "WZJets_13TeV_88.root");
+        tree->Add(filesPath + "WZJets_13TeV_89.root");
+        tree->Add(filesPath + "WZJets_13TeV_8.root");
+        tree->Add(filesPath + "WZJets_13TeV_90.root");
+        tree->Add(filesPath + "WZJets_13TeV_91.root");
+        tree->Add(filesPath + "WZJets_13TeV_92.root");
+        tree->Add(filesPath + "WZJets_13TeV_93.root");
+        tree->Add(filesPath + "WZJets_13TeV_94.root");
+        tree->Add(filesPath + "WZJets_13TeV_95.root");
+        tree->Add(filesPath + "WZJets_13TeV_96.root");
+        tree->Add(filesPath + "WZJets_13TeV_97.root");
+        tree->Add(filesPath + "WZJets_13TeV_98.root");
+        tree->Add(filesPath + "WZJets_13TeV_99.root");
+        tree->Add(filesPath + "WZJets_13TeV_9.root");
 
   // Declaration of leaf types
   //----------------------------------------------------------------------------
-  tree->SetBranchAddress("baseW",        &baseW);
-  tree->SetBranchAddress("channel",      &channel);
-  tree->SetBranchAddress("std_vector_lepton_flavour", &std_vector_lepton_flavour);
-  tree->SetBranchAddress("std_vector_lepton_pt", &std_vector_lepton_pt);
-  tree->SetBranchAddress("std_vector_lepton_phi",&std_vector_lepton_phi);
-  tree->SetBranchAddress("std_vector_lepton_eta",&std_vector_lepton_eta);
-  
-  if(theSample.Contains("WJetsFakes"))
-    tree->SetBranchAddress("fakeW", &fakeW);
-  
-  //if (!theSample.Contains("WJetsFakes") && !theSample.Contains("Data"))
-  //	tree->SetBranchAddress("puW", &puW);
-  
-  // Set the channel
-  //----------------------------------------------------------------------------
-  Float_t SelectedChannel = -999;
-  
-  if      (flavorChannel == "MuMu") SelectedChannel =  0;
-  else if (flavorChannel == "EE"  ) SelectedChannel =  1;
-  else if (flavorChannel == "EMu" ) SelectedChannel =  2;
-  else if (flavorChannel == "MuE" ) SelectedChannel =  3;
-  else if (flavorChannel == "All" ) SelectedChannel = -1;
-  else if (flavorChannel == "SSEMuPlus"  ) SelectedChannel =  2; //Channel is the same
-  else if (flavorChannel == "SSEMuMinus" ) SelectedChannel =  2;
-  else if (flavorChannel == "SSMuEPlus"  ) SelectedChannel =  3;
-  else if (flavorChannel == "SSMuEMinus" ) SelectedChannel =  3;
-  
-  
-  //----------------------------------------------------------------------------
+  tree->SetBranchAddress("weightNominalLHE",        &weightNominalLHE);
+  tree->SetBranchAddress("m2MuFromZorGstar",        &m2MuFromZorGstar);
+  tree->SetBranchAddress("ZGstarMu1_pt",        &ZGstarMu1_pt);
+  tree->SetBranchAddress("ZGstarMu1_eta",       &ZGstarMu1_eta);
+  tree->SetBranchAddress("ZGstarMu1_phi",       &ZGstarMu1_phi);
+  tree->SetBranchAddress("ZGstarMu2_pt",        &ZGstarMu2_pt);
+  tree->SetBranchAddress("ZGstarMu2_eta",       &ZGstarMu2_eta);
+  tree->SetBranchAddress("ZGstarMu2_phi",       &ZGstarMu2_phi);
+  tree->SetBranchAddress("ZGstarDimu_DeltaR",   &ZGstarDimu_DeltaR);
+ 
+  //-----------------------------------------------
   // Loop
-  //----------------------------------------------------------------------------
+  //-----------------------------------------------
   int TotNtry=tree->GetEntries();
   //TotNtry=50;
-  std::vector<TLorentzVector> *v_muon4d;
-  std::vector<int> *v_muonFlv;
-  v_muon4d  = new std::vector<TLorentzVector>;
-  v_muonFlv = new std::vector<int>;
   
-  TLorentzVector muon4d;
   for (int ievent=0; ievent<TotNtry; ievent++) {
 
     // initialize
-    v_muon4d->clear();
-    v_muonFlv->clear();
-    //v_muon4d=0;
     // dump variable
     tree->GetEntry(ievent);
-    //cout<<" baseW: "<<baseW<<"\t"<<"channel: "<<channel<<endl;
-    //cout<<"Lepton flavor:          pt"<<endl;
-    //for(int iLept(0); iLept<std_vector_lepton_flavour->size();iLept++)
-    //{
-    //}
-    int iLept(0);
-    double lepton_pt, lepton_eta, lepton_phi, lepton_flv;
-    while((*std_vector_lepton_flavour)[iLept] >-9999)
-    {
-      lepton_flv  = (*std_vector_lepton_flavour)[iLept];
-      lepton_pt   = (*std_vector_lepton_pt)[iLept];
-      lepton_eta  = (*std_vector_lepton_eta)[iLept];
-      lepton_phi  = (*std_vector_lepton_phi)[iLept];
-      //cout<<iLept<<"\t"<<lepton_flv<<
-      //  "\t"<<lepton_pt<<"\t"<<lepton_eta<<"\t"<<lepton_phi<<endl;
-      if(fabs(lepton_flv) ==13)
-      {
-        muon4d.SetPtEtaPhiM(lepton_pt,lepton_eta,lepton_phi,M_Muon);
-        v_muon4d->push_back(muon4d);
-        v_muonFlv->push_back(lepton_flv);
-      }
-      
-      iLept++;
-
-    }
-    int Nmuon = v_muon4d->size();
-    if(Nmuon < 3)continue;
-    bool WGstarMuonPtCut(false);
-    if( (*v_muon4d)[0].Pt() > 20 && (*v_muon4d)[0].Pt() > 10 && (*v_muon4d)[0].Pt() > 3)
-      WGstarMuonPtCut = true;
-    if( Nmuon == 3 && WGstarMuonPtCut){
-      //cout<<"WG* Sample!"<<endl;
-      double M_mumu(1000000000.);
-      if( (*v_muonFlv)[0] * (*v_muonFlv)[1] < 0)
-      {
-        TLorentzVector mumu4d = (*v_muon4d)[0];
-        mumu4d += (*v_muon4d)[1];
-        M_mumu = mumu4d.M();
-      }
-      if( (*v_muonFlv)[0] * (*v_muonFlv)[2] < 0)
-      {
-        TLorentzVector mumu4d = (*v_muon4d)[0];
-        mumu4d += (*v_muon4d)[2];
-        if( mumu4d.M() < M_mumu ) M_mumu = mumu4d.M();
-      }
-      if( (*v_muonFlv)[1] * (*v_muonFlv)[2] < 0)
-      {
-        TLorentzVector mumu4d = (*v_muon4d)[1];
-        mumu4d += (*v_muon4d)[2];
-        if( mumu4d.M() < M_mumu ) M_mumu = mumu4d.M();
-      }
-      //cout<<"M_mumu: "<<M_mumu<<endl;
-      if(M_mumu < 15) hMmumu->Fill(M_mumu);
-    }
-    totalW      = -999;
-
-    if (theSample.Contains("Data"))
-    {
-    	totalW = baseW;
-    	//totalW = 1.0;
-    }
-    else if (theSample.Contains("WJetsFakes"))
-    {
-    	totalW = baseW * luminosity;
-    	//totalW = fakeW;
-    }
-    else
-    {
-    	//efficiencyW = puW * effW * triggW;
-    
-    	//totalW = (1 + 0.6 * (dataset >= 82 && dataset <= 84)) * baseW * efficiencyW * luminosity;
-    	totalW = baseW * luminosity;
-    }
   }
 
   // Save the histograms
-  //----------------------------------------------------------------------------
-  output->cd();
-  output->Write("", TObject::kOverwrite);
-  output->Close();
-  //Fout.close();
+  //----------------------------------------------
 }
 
-
-//------------------------------------------------------------------------------
-// FillHistograms
-//------------------------------------------------------------------------------
-void FillHistograms(UInt_t level, UInt_t check)
-{
-	if (check != 0) return;
-/*
-	hWeff           [level]->Fill(1,         efficiencyW);
-	hW              [level]->Fill(1,         totalW);
-	hPtLepton1      [level]->Fill(pt1,       totalW);
-	hPtLepton2      [level]->Fill(pt2,       totalW);
-	hBDT1           [level]->Fill(bdt1,       totalW);
-	hBDT2           [level]->Fill(bdt2,       totalW);
-	hPtDiLepton     [level]->Fill(ptll,      totalW);
-	hMinv           [level]->Fill(mll,       totalW);
-	hMt             [level]->Fill(mth,       totalW);
-	hNJets30        [level]->Fill(njet,      totalW);
-	hpfMet          [level]->Fill(pfmet,     totalW);
-	hppfMet         [level]->Fill(ppfmet,    totalW);
-	hchMet          [level]->Fill(chmet,     totalW);
-	hpchMet         [level]->Fill(pchmet,    totalW);
-	hpminMet        [level]->Fill(mpmet,     totalW);
-	hDeltaRLeptons  [level]->Fill(drll,      totalW);
-	hDeltaPhiLeptons[level]->Fill(dphill,    totalW);
-	hDPhiPtllJet    [level]->Fill(dphilljet, totalW);
-	hHwidthMVA      [level]->Fill(HwidthMVAbkg,       totalW);
-	*********/
-}
