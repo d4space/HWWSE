@@ -243,7 +243,7 @@ void LatinosTreeScript_mcwghtcount_MC_l2selFix_hadd_copying(Float_t luminosity,
 	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2selFix__hadd/" + "latino_HWplusJ_HToWW_M125.root");
   }
   else if (theSample == "Zgamma") { 
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_Zg.root");
+  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2selFix__hadd/" + "latino_Zg.root");
   }
   else {
   	return;
