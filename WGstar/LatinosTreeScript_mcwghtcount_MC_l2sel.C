@@ -136,12 +136,38 @@ void LatinosTreeScript_mcwghtcount_MC_l2sel(Float_t luminosity,
   TChain* tree = new TChain("latino", "latino");
 
   if (theSample == "DataRun2015_D") {
-  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part0.root");
-  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part1.root");
-  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part2.root");
-  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part3.root");
-  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part4.root");
-  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel" + "latino_Run2015D_05Oct2015_SingleMuon_0001__part0.root");
+  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part0.root");
+  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part1.root");
+  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part2.root");
+  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part3.root");
+  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part4.root");
+  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleMuon_0001__part0.root");
+  	
+	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleElectron_0000__part0.root");
+	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleElectron_0000__part1.root");
+	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleElectron_0000__part2.root");
+	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleElectron_0000__part3.root");
+	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleElectron_0000__part4.root");
+	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleElectron_0001__part0.root");
+	
+	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_MuonEG_0000__part0.root");
+	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_MuonEG_0000__part1.root");
+	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_MuonEG_0000__part2.root");
+	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_MuonEG_0000__part3.root");
+	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_MuonEG_0001__part0.root");
+	
+	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_DoubleMuon_0000__part0.root");
+	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_DoubleMuon_0000__part1.root");
+	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_DoubleMuon_0000__part2.root");
+	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_DoubleMuon_0000__part3.root");
+	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_DoubleMuon_0000__part4.root");
+	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_DoubleMuon_0001__part0.root");
+	
+	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_DoubleEG_0000__part0.root");
+	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_DoubleEG_0000__part1.root");
+	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_DoubleEG_0000__part2.root");
+	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_DoubleEG_0000__part3.root");
+	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_DoubleEG_0001__part0.root");
   }
   else if (theSample == "WJetsFakes_Total") {
 	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu__part0.root");
@@ -170,11 +196,15 @@ void LatinosTreeScript_mcwghtcount_MC_l2sel(Float_t luminosity,
   else if (theSample == "WZ") {
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZJets__part0.root");
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZJets__part1.root");
+  }
+  else if (theSample == "WZ2Q") {
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo2L2Q__part0.root");
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo2L2Q__part1.root");
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo2L2Q__part2.root");
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo2L2Q__part3.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZ.root");
+  }
+  else if (theSample == "WZ3LNu") {
+  	//tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZ.root");
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo3LNu.root");
   }
   else if (theSample == "ZZ") {
