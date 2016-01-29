@@ -14,25 +14,24 @@ NJETS=$1
 #CHANNELS="EE MuMu EMu MuE SSEMuPlus SSEMuMinus SSMuEPlus SSMuEMinus"
 CHANNELS="MuMu"
 
-SAMPLES="          \
-WZ                 \
-"
-#SAMPLES="          \
-#ggWWto2L           \
-#WWTo2L2Nu          \
-#WZ                 \
-#ZZ                 \
-#TTbar              \
-#TW                 \
-#DY                 \
 #WgammaStar         \
-#WgammaNoStar       \
-#WJetsFakes\_Total  \
-#DataRun2015\_D     \
-#DYtautau           \
-#HWW125             \
-#Zgamma             \
-#"
+SAMPLES="          \
+ggWWto2L           \
+WWTo2L2Nu          \
+WZ                 \
+WZ2Q                 \
+WZ3LNu                 \
+ZZ                 \
+TTbar              \
+TW                 \
+DY                 \
+WgammaNoStar       \
+WJetsFakes_Total  \
+DataRun2015_D     \
+DYtautau           \
+HWW125             \
+Zgamma             \
+"
 
 rm -rf rootfiles/${NJETS}jet
 
