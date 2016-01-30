@@ -15,7 +15,11 @@ NJETS=$1
 CHANNELS="MuMu"
 
 #WgammaStar         \
+#SAMPLES="          \
+#DataRun2015_D     \
+#"
 SAMPLES="          \
+DataRun2015_D     \
 ggWWto2L           \
 WWTo2L2Nu          \
 WZ                 \
@@ -26,8 +30,8 @@ TTbar              \
 TW                 \
 DY                 \
 WgammaNoStar       \
-WJetsFakes_Total  \
-DataRun2015_D     \
+WJetsLNu  \
+WJetsLNu_HT  \
 DYtautau           \
 HWW125             \
 Zgamma             \

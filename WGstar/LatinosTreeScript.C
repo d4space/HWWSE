@@ -70,6 +70,8 @@ double M_Muon(0.105);
 // Tree variables
 //------------------------------------------------------------------------------
    Float_t baseW;
+   Float_t puW;
+   Float_t GEN_weight_SM;
    Float_t fakeW;
    Float_t channel;
    Float_t Gen_ZGstar_deltaR;
@@ -106,13 +108,13 @@ void LatinosTreeScript(Float_t luminosity,
   TString NameFout=path + theSample +".txt";
   ofstream Fout(NameFout);
   
-  TH1D*   hInvDimu_Recon = new TH1D("hInvDimu_Recon","hInvDimu_Recon",50,0,15);
-  TH1D*   hInvDimu_Gen   = new TH1D("hInvDimu_Gen","hInvDimu_Gen",50,0,15); 
+  TH1D*   hInvDimu_Recon = new TH1D("hInvDimu_Recon","hInvDimu_Recon",10,4,14);
+  TH1D*   hInvDimu_Gen   = new TH1D("hInvDimu_Gen","hInvDimu_Gen",10,4,14); 
   TH1D*   hNmuons   = new TH1D("hNmuons","hNmuons",5,0,5); 
-  TH1D*   hTriMuOrder   = new TH1D("hTriMuOrder","hTriMuOrder",10,0,10); 
-  TH1D*   hMu1_pt   = new TH1D("hMu1_pt","hMu1_pt",50,0,50); 
-  TH1D*   hMu2_pt   = new TH1D("hMu2_pt","hMu2_pt",50,0,50); 
-  TH1D*   hMu3_pt   = new TH1D("hMu3_pt","hMu3_pt",50,0,50); 
+  TH1D*   hTriMuOrder   = new TH1D("hTriMuOrder","hTriMuOrder",5,0,10); 
+  TH1D*   hMu1_pt   = new TH1D("hMu1_pt","hMu1_pt",5,0,50); 
+  TH1D*   hMu2_pt   = new TH1D("hMu2_pt","hMu2_pt",5,0,50); 
+  TH1D*   hMu3_pt   = new TH1D("hMu3_pt","hMu3_pt",5,0,50); 
   
   // Histograms
   //----------------------------------------------------------------------------
@@ -152,14 +154,15 @@ void LatinosTreeScript(Float_t luminosity,
   	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part4.root");
   	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleMuon_0001__part0.root");
   }
-  else if (theSample == "WJetsFakes_Total") {
+  else if (theSample == "WJetsLNu") {
 	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu__part0.root");
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu__part1.root");
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu__part2.root");
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu__part3.root");
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu__part4.root");
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu__part5.root");
-  	
+  }
+  else if (theSample == "WJetsLNu_HT") {
 	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu_HT100_200__part0.root");
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu_HT100_200__part1.root");
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu_HT200_400.root");
@@ -181,10 +184,10 @@ void LatinosTreeScript(Float_t luminosity,
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZJets__part1.root");
   }
   else if (theSample == "WZ2Q") {
-  	/tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo2L2Q__part0.root");
-  	/tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo2L2Q__part1.root");
-  	/tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo2L2Q__part2.root");
-  	/tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo2L2Q__part3.root");
+  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo2L2Q__part0.root");
+  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo2L2Q__part1.root");
+  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo2L2Q__part2.root");
+  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo2L2Q__part3.root");
   }
   else if (theSample == "WZ3LNu") {
   	//tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZ.root");
@@ -452,6 +455,11 @@ void LatinosTreeScript(Float_t luminosity,
   // Declaration of leaf types
   //----------------------------------------------------------------------------
   tree->SetBranchAddress("baseW",        &baseW);
+  tree->SetBranchAddress("puW",      &puW);
+  if(!theSample.Contains("Data"))
+  {
+    tree->SetBranchAddress("GEN_weight_SM",      &GEN_weight_SM);
+  }
   tree->SetBranchAddress("channel",      &channel);
   //tree->SetBranchAddress("Gen_ZGstar_deltaR",      &Gen_ZGstar_deltaR);
   //tree->SetBranchAddress("Gen_ZGstar_mass",        &Gen_ZGstar_mass);
@@ -532,6 +540,30 @@ void LatinosTreeScript(Float_t luminosity,
     //}
     int iLept(0);
     double lepton_pt, lepton_eta, lepton_phi, lepton_flv;
+
+    // Weight Calc.
+    //
+    //
+    totalW      = -999;
+
+    if (theSample.Contains("Data"))
+    {
+    	//totalW = baseW;
+    	totalW = 1.0;
+    }
+    else if (theSample.Contains("WZ") || theSample.Contains("HWW125"))
+    {
+    	totalW = baseW * puW* luminosity;
+    	//totalW = fakeW;
+    }
+    else
+    {
+    	//efficiencyW = puW * effW * triggW;
+    
+    	//totalW = (1 + 0.6 * (dataset >= 82 && dataset <= 84)) * baseW * efficiencyW * luminosity;
+    	totalW = baseW * puW* GEN_weight_SM/abs(GEN_weight_SM)* luminosity;
+    }
+
     while((*std_vector_lepton_flavour)[iLept] >-9999)
     {
       lepton_flv  = (*std_vector_lepton_flavour)[iLept];
@@ -550,7 +582,7 @@ void LatinosTreeScript(Float_t luminosity,
 
     }
     int Nmuon = v_muon4d_recon->size();
-    hNmuons->Fill(Nmuon);
+    hNmuons->Fill(Nmuon,totalW);
     if(Nmuon < 3)continue;
     //cout<<"Nmuon: "<<Nmuon<<endl;
     bool WGstarMuonPtCut(false);
@@ -559,10 +591,10 @@ void LatinosTreeScript(Float_t luminosity,
     if( (*v_muon4d_recon)[0].Pt() > Cuts.firstMu && (*v_muon4d_recon)[1].Pt() > Cuts.secndMu && (*v_muon4d_recon)[2].Pt() > Cuts.thirdMu)
     {
       WGstarMuonPtCut = true;
-      hTriMuOrder->Fill(1);
-      hMu1_pt->Fill((*v_muon4d_recon)[0].Pt());
-      hMu2_pt->Fill((*v_muon4d_recon)[1].Pt());
-      hMu3_pt->Fill((*v_muon4d_recon)[2].Pt());
+      hTriMuOrder->Fill(1,totalW);
+      hMu1_pt->Fill((*v_muon4d_recon)[0].Pt(),totalW);
+      hMu2_pt->Fill((*v_muon4d_recon)[1].Pt(),totalW);
+      hMu3_pt->Fill((*v_muon4d_recon)[2].Pt(),totalW);
     }
 
     if( (*v_muon4d_recon)[0].Pt() >=(*v_muon4d_recon)[1].Pt() )
@@ -571,10 +603,10 @@ void LatinosTreeScript(Float_t luminosity,
     if( (*v_muon4d_recon)[0].Pt() > Cuts.firstMu && (*v_muon4d_recon)[2].Pt() > Cuts.secndMu && (*v_muon4d_recon)[1].Pt() > Cuts.thirdMu)
     {
       WGstarMuonPtCut = true;
-      hTriMuOrder->Fill(2);
-      hMu1_pt->Fill((*v_muon4d_recon)[0].Pt());
-      hMu2_pt->Fill((*v_muon4d_recon)[2].Pt());
-      hMu3_pt->Fill((*v_muon4d_recon)[1].Pt());
+      hTriMuOrder->Fill(2,totalW);
+      hMu1_pt->Fill((*v_muon4d_recon)[0].Pt(),totalW);
+      hMu2_pt->Fill((*v_muon4d_recon)[2].Pt(),totalW);
+      hMu3_pt->Fill((*v_muon4d_recon)[1].Pt(),totalW);
     }
     if( (*v_muon4d_recon)[0].Pt() >=(*v_muon4d_recon)[1].Pt() )
     if( (*v_muon4d_recon)[2].Pt() >=(*v_muon4d_recon)[1].Pt() )
@@ -582,10 +614,10 @@ void LatinosTreeScript(Float_t luminosity,
     if( (*v_muon4d_recon)[2].Pt() > Cuts.firstMu && (*v_muon4d_recon)[0].Pt() > Cuts.secndMu && (*v_muon4d_recon)[1].Pt() > Cuts.thirdMu)
     {
       WGstarMuonPtCut = true;
-      hTriMuOrder->Fill(3);
-      hMu1_pt->Fill((*v_muon4d_recon)[2].Pt());
-      hMu2_pt->Fill((*v_muon4d_recon)[0].Pt());
-      hMu3_pt->Fill((*v_muon4d_recon)[1].Pt());
+      hTriMuOrder->Fill(3,totalW);
+      hMu1_pt->Fill((*v_muon4d_recon)[2].Pt(),totalW);
+      hMu2_pt->Fill((*v_muon4d_recon)[0].Pt(),totalW);
+      hMu3_pt->Fill((*v_muon4d_recon)[1].Pt(),totalW);
     }
     if( (*v_muon4d_recon)[1].Pt() >=(*v_muon4d_recon)[0].Pt() )
     if( (*v_muon4d_recon)[2].Pt() >=(*v_muon4d_recon)[0].Pt() )
@@ -593,10 +625,10 @@ void LatinosTreeScript(Float_t luminosity,
     if( (*v_muon4d_recon)[2].Pt() > Cuts.firstMu && (*v_muon4d_recon)[1].Pt() > Cuts.secndMu  && (*v_muon4d_recon)[0].Pt() > Cuts.thirdMu)
     {
       WGstarMuonPtCut = true;
-      hTriMuOrder->Fill(4);
-      hMu1_pt->Fill((*v_muon4d_recon)[2].Pt());
-      hMu2_pt->Fill((*v_muon4d_recon)[1].Pt());
-      hMu3_pt->Fill((*v_muon4d_recon)[0].Pt());
+      hTriMuOrder->Fill(4,totalW);
+      hMu1_pt->Fill((*v_muon4d_recon)[2].Pt(),totalW);
+      hMu2_pt->Fill((*v_muon4d_recon)[1].Pt(),totalW);
+      hMu3_pt->Fill((*v_muon4d_recon)[0].Pt(),totalW);
     }
     if( (*v_muon4d_recon)[1].Pt() >=(*v_muon4d_recon)[0].Pt() )
     if( (*v_muon4d_recon)[2].Pt() >=(*v_muon4d_recon)[0].Pt() )
@@ -604,10 +636,10 @@ void LatinosTreeScript(Float_t luminosity,
     if( (*v_muon4d_recon)[1].Pt() > Cuts.firstMu && (*v_muon4d_recon)[2].Pt() > Cuts.secndMu && (*v_muon4d_recon)[0].Pt() > Cuts.thirdMu)
     {
       WGstarMuonPtCut = true;
-      hTriMuOrder->Fill(5);
-      hMu1_pt->Fill((*v_muon4d_recon)[1].Pt());
-      hMu2_pt->Fill((*v_muon4d_recon)[2].Pt());
-      hMu3_pt->Fill((*v_muon4d_recon)[0].Pt());
+      hTriMuOrder->Fill(5,totalW);
+      hMu1_pt->Fill((*v_muon4d_recon)[1].Pt(),totalW);
+      hMu2_pt->Fill((*v_muon4d_recon)[2].Pt(),totalW);
+      hMu3_pt->Fill((*v_muon4d_recon)[0].Pt(),totalW);
     }
     if( (*v_muon4d_recon)[1].Pt() >=(*v_muon4d_recon)[2].Pt() )
     if( (*v_muon4d_recon)[0].Pt() >=(*v_muon4d_recon)[2].Pt() )
@@ -615,10 +647,10 @@ void LatinosTreeScript(Float_t luminosity,
     if( (*v_muon4d_recon)[1].Pt() > Cuts.firstMu && (*v_muon4d_recon)[0].Pt() > Cuts.secndMu && (*v_muon4d_recon)[2].Pt() > Cuts.thirdMu)
     {
       WGstarMuonPtCut = true;
-      hTriMuOrder->Fill(6);
-      hMu1_pt->Fill((*v_muon4d_recon)[1].Pt());
-      hMu2_pt->Fill((*v_muon4d_recon)[0].Pt());
-      hMu3_pt->Fill((*v_muon4d_recon)[2].Pt());
+      hTriMuOrder->Fill(6,totalW);
+      hMu1_pt->Fill((*v_muon4d_recon)[1].Pt(),totalW);
+      hMu2_pt->Fill((*v_muon4d_recon)[0].Pt(),totalW);
+      hMu3_pt->Fill((*v_muon4d_recon)[2].Pt(),totalW);
     }
 
     if( Nmuon == 3 && WGstarMuonPtCut){
@@ -645,31 +677,12 @@ void LatinosTreeScript(Float_t luminosity,
       //cout<<"M_mumu: "<<M_mumu<<endl;
       if(M_mumu < 15)
       {
-	hInvDimu_Recon->Fill(M_mumu);
-	if(!theSample.Contains("Data"))hInvDimu_Gen->Fill(Gen_ZGstar_mass);
+	hInvDimu_Recon->Fill(M_mumu, totalW);
+	if(!theSample.Contains("Data"))hInvDimu_Gen->Fill(Gen_ZGstar_mass, totalW);
       }
     }
 
 
-    totalW      = -999;
-
-    if (theSample.Contains("Data"))
-    {
-    	totalW = baseW;
-    	//totalW = 1.0;
-    }
-    else if (theSample.Contains("WJetsFakes"))
-    {
-    	totalW = baseW * luminosity;
-    	//totalW = fakeW;
-    }
-    else
-    {
-    	//efficiencyW = puW * effW * triggW;
-    
-    	//totalW = (1 + 0.6 * (dataset >= 82 && dataset <= 84)) * baseW * efficiencyW * luminosity;
-    	totalW = baseW * luminosity;
-    }
   }
 
   // Save the histograms
