@@ -79,7 +79,7 @@ double M_Muon(0.105);
 //------------------------------------------------------------------------------
 // LatinosTreeScript
 //------------------------------------------------------------------------------
-void LatinosTreeScript_mcwghtcount_MC_l2selFix_hadd_copying(Float_t luminosity,
+void LatinosTreeScript_21OctBis_mcwghtcount_MC_l2selFix_hadd(Float_t luminosity,
 		Int_t   jetChannel,
 		TString flavorChannel,
 		TString theSample,
@@ -136,38 +136,23 @@ void LatinosTreeScript_mcwghtcount_MC_l2selFix_hadd_copying(Float_t luminosity,
   TChain* tree = new TChain("latino", "latino");
 
   if (theSample == "DataRun2015_D") {
-  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part0.root");
-  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part1.root");
-  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part2.root");
-  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part3.root");
-  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part4.root");
-  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleMuon_0001__part0.root");
+  	tree->Add(filesPath + "21OctBis_Run2015D_05Oct2015/l2sel__hadd/" + "latino_Run2015D_05Oct2015_SingleMuon.root");
+  	tree->Add(filesPath + "21OctBis_Run2015D_05Oct2015/l2sel__hadd/" + "latino_Run2015D_05Oct2015_SingleElectron.root");
+  	tree->Add(filesPath + "21OctBis_Run2015D_05Oct2015/l2sel__hadd/" + "latino_Run2015D_05Oct2015_MuonEG.root");
+  	tree->Add(filesPath + "21OctBis_Run2015D_05Oct2015/l2sel__hadd/" + "latino_Run2015D_05Oct2015_DoubleMuon.root");
+  	tree->Add(filesPath + "21OctBis_Run2015D_05Oct2015/l2sel__hadd/" + "latino_Run2015D_05Oct2015_DoubleEG.root");
   	
-	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleElectron_0000__part0.root");
-	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleElectron_0000__part1.root");
-	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleElectron_0000__part2.root");
-	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleElectron_0000__part3.root");
-	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleElectron_0000__part4.root");
-	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleElectron_0001__part0.root");
+	tree->Add(filesPath + "21OctBis_Run2015D_PromptReco_0716pb/l2sel__hadd/" + "latino_Run2915D_PromptReco_SingleMuon_0716pb.root");
+	tree->Add(filesPath + "21OctBis_Run2015D_PromptReco_0716pb/l2sel__hadd/" + "latino_Run2915D_PromptReco_SingleElectron_0716pb.root");
+	tree->Add(filesPath + "21OctBis_Run2015D_PromptReco_0716pb/l2sel__hadd/" + "latino_Run2915D_PromptReco_MuonEG_0716pb.root");
+	tree->Add(filesPath + "21OctBis_Run2015D_PromptReco_0716pb/l2sel__hadd/" + "latino_Run2915D_PromptReco_DoubleMuon_0716pb.root");
+	tree->Add(filesPath + "21OctBis_Run2015D_PromptReco_0716pb/l2sel__hadd/" + "latino_Run2915D_PromptReco_DoubleEG_0716pb.root");
 	
-	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_MuonEG_0000__part0.root");
-	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_MuonEG_0000__part1.root");
-	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_MuonEG_0000__part2.root");
-	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_MuonEG_0000__part3.root");
-	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_MuonEG_0001__part0.root");
-	
-	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_DoubleMuon_0000__part0.root");
-	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_DoubleMuon_0000__part1.root");
-	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_DoubleMuon_0000__part2.root");
-	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_DoubleMuon_0000__part3.root");
-	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_DoubleMuon_0000__part4.root");
-	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_DoubleMuon_0001__part0.root");
-	
-	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_DoubleEG_0000__part0.root");
-	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_DoubleEG_0000__part1.root");
-	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_DoubleEG_0000__part2.root");
-	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_DoubleEG_0000__part3.root");
-	//tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_DoubleEG_0001__part0.root");
+	tree->Add(filesPath + "21OctBis_Run2015D_PromptReco_0851pb/l2sel__hadd/" + "latino_Run2915D_PromptReco_DoubleEG_0851pb.root");
+	tree->Add(filesPath + "21OctBis_Run2015D_PromptReco_0851pb/l2sel__hadd/" + "latino_Run2915D_PromptReco_SingleElectron_0851pb.root");
+	tree->Add(filesPath + "21OctBis_Run2015D_PromptReco_0851pb/l2sel__hadd/" + "latino_Run2915D_PromptReco_MuonEG_0851pb.root");
+	tree->Add(filesPath + "21OctBis_Run2015D_PromptReco_0851pb/l2sel__hadd/" + "latino_Run2915D_PromptReco_DoubleMuon_0851pb.root");
+	tree->Add(filesPath + "21OctBis_Run2015D_PromptReco_0851pb/l2sel__hadd/" + "latino_Run2915D_PromptReco_DoubleEG_0851pb.root");
   }
   else if (theSample == "WJetsFakes_Total") {
 	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2selFix__hadd/" + "latino_WJetsToLNu.root");
