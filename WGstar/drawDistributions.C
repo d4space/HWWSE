@@ -136,15 +136,15 @@ void drawDistributions(Int_t    njet       = 0,
 
   color[iData]   = kBlack;
   color[itt]     = kYellow;
-  color[itW]     = kYellow;
+  color[itW]     = kYellow-2;
   color[iWW]     = kAzure-9;
-  color[iWZ]     = kAzure-2;
-  color[iZZ]     = kAzure-2;
+  color[iWZ]     = kAzure;
+  color[iZZ]     = kAzure+2;
   color[iWg]     = kAzure-2;
   color[iWj]     = kGray+1;
-  color[iDY]     = kGreen+2;
-  color[iDYtau]  = kGreen+2;
-  color[iZgamma] = kGreen+2;
+  color[iDY]     = kGreen+3;
+  color[iDYtau]  = kGreen-4;
+  color[iZgamma] = kGreen-6;
   color[iH125]   = kRed;
 
   systError[iData] = 0.0;
@@ -169,13 +169,13 @@ void drawDistributions(Int_t    njet       = 0,
 
   // Read input files
   //----------------------------------------------------------------------------
-  TString path = Form("rootfiles1/%djet/%s/", _njet, _channel.Data());
+  TString path = Form("rootfiles/%djet/%s/", _njet, _channel.Data());
 
   for (UInt_t ip=0; ip<nProcesses; ip++)
     input[ip] = new TFile(path + process[ip] + ".root", "read");
 
 
-  DrawHistogram("hInvDimu_Recon",  "m_{#font[12]{ll}}", 1, 0, "GeV",0, 15,"");
+  DrawHistogram("hInvDimu_Recon",  "m_{#font[12]{ll}}", 1, 0, "GeV",4, 14,false);
   //DrawHistogram("hInvDimu_Recon",  "m_{#font[12]{ll}}", 1, 0, "GeV", 76, 106);
 
 
@@ -306,6 +306,7 @@ void DrawHistogram(TString  hname,
 
     hist[ip] = (TH1F*)input[ip]->Get(hname);
     hist[ip]->SetName(hname + process[ip]);
+    hist[ip]->SetTitle("");
 
     if(ip == iData)   data   = (TH1F*)hist[iData]->Clone("Data");     //data   -> Sumw2();
     if(ip == itt)     top    = (TH1F*)hist[itt]->Clone("top");        //top    -> Sumw2();
@@ -324,6 +325,10 @@ void DrawHistogram(TString  hname,
     else              ZeroOutOfRangeBins(hist[ip], xmin, xmax);
 
     if (ngroup > 0) hist[ip]->Rebin(ngroup);
+
+    if (ip == iWg) {
+      hist[ip]->Scale(0.01);
+    }
     
     if (ip == iData) {
       hist[ip]->SetMarkerStyle(kFullCircle);
@@ -339,7 +344,8 @@ void DrawHistogram(TString  hname,
       if (_dataDriven && ip == iDY)    hist[ip]->Scale(ZjScale[_njet]);
       if (_dataDriven && ip == iDYtau) hist[ip]->Scale(ZjScale[_njet]);
 
-      hstack->Add(hist[ip]);
+      if( ip != iZZ ) hstack->Add(hist[ip]);//TODO something wrong with ZZ
+      
     }
   }
 
@@ -387,6 +393,7 @@ void DrawHistogram(TString  hname,
     for (UInt_t ip=0; ip<nProcesses; ip++) {
 
       if (ip == iData) continue;
+      if (ip == iZZ) continue;
 
       Double_t binContent = hist[ip]->GetBinContent(ibin);
       
@@ -427,12 +434,10 @@ void DrawHistogram(TString  hname,
   //----------------------------------------------------------------------------
   xaxis->SetRangeUser(xmin, xmax);
 
-  //hist[iData]->Draw("ep");
-  hstack     ->Draw("hist");
-  //hstack     ->Draw("hist,same");
-  //allmc      ->Draw("e2,same");
-  //hist[iData]->Draw("ep,same");
-
+  hist[iData]->Draw("ep");
+  hstack     ->Draw("hist,same");
+  allmc      ->Draw("e2,same");
+  hist[iData]->Draw("ep,same");
 
   // Adjust scale
   //----------------------------------------------------------------------------
@@ -466,18 +471,24 @@ void DrawHistogram(TString  hname,
   //Double_t YieldZJets = Yield(hist[iDY]) + Yield(hist[iDYtau]);
   Double_t YieldZJets = Yield(hist[iDY]) + Yield(hist[iDYtau]) + Yield(hist[iZgamma]);
 
-  DrawLegend(x0 - 0.49, y0 - ndelta, hist[iData], Form(" data (%.0f)", Yield(hist[iData])), "lp", 0.03, 0.2, yoffset); ndelta += delta;
-  //DrawLegend(x0 - 0.49, y0 - ndelta, allmc,       Form(" all (%.0f)",  Yield(allmc)),       "f",  0.03, 0.2, yoffset); ndelta += delta;
-  DrawLegend(x0 - 0.49, y0 - ndelta, hist[iWW],   Form(" WW (%.0f)",   Yield(hist[iWW])),   "f",  0.03, 0.2, yoffset); ndelta += delta;
-  DrawLegend(x0 - 0.49, y0 - ndelta, hist[iWZ],   Form(" WZ (%.0f)",   YieldWZ),            "f",  0.03, 0.2, yoffset); ndelta += delta;
+  DrawLegend(x0 - 0.49, y0 - ndelta, hist[iData],  Form(" data (%.0f)", Yield(hist[iData])), "lp", 0.03, 0.2, yoffset); ndelta += delta;
+  //DrawLegend(x0 - 0.23, y0 - ndelta, hist[itt],    Form(" tt (%.0f)",  Yield(hist[itt])),   "f",  0.03, 0.2, yoffset); ndelta += delta;
+  //DrawLegend(x0 - 0.23, y0 - ndelta, hist[itW],    Form(" tW (%.0f)",  Yield(hist[itW])),   "f",  0.03, 0.2, yoffset); ndelta += delta;
+  //DrawLegend(x0 - 0.49, y0 - ndelta, allmc,        Form(" all (%.0f)",  Yield(allmc)),       "f",  0.03, 0.2, yoffset); ndelta += delta;
+  DrawLegend(x0 - 0.49, y0 - ndelta, hist[iWW],    Form(" WW (%.0f)",   Yield(hist[iWW])),   "f",  0.03, 0.2, yoffset); ndelta += delta;
+  DrawLegend(x0 - 0.49, y0 - ndelta, hist[iWZ],    Form(" WZ (%.0f)",   Yield(hist[iWZ])),  "f",  0.03, 0.2, yoffset); ndelta += delta;
 
   ndelta = 0;
 
-  DrawLegend(x0 - 0.23, y0 - ndelta, hist[iDY],   Form(" Z+jets (%.0f)", YieldZJets),         "f",  0.03, 0.2, yoffset); ndelta += delta;
-  DrawLegend(x0 - 0.23, y0 - ndelta, hist[iWj],   Form(" W+jets (%.0f)", Yield(hist[iWj])),   "f",  0.03, 0.2, yoffset); ndelta += delta;
-  DrawLegend(x0 - 0.23, y0 - ndelta, hist[itt],   Form(" top (%.0f)",    YieldTop),           "f",  0.03, 0.2, yoffset); ndelta += delta;
+  //DrawLegend(x0 - 0.23, y0 - ndelta, hist[iZZ],    Form(" ZZ (%.0f)",    Yield(hist[iZZ])),   "f",  0.03, 0.2, yoffset); ndelta += delta;
+  DrawLegend(x0 - 0.23, y0 - ndelta, hist[iWg],    Form(" Wg (%.0f)",    Yield(hist[iWg])),   "f",  0.03, 0.2, yoffset); ndelta += delta;
+  DrawLegend(x0 - 0.23, y0 - ndelta, hist[iWj],    Form(" W+jets (%.0f)",Yield(hist[iWj])),   "f",  0.03, 0.2, yoffset); ndelta += delta;
+  DrawLegend(x0 - 0.23, y0 - ndelta, hist[iDY],    Form(" DY (%.0f)",    Yield(hist[iDY])),   "f",  0.03, 0.2, yoffset); ndelta += delta;
+  DrawLegend(x0 - 0.23, y0 - ndelta, hist[iDYtau], Form(" DYtau (%.0f)", Yield(hist[iDYtau])),"f",  0.03, 0.2, yoffset); ndelta += delta;
+  DrawLegend(x0 - 0.23, y0 - ndelta, hist[iZgamma],Form(" Zg (%.0f)",   Yield(hist[iZgamma])),"f",  0.03, 0.2, yoffset); ndelta += delta;
+  //DrawLegend(x0 - 0.23, y0 - ndelta, hist[iDY],   Form(" Z+jets (%.0f)", YieldZJets),         "f",  0.03, 0.2, yoffset); ndelta += delta;
   //DrawLegend(x0 - 0.23, y0 - ndelta, hist[iH125], Form(" Higgs (%.0f)",  Yield(hist[iH125])), "f",  0.03, 0.2, yoffset); ndelta += delta;
-  DrawLegend(x0 - 0.23, y0 - ndelta, hist[iH125], Form(" ggH (%.0f)",  Yield(hist[iH125])), "f",  0.03, 0.2, yoffset); ndelta += delta;
+  DrawLegend(x0 - 0.23, y0 - ndelta, hist[iH125],  Form(" ggH (%.0f)",  Yield(hist[iH125])), "f",  0.03, 0.2, yoffset); ndelta += delta;
 
 
   // Additional titles
@@ -498,8 +509,18 @@ void DrawHistogram(TString  hname,
   if (_njet == 1) channelLabel += "-jet";
   if (_njet >= 2) channelLabel += "-jets";
 
-  DrawTLatex(0.185, 0.975, 0.05, 13, channelLabel.Data(),"");
+  double nMC4to10, nData4to10;
+  nMC4to10   = allmc->Integral(1,6);
+  nData4to10 = hist[iData]->Integral(1,6);
+  double Kfactor;
+  double KfactorErr;
+  Kfactor = nData4to10/nMC4to10;
+  KfactorErr =Kfactor* TMath::Sqrt(nData4to10/nData4to10/nData4to10 + nMC4to10/nMC4to10/nMC4to10);
+  cout<<"Kfactor: "<<Kfactor<<"+"<<KfactorErr<<endl;
+
+  //DrawTLatex(0.185, 0.975, 0.05, 13, channelLabel.Data(),"");
   DrawTLatex(0.940, 0.983, 0.05, 33, Form("L = %.1f fb^{-1}", _luminosity/1e3),"");
+  DrawTLatex(0.64, 0.78, 0.04, 13, Form("K factor = %.2f #pm %.2f", Kfactor, KfactorErr ),"");
 
   //----------------------------------------------------------------------------
   // pad2
