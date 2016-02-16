@@ -68,60 +68,61 @@ void drawExpObsKvbf(  float maxX = 15.0) {
   Frame->GetZaxis()->SetTitleFont(42);
   Frame->Draw("");
  
- TTree* Obs_0     = (TTree*) _file0->Get("limit");
- TTree* Asi_0     = (TTree*) _file1->Get("limit");
- TTree* Obs_1     = (TTree*) _file2->Get("limit");
- TTree* Asi_1     = (TTree*) _file3->Get("limit");
- TTree* Obs_2     = (TTree*) _file4->Get("limit");
- TTree* Asi_2     = (TTree*) _file5->Get("limit");
- TTree* Obs_012   = (TTree*) _file6->Get("limit");
- TTree* Asi_012   = (TTree*) _file7->Get("limit");
+  TTree* Obs_0     = (TTree*) _file0->Get("limit");
+  TTree* Asi_0     = (TTree*) _file1->Get("limit");
+  TTree* Obs_1     = (TTree*) _file2->Get("limit");
+  TTree* Asi_1     = (TTree*) _file3->Get("limit");
+  TTree* Obs_2     = (TTree*) _file4->Get("limit");
+  TTree* Asi_2     = (TTree*) _file5->Get("limit");
+  TTree* Obs_012   = (TTree*) _file6->Get("limit");
+  TTree* Asi_012   = (TTree*) _file7->Get("limit");
 
- int n = 0;
+  int n = 0;
 
- // 0+1+2 jet==================
- 
- n = Obs_012->Draw("2*deltaNLL:kV_off","deltaNLL<100","goff");
+  // 0+1+2 jet==================
+  
+  n = Obs_012->Draw("2*deltaNLL:kV_off","deltaNLL<100","goff");
+  cout<<"the number of points: "<<n<<endl;
 
 
- TGraph *gr_Obs012 = new TGraph(n,Obs_012->GetV2(),Obs_012->GetV1());
- gr_Obs012->RemovePoint(0);
- moveTGraph(gr_Obs012);
- gr_Obs012->SetTitle("");
- gr_Obs012->SetMarkerStyle(21);
- gr_Obs012->SetLineWidth(2);
- gr_Obs012->SetMarkerColor(kRed);
- gr_Obs012->SetLineColor(kRed);
- std::cout << " n = " << n << std::endl;
-   TH1F *h_Obs012 = new TH1F("h_Obs012","Graph",243,0,maxX);
-   h_Obs012->SetMinimum(0);
-   h_Obs012->SetMaximum(9.181659);
-   h_Obs012->SetDirectory(0);
-   h_Obs012->SetStats(0);
-   h_Obs012->SetFillColor(63);
-   h_Obs012->SetLineStyle(0);
-   h_Obs012->SetMarkerStyle(20);
-   h_Obs012->GetXaxis()->SetTitle("#Gamma_{H} (MeV)");
-   h_Obs012->GetXaxis()->SetLabelFont(42);
-   h_Obs012->GetXaxis()->SetLabelOffset(0.007);
-   h_Obs012->GetXaxis()->SetLabelSize(0.05);
-   h_Obs012->GetXaxis()->SetTitleSize(0.06);
-   h_Obs012->GetXaxis()->SetTitleOffset(0.9);
-   h_Obs012->GetXaxis()->SetTitleFont(42);
-   h_Obs012->GetYaxis()->SetTitle("-2 #Delta ln L");
-   h_Obs012->GetYaxis()->SetLabelFont(42);
-   h_Obs012->GetYaxis()->SetLabelOffset(0.007);
-   h_Obs012->GetYaxis()->SetLabelSize(0.05);
-   h_Obs012->GetYaxis()->SetTitleSize(0.06);
-   h_Obs012->GetYaxis()->SetTitleOffset(1.05);
-   h_Obs012->GetYaxis()->SetTitleFont(42);
-   h_Obs012->GetZaxis()->SetLabelFont(42);
-   h_Obs012->GetZaxis()->SetLabelOffset(0.007);
-   h_Obs012->GetZaxis()->SetLabelSize(0.05);
-   h_Obs012->GetZaxis()->SetTitleSize(0.06);
-   h_Obs012->GetZaxis()->SetTitleFont(42);
-   gr_Obs012->SetHistogram(h_Obs012);
-   gr_Obs012->Draw("l");
+  TGraph *gr_Obs012 = new TGraph(n,Obs_012->GetV2(),Obs_012->GetV1());
+  gr_Obs012->RemovePoint(0);
+  moveTGraph(gr_Obs012);
+  gr_Obs012->SetTitle("");
+  gr_Obs012->SetMarkerStyle(21);
+  gr_Obs012->SetLineWidth(2);
+  gr_Obs012->SetMarkerColor(kRed);
+  gr_Obs012->SetLineColor(kRed);
+  std::cout << " n = " << n << std::endl;
+  TH1F *h_Obs012 = new TH1F("h_Obs012","Graph",243,0,maxX);
+  h_Obs012->SetMinimum(0);
+  h_Obs012->SetMaximum(9.181659);
+  h_Obs012->SetDirectory(0);
+  h_Obs012->SetStats(0);
+  h_Obs012->SetFillColor(63);
+  h_Obs012->SetLineStyle(0);
+  h_Obs012->SetMarkerStyle(20);
+  h_Obs012->GetXaxis()->SetTitle("#Gamma_{H} (MeV)");
+  h_Obs012->GetXaxis()->SetLabelFont(42);
+  h_Obs012->GetXaxis()->SetLabelOffset(0.007);
+  h_Obs012->GetXaxis()->SetLabelSize(0.05);
+  h_Obs012->GetXaxis()->SetTitleSize(0.06);
+  h_Obs012->GetXaxis()->SetTitleOffset(0.9);
+  h_Obs012->GetXaxis()->SetTitleFont(42);
+  h_Obs012->GetYaxis()->SetTitle("-2 #Delta ln L");
+  h_Obs012->GetYaxis()->SetLabelFont(42);
+  h_Obs012->GetYaxis()->SetLabelOffset(0.007);
+  h_Obs012->GetYaxis()->SetLabelSize(0.05);
+  h_Obs012->GetYaxis()->SetTitleSize(0.06);
+  h_Obs012->GetYaxis()->SetTitleOffset(1.05);
+  h_Obs012->GetYaxis()->SetTitleFont(42);
+  h_Obs012->GetZaxis()->SetLabelFont(42);
+  h_Obs012->GetZaxis()->SetLabelOffset(0.007);
+  h_Obs012->GetZaxis()->SetLabelSize(0.05);
+  h_Obs012->GetZaxis()->SetTitleSize(0.06);
+  h_Obs012->GetZaxis()->SetTitleFont(42);
+  gr_Obs012->SetHistogram(h_Obs012);
+  gr_Obs012->Draw("l");
  
  //  2deltaLogL = 1.00
  //  2deltaLogL = 3.84
@@ -129,9 +130,13 @@ void drawExpObsKvbf(  float maxX = 15.0) {
    // Check the 95 % CL
  
  double value_x_1sigma_obs = findCrossingOfScan1D(*gr_Obs012, 1.00);
- std::cout << " value_x_1sigma_obs = " << value_x_1sigma_obs << std::endl;
  double value_x_2sigma_obs = findCrossingOfScan1D(*gr_Obs012, 3.84);
+ std::cout << " 012-jet Observed " << std::endl;
+ std::cout << " value_x_1sigma_obs = " << value_x_1sigma_obs << std::endl;
  std::cout << " value_x_2sigma_obs = " << value_x_2sigma_obs << std::endl;
+ myfile    << " 012-jet Observed " << std::endl;
+ myfile    << " value_x_1sigma_obs = " << value_x_1sigma_obs << std::endl;
+ myfile    << " value_x_2sigma_obs = " << value_x_2sigma_obs << std::endl;
  
  //gPad->SetGrid();
 
@@ -284,10 +289,6 @@ void drawExpObsKvbf(  float maxX = 15.0) {
  cc->SaveAs("cc.png");
  cc->SaveAs("cc.pdf");
  
- myfile << category;
- myfile << " WW ";
- myfile << " value_x_1sigma_obs = " << value_x_1sigma_obs << std::endl;
- myfile << " value_x_2sigma_obs = " << value_x_2sigma_obs << std::endl;
 
  
  myfile.close(); 
