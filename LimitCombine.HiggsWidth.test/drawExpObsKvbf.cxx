@@ -37,7 +37,7 @@ void drawExpObsKvbf(  float maxX = 15.0) {
 
   //cc->SetTicks();
 
-  TH1F *Frame = new TH1F("Frame","Frame",5,0,85);
+  TH1F *Frame = new TH1F("Frame","Frame",5,0,100);
   //TH1F *Frame = new TH1F("Frame","Frame",5,0,75);
   Frame->SetMinimum(0);
   Frame->SetMaximum(14);
@@ -129,15 +129,401 @@ void drawExpObsKvbf(  float maxX = 15.0) {
 
    // Check the 95 % CL
  
- double value_x_1sigma_obs = findCrossingOfScan1D(*gr_Obs012, 1.00);
- double value_x_2sigma_obs = findCrossingOfScan1D(*gr_Obs012, 3.84);
+ double value_x_1sigma = findCrossingOfScan1D(*gr_Obs012, 1.00);
+ double value_x_2sigma = findCrossingOfScan1D(*gr_Obs012, 3.84);
  std::cout << " 012-jet Observed " << std::endl;
- std::cout << " value_x_1sigma_obs = " << value_x_1sigma_obs << std::endl;
- std::cout << " value_x_2sigma_obs = " << value_x_2sigma_obs << std::endl;
+ std::cout << " value_x_1sigma_obs = " << value_x_1sigma << std::endl;
+ std::cout << " value_x_2sigma_obs = " << value_x_2sigma << std::endl;
  myfile    << " 012-jet Observed " << std::endl;
- myfile    << " value_x_1sigma_obs = " << value_x_1sigma_obs << std::endl;
- myfile    << " value_x_2sigma_obs = " << value_x_2sigma_obs << std::endl;
+ myfile    << " value_x_1sigma_obs = " << value_x_1sigma << std::endl;
+ myfile    << " value_x_2sigma_obs = " << value_x_2sigma << std::endl;
+ // Asimov 0+1+2 jet==================
+ n = Asi_012->Draw("2*deltaNLL:kV_off","deltaNLL<100","goff");
+
+ std::cout << " n = " << n << std::endl;
+ TGraph *gr_Asi012 = new TGraph(n,Asi_012->GetV2(),Asi_012->GetV1());
+ gr_Asi012->RemovePoint(0);
+ moveTGraph(gr_Asi012);
+ gr_Asi012->SetTitle("");
+ gr_Asi012->SetMarkerStyle(21);
+ gr_Asi012->SetLineStyle(2);
+ gr_Asi012->SetLineWidth(2);
+ gr_Asi012->SetMarkerColor(kRed);
+ gr_Asi012->SetLineColor(kRed);
+
+   TH1F *h_Asi012 = new TH1F("h_Asi012","Graph",243,0,maxX);
+   h_Asi012->SetMinimum(0);
+   h_Asi012->SetMaximum(9.170711);
+   h_Asi012->SetDirectory(0);
+   h_Asi012->SetStats(0);
+   h_Asi012->SetFillColor(63);
+   h_Asi012->SetLineStyle(0);
+   h_Asi012->SetMarkerStyle(20);
+   h_Asi012->GetXaxis()->SetTitle("#Gamma_{H} (MeV)");
+   h_Asi012->GetXaxis()->SetLabelFont(42);
+   h_Asi012->GetXaxis()->SetLabelOffset(0.007);
+   h_Asi012->GetXaxis()->SetLabelSize(0.05);
+   h_Asi012->GetXaxis()->SetTitleSize(0.06);
+   h_Asi012->GetXaxis()->SetTitleOffset(0.9);
+   h_Asi012->GetXaxis()->SetTitleFont(42);
+   h_Asi012->GetYaxis()->SetTitle("-2 #Delta ln L");
+   h_Asi012->GetYaxis()->SetLabelFont(42);
+   h_Asi012->GetYaxis()->SetLabelOffset(0.007);
+   h_Asi012->GetYaxis()->SetLabelSize(0.05);
+   h_Asi012->GetYaxis()->SetTitleSize(0.06);
+   h_Asi012->GetYaxis()->SetTitleOffset(1.05);
+   h_Asi012->GetYaxis()->SetTitleFont(42);
+   h_Asi012->GetZaxis()->SetLabelFont(42);
+   h_Asi012->GetZaxis()->SetLabelOffset(0.007);
+   h_Asi012->GetZaxis()->SetLabelSize(0.05);
+   h_Asi012->GetZaxis()->SetTitleSize(0.06);
+   h_Asi012->GetZaxis()->SetTitleFont(42);
+  gr_Asi012->SetHistogram(h_Asi012);
+  gr_Asi012->Draw("lsame");
+
+ value_x_1sigma = findCrossingOfScan1D(*gr_Asi012, 1.00);
+ value_x_2sigma = findCrossingOfScan1D(*gr_Asi012, 3.84);
+ std::cout << " 012-jet Expected " << std::endl;
+ std::cout << " value_x_1sigma_obs = " << value_x_1sigma << std::endl;
+ std::cout << " value_x_2sigma_obs = " << value_x_2sigma << std::endl;
+ myfile    << " 012-jet Expected " << std::endl;
+ myfile    << " value_x_1sigma_obs = " << value_x_1sigma << std::endl;
+ myfile    << " value_x_2sigma_obs = " << value_x_2sigma << std::endl;
+
+  // 0 jet==================
+  
+  n = Obs_0->Draw("2*deltaNLL:kV_off","deltaNLL<100","goff");
+  cout<<"the number of points: "<<n<<endl;
+
+
+  TGraph *gr_Obs0 = new TGraph(n,Obs_0->GetV2(),Obs_0->GetV1());
+  gr_Obs0->RemovePoint(0);
+  moveTGraph(gr_Obs0);
+  gr_Obs0->SetTitle("");
+  gr_Obs0->SetMarkerStyle(21);
+  gr_Obs0->SetLineWidth(2);
+  gr_Obs0->SetMarkerColor(kBlue);
+  gr_Obs0->SetLineColor(kBlue);
+  std::cout << " n = " << n << std::endl;
+  TH1F *h_Obs0 = new TH1F("h_Obs0","Graph",243,0,maxX);
+  h_Obs0->SetMinimum(0);
+  h_Obs0->SetMaximum(9.181659);
+  h_Obs0->SetDirectory(0);
+  h_Obs0->SetStats(0);
+  h_Obs0->SetFillColor(63);
+  h_Obs0->SetLineStyle(0);
+  h_Obs0->SetMarkerStyle(20);
+  h_Obs0->GetXaxis()->SetTitle("#Gamma_{H} (MeV)");
+  h_Obs0->GetXaxis()->SetLabelFont(42);
+  h_Obs0->GetXaxis()->SetLabelOffset(0.007);
+  h_Obs0->GetXaxis()->SetLabelSize(0.05);
+  h_Obs0->GetXaxis()->SetTitleSize(0.06);
+  h_Obs0->GetXaxis()->SetTitleOffset(0.9);
+  h_Obs0->GetXaxis()->SetTitleFont(42);
+  h_Obs0->GetYaxis()->SetTitle("-2 #Delta ln L");
+  h_Obs0->GetYaxis()->SetLabelFont(42);
+  h_Obs0->GetYaxis()->SetLabelOffset(0.007);
+  h_Obs0->GetYaxis()->SetLabelSize(0.05);
+  h_Obs0->GetYaxis()->SetTitleSize(0.06);
+  h_Obs0->GetYaxis()->SetTitleOffset(1.05);
+  h_Obs0->GetYaxis()->SetTitleFont(42);
+  h_Obs0->GetZaxis()->SetLabelFont(42);
+  h_Obs0->GetZaxis()->SetLabelOffset(0.007);
+  h_Obs0->GetZaxis()->SetLabelSize(0.05);
+  h_Obs0->GetZaxis()->SetTitleSize(0.06);
+  h_Obs0->GetZaxis()->SetTitleFont(42);
+  gr_Obs0->SetHistogram(h_Obs0);
+  gr_Obs0->Draw("l");
  
+ //  2deltaLogL = 1.00
+ //  2deltaLogL = 3.84
+
+   // Check the 95 % CL
+ 
+ value_x_1sigma = findCrossingOfScan1D(*gr_Obs0, 1.00);
+ value_x_2sigma = findCrossingOfScan1D(*gr_Obs0, 3.84);
+ std::cout << " 0-jet Observed " << std::endl;
+ std::cout << " value_x_1sigma_obs = " << value_x_1sigma << std::endl;
+ std::cout << " value_x_2sigma_obs = " << value_x_2sigma << std::endl;
+ myfile    << " 0-jet Observed " << std::endl;
+ myfile    << " value_x_1sigma_obs = " << value_x_1sigma << std::endl;
+ myfile    << " value_x_2sigma_obs = " << value_x_2sigma << std::endl;
+ // Asimov 0+1+2 jet==================
+ n = Asi_0->Draw("2*deltaNLL:kV_off","deltaNLL<100","goff");
+
+ std::cout << " n = " << n << std::endl;
+ TGraph *gr_Asi0 = new TGraph(n,Asi_0->GetV2(),Asi_0->GetV1());
+ gr_Asi0->RemovePoint(0);
+ moveTGraph(gr_Asi0);
+ gr_Asi0->SetTitle("");
+ gr_Asi0->SetMarkerStyle(21);
+ gr_Asi0->SetLineStyle(2);
+ gr_Asi0->SetLineWidth(2);
+ gr_Asi0->SetMarkerColor(kBlue);
+ gr_Asi0->SetLineColor(kBlue);
+
+   TH1F *h_Asi0 = new TH1F("h_Asi0","Graph",243,0,maxX);
+   h_Asi0->SetMinimum(0);
+   h_Asi0->SetMaximum(9.170711);
+   h_Asi0->SetDirectory(0);
+   h_Asi0->SetStats(0);
+   h_Asi0->SetFillColor(63);
+   h_Asi0->SetLineStyle(0);
+   h_Asi0->SetMarkerStyle(20);
+   h_Asi0->GetXaxis()->SetTitle("#Gamma_{H} (MeV)");
+   h_Asi0->GetXaxis()->SetLabelFont(42);
+   h_Asi0->GetXaxis()->SetLabelOffset(0.007);
+   h_Asi0->GetXaxis()->SetLabelSize(0.05);
+   h_Asi0->GetXaxis()->SetTitleSize(0.06);
+   h_Asi0->GetXaxis()->SetTitleOffset(0.9);
+   h_Asi0->GetXaxis()->SetTitleFont(42);
+   h_Asi0->GetYaxis()->SetTitle("-2 #Delta ln L");
+   h_Asi0->GetYaxis()->SetLabelFont(42);
+   h_Asi0->GetYaxis()->SetLabelOffset(0.007);
+   h_Asi0->GetYaxis()->SetLabelSize(0.05);
+   h_Asi0->GetYaxis()->SetTitleSize(0.06);
+   h_Asi0->GetYaxis()->SetTitleOffset(1.05);
+   h_Asi0->GetYaxis()->SetTitleFont(42);
+   h_Asi0->GetZaxis()->SetLabelFont(42);
+   h_Asi0->GetZaxis()->SetLabelOffset(0.007);
+   h_Asi0->GetZaxis()->SetLabelSize(0.05);
+   h_Asi0->GetZaxis()->SetTitleSize(0.06);
+   h_Asi0->GetZaxis()->SetTitleFont(42);
+  gr_Asi0->SetHistogram(h_Asi0);
+  gr_Asi0->Draw("lsame");
+
+ value_x_1sigma = findCrossingOfScan1D(*gr_Asi0, 1.00);
+ value_x_2sigma = findCrossingOfScan1D(*gr_Asi0, 3.84);
+ std::cout << " 0-jet Expected " << std::endl;
+ std::cout << " value_x_1sigma_obs = " << value_x_1sigma << std::endl;
+ std::cout << " value_x_2sigma_obs = " << value_x_2sigma << std::endl;
+ myfile    << " 0-jet Expected " << std::endl;
+ myfile    << " value_x_1sigma_obs = " << value_x_1sigma << std::endl;
+ myfile    << " value_x_2sigma_obs = " << value_x_2sigma << std::endl;
+
+  // 1 jet==================
+  
+  n = Obs_1->Draw("2*deltaNLL:kV_off","deltaNLL<100","goff");
+  cout<<"the number of points: "<<n<<endl;
+
+
+  TGraph *gr_Obs1 = new TGraph(n,Obs_1->GetV2(),Obs_1->GetV1());
+  gr_Obs1->RemovePoint(0);
+  moveTGraph(gr_Obs1);
+  gr_Obs1->SetTitle("");
+  gr_Obs1->SetMarkerStyle(21);
+  gr_Obs1->SetLineWidth(2);
+  gr_Obs1->SetMarkerColor(kBlack);
+  gr_Obs1->SetLineColor(kBlack);
+  std::cout << " n = " << n << std::endl;
+  TH1F *h_Obs1 = new TH1F("h_Obs1","Graph",243,0,maxX);
+  h_Obs1->SetMinimum(0);
+  h_Obs1->SetMaximum(9.181659);
+  h_Obs1->SetDirectory(0);
+  h_Obs1->SetStats(0);
+  h_Obs1->SetFillColor(63);
+  h_Obs1->SetLineStyle(0);
+  h_Obs1->SetMarkerStyle(20);
+  h_Obs1->GetXaxis()->SetTitle("#Gamma_{H} (MeV)");
+  h_Obs1->GetXaxis()->SetLabelFont(42);
+  h_Obs1->GetXaxis()->SetLabelOffset(0.007);
+  h_Obs1->GetXaxis()->SetLabelSize(0.05);
+  h_Obs1->GetXaxis()->SetTitleSize(0.06);
+  h_Obs1->GetXaxis()->SetTitleOffset(0.9);
+  h_Obs1->GetXaxis()->SetTitleFont(42);
+  h_Obs1->GetYaxis()->SetTitle("-2 #Delta ln L");
+  h_Obs1->GetYaxis()->SetLabelFont(42);
+  h_Obs1->GetYaxis()->SetLabelOffset(0.007);
+  h_Obs1->GetYaxis()->SetLabelSize(0.05);
+  h_Obs1->GetYaxis()->SetTitleSize(0.06);
+  h_Obs1->GetYaxis()->SetTitleOffset(1.05);
+  h_Obs1->GetYaxis()->SetTitleFont(42);
+  h_Obs1->GetZaxis()->SetLabelFont(42);
+  h_Obs1->GetZaxis()->SetLabelOffset(0.007);
+  h_Obs1->GetZaxis()->SetLabelSize(0.05);
+  h_Obs1->GetZaxis()->SetTitleSize(0.06);
+  h_Obs1->GetZaxis()->SetTitleFont(42);
+  gr_Obs1->SetHistogram(h_Obs1);
+  gr_Obs1->Draw("l");
+ 
+ //  2deltaLogL = 1.00
+ //  2deltaLogL = 3.84
+
+   // Check the 95 % CL
+ 
+ value_x_1sigma = findCrossingOfScan1D(*gr_Obs1, 1.00);
+ value_x_2sigma = findCrossingOfScan1D(*gr_Obs1, 3.84);
+ std::cout << " 1-jet Observed " << std::endl;
+ std::cout << " value_x_1sigma_obs = " << value_x_1sigma << std::endl;
+ std::cout << " value_x_2sigma_obs = " << value_x_2sigma << std::endl;
+ myfile    << " 1-jet Observed " << std::endl;
+ myfile    << " value_x_1sigma_obs = " << value_x_1sigma << std::endl;
+ myfile    << " value_x_2sigma_obs = " << value_x_2sigma << std::endl;
+ // Asimov 0+1+2 jet==================
+ n = Asi_1->Draw("2*deltaNLL:kV_off","deltaNLL<100","goff");
+
+ std::cout << " n = " << n << std::endl;
+ TGraph *gr_Asi1 = new TGraph(n,Asi_1->GetV2(),Asi_1->GetV1());
+ gr_Asi1->RemovePoint(0);
+ moveTGraph(gr_Asi1);
+ gr_Asi1->SetTitle("");
+ gr_Asi1->SetMarkerStyle(21);
+ gr_Asi1->SetLineStyle(2);
+ gr_Asi1->SetLineWidth(2);
+ gr_Asi1->SetMarkerColor(kBlack);
+ gr_Asi1->SetLineColor(kBlack);
+
+   TH1F *h_Asi1 = new TH1F("h_Asi1","Graph",243,0,maxX);
+   h_Asi1->SetMinimum(0);
+   h_Asi1->SetMaximum(9.170711);
+   h_Asi1->SetDirectory(0);
+   h_Asi1->SetStats(0);
+   h_Asi1->SetFillColor(63);
+   h_Asi1->SetLineStyle(0);
+   h_Asi1->SetMarkerStyle(20);
+   h_Asi1->GetXaxis()->SetTitle("#Gamma_{H} (MeV)");
+   h_Asi1->GetXaxis()->SetLabelFont(42);
+   h_Asi1->GetXaxis()->SetLabelOffset(0.007);
+   h_Asi1->GetXaxis()->SetLabelSize(0.05);
+   h_Asi1->GetXaxis()->SetTitleSize(0.06);
+   h_Asi1->GetXaxis()->SetTitleOffset(0.9);
+   h_Asi1->GetXaxis()->SetTitleFont(42);
+   h_Asi1->GetYaxis()->SetTitle("-2 #Delta ln L");
+   h_Asi1->GetYaxis()->SetLabelFont(42);
+   h_Asi1->GetYaxis()->SetLabelOffset(0.007);
+   h_Asi1->GetYaxis()->SetLabelSize(0.05);
+   h_Asi1->GetYaxis()->SetTitleSize(0.06);
+   h_Asi1->GetYaxis()->SetTitleOffset(1.05);
+   h_Asi1->GetYaxis()->SetTitleFont(42);
+   h_Asi1->GetZaxis()->SetLabelFont(42);
+   h_Asi1->GetZaxis()->SetLabelOffset(0.007);
+   h_Asi1->GetZaxis()->SetLabelSize(0.05);
+   h_Asi1->GetZaxis()->SetTitleSize(0.06);
+   h_Asi1->GetZaxis()->SetTitleFont(42);
+  gr_Asi1->SetHistogram(h_Asi1);
+  gr_Asi1->Draw("lsame");
+
+ value_x_1sigma = findCrossingOfScan1D(*gr_Asi1, 1.00);
+ value_x_2sigma = findCrossingOfScan1D(*gr_Asi1, 3.84);
+ std::cout << " 1-jet Expected " << std::endl;
+ std::cout << " value_x_1sigma_obs = " << value_x_1sigma << std::endl;
+ std::cout << " value_x_2sigma_obs = " << value_x_2sigma << std::endl;
+ myfile    << " 1-jet Expected " << std::endl;
+ myfile    << " value_x_1sigma_obs = " << value_x_1sigma << std::endl;
+ myfile    << " value_x_2sigma_obs = " << value_x_2sigma << std::endl;
+  // 2 jet==================
+  
+  n = Obs_2->Draw("2*deltaNLL:kV_off","deltaNLL<100","goff");
+  cout<<"the number of points: "<<n<<endl;
+
+
+  TGraph *gr_Obs2 = new TGraph(n,Obs_2->GetV2(),Obs_2->GetV1());
+  gr_Obs2->RemovePoint(0);
+  moveTGraph(gr_Obs2);
+  gr_Obs2->SetTitle("");
+  gr_Obs2->SetMarkerStyle(21);
+  gr_Obs2->SetLineWidth(2);
+  gr_Obs2->SetMarkerColor(kGreen);
+  gr_Obs2->SetLineColor(kGreen);
+  std::cout << " n = " << n << std::endl;
+  TH1F *h_Obs2 = new TH1F("h_Obs2","Graph",243,0,maxX);
+  h_Obs2->SetMinimum(0);
+  h_Obs2->SetMaximum(9.181659);
+  h_Obs2->SetDirectory(0);
+  h_Obs2->SetStats(0);
+  h_Obs2->SetFillColor(63);
+  h_Obs2->SetLineStyle(0);
+  h_Obs2->SetMarkerStyle(20);
+  h_Obs2->GetXaxis()->SetTitle("#Gamma_{H} (MeV)");
+  h_Obs2->GetXaxis()->SetLabelFont(42);
+  h_Obs2->GetXaxis()->SetLabelOffset(0.007);
+  h_Obs2->GetXaxis()->SetLabelSize(0.05);
+  h_Obs2->GetXaxis()->SetTitleSize(0.06);
+  h_Obs2->GetXaxis()->SetTitleOffset(0.9);
+  h_Obs2->GetXaxis()->SetTitleFont(42);
+  h_Obs2->GetYaxis()->SetTitle("-2 #Delta ln L");
+  h_Obs2->GetYaxis()->SetLabelFont(42);
+  h_Obs2->GetYaxis()->SetLabelOffset(0.007);
+  h_Obs2->GetYaxis()->SetLabelSize(0.05);
+  h_Obs2->GetYaxis()->SetTitleSize(0.06);
+  h_Obs2->GetYaxis()->SetTitleOffset(1.05);
+  h_Obs2->GetYaxis()->SetTitleFont(42);
+  h_Obs2->GetZaxis()->SetLabelFont(42);
+  h_Obs2->GetZaxis()->SetLabelOffset(0.007);
+  h_Obs2->GetZaxis()->SetLabelSize(0.05);
+  h_Obs2->GetZaxis()->SetTitleSize(0.06);
+  h_Obs2->GetZaxis()->SetTitleFont(42);
+  gr_Obs2->SetHistogram(h_Obs2);
+  gr_Obs2->Draw("l");
+ 
+ //  2deltaLogL = 1.00
+ //  2deltaLogL = 3.84
+
+   // Check the 95 % CL
+ 
+ value_x_1sigma = findCrossingOfScan1D(*gr_Obs2, 1.00);
+ value_x_2sigma = findCrossingOfScan1D(*gr_Obs2, 3.84);
+ std::cout << " 2-jet Observed " << std::endl;
+ std::cout << " value_x_1sigma_obs = " << value_x_1sigma << std::endl;
+ std::cout << " value_x_2sigma_obs = " << value_x_2sigma << std::endl;
+ myfile    << " 2-jet Observed " << std::endl;
+ myfile    << " value_x_1sigma_obs = " << value_x_1sigma << std::endl;
+ myfile    << " value_x_2sigma_obs = " << value_x_2sigma << std::endl;
+ // Asimov 2 jet==================
+ n = Asi_2->Draw("2*deltaNLL:kV_off","deltaNLL<100","goff");
+
+ std::cout << " n = " << n << std::endl;
+ TGraph *gr_Asi2 = new TGraph(n,Asi_2->GetV2(),Asi_2->GetV1());
+ gr_Asi2->RemovePoint(0);
+ moveTGraph(gr_Asi2);
+ gr_Asi2->SetTitle("");
+ gr_Asi2->SetMarkerStyle(21);
+ gr_Asi2->SetLineStyle(2);
+ gr_Asi2->SetLineWidth(2);
+ gr_Asi2->SetMarkerColor(kGreen);
+ gr_Asi2->SetLineColor(kGreen);
+
+   TH1F *h_Asi2 = new TH1F("h_Asi2","Graph",243,0,maxX);
+   h_Asi2->SetMinimum(0);
+   h_Asi2->SetMaximum(9.170711);
+   h_Asi2->SetDirectory(0);
+   h_Asi2->SetStats(0);
+   h_Asi2->SetFillColor(63);
+   h_Asi2->SetLineStyle(0);
+   h_Asi2->SetMarkerStyle(20);
+   h_Asi2->GetXaxis()->SetTitle("#Gamma_{H} (MeV)");
+   h_Asi2->GetXaxis()->SetLabelFont(42);
+   h_Asi2->GetXaxis()->SetLabelOffset(0.007);
+   h_Asi2->GetXaxis()->SetLabelSize(0.05);
+   h_Asi2->GetXaxis()->SetTitleSize(0.06);
+   h_Asi2->GetXaxis()->SetTitleOffset(0.9);
+   h_Asi2->GetXaxis()->SetTitleFont(42);
+   h_Asi2->GetYaxis()->SetTitle("-2 #Delta ln L");
+   h_Asi2->GetYaxis()->SetLabelFont(42);
+   h_Asi2->GetYaxis()->SetLabelOffset(0.007);
+   h_Asi2->GetYaxis()->SetLabelSize(0.05);
+   h_Asi2->GetYaxis()->SetTitleSize(0.06);
+   h_Asi2->GetYaxis()->SetTitleOffset(1.05);
+   h_Asi2->GetYaxis()->SetTitleFont(42);
+   h_Asi2->GetZaxis()->SetLabelFont(42);
+   h_Asi2->GetZaxis()->SetLabelOffset(0.007);
+   h_Asi2->GetZaxis()->SetLabelSize(0.05);
+   h_Asi2->GetZaxis()->SetTitleSize(0.06);
+   h_Asi2->GetZaxis()->SetTitleFont(42);
+  gr_Asi2->SetHistogram(h_Asi2);
+  gr_Asi2->Draw("lsame");
+
+ value_x_1sigma = findCrossingOfScan1D(*gr_Asi2, 1.00);
+ value_x_2sigma = findCrossingOfScan1D(*gr_Asi2, 3.84);
+ std::cout << " 2-jet Expected " << std::endl;
+ std::cout << " value_x_1sigma = " << value_x_1sigma << std::endl;
+ std::cout << " value_x_2sigma = " << value_x_2sigma << std::endl;
+ myfile    << " 2-jet Expected " << std::endl;
+ myfile    << " value_x_1sigma = " << value_x_1sigma << std::endl;
+ myfile    << " value_x_2sigma = " << value_x_2sigma << std::endl;
+
+
+
  //gPad->SetGrid();
 
    graph = new TGraph(2);
@@ -148,9 +534,9 @@ void drawExpObsKvbf(  float maxX = 15.0) {
    graph->SetMarkerStyle(0);
    graph->SetMarkerSize(0);
    graph->SetPoint(0,0,1);
-   graph->SetPoint(1,75,1);
+   graph->SetPoint(1,100,1);
    
-   TH1F *Graph_Graph3 = new TH1F("Graph_Graph3","Graph",100,0,82.5);
+   TH1F *Graph_Graph3 = new TH1F("Graph_Graph3","Graph",100,0,100);
    Graph_Graph3->SetMinimum(0.9);
    Graph_Graph3->SetMaximum(2.1);
    Graph_Graph3->SetDirectory(0);
@@ -178,6 +564,9 @@ void drawExpObsKvbf(  float maxX = 15.0) {
    graph->SetHistogram(Graph_Graph3);
    
    graph->Draw("lp");
+
+
+
    
    graph = new TGraph(2);
    graph->SetName("Graph");
@@ -187,9 +576,9 @@ void drawExpObsKvbf(  float maxX = 15.0) {
    graph->SetMarkerStyle(0);
    graph->SetMarkerSize(0);
    graph->SetPoint(0,0,3.84);
-   graph->SetPoint(1,75,3.84);
+   graph->SetPoint(1,100,3.84);
    
-   TH1F *Graph_Graph4 = new TH1F("Graph_Graph4","Graph",100,0,82.5);
+   TH1F *Graph_Graph4 = new TH1F("Graph_Graph4","Graph",100,0,100);
    Graph_Graph4->SetMinimum(3.74);
    Graph_Graph4->SetMaximum(4.94);
    Graph_Graph4->SetDirectory(0);
@@ -226,9 +615,18 @@ void drawExpObsKvbf(  float maxX = 15.0) {
    leg->SetLineWidth(1);
    leg->SetFillColor(kWhite);
    leg->SetFillStyle(1001);
+
    TLegendEntry *entry=leg->AddEntry("NULL","H #rightarrow WW","h");
-   entry=leg->AddEntry(gr_Obs012,"WW+ZZ (Observed)","l");
+   entry=leg->AddEntry("gr_Obs0","0-jet (observed)","l");
+   entry=leg->AddEntry("gr_Asi0","0-jet (expected)","l");
+   entry=leg->AddEntry("gr_Obs1","1-jet (observed)","l");
+   entry=leg->AddEntry("gr_Asi1","1-jet (expected)","l");
+   entry=leg->AddEntry("gr_Obs2","2-jet (observed)","l");
+   entry=leg->AddEntry("gr_Asi2","2-jet (expected)","l");
+   entry=leg->AddEntry(gr_Obs012,"0 + 1 + 2 jet (observed)","l");
+   entry=leg->AddEntry(gr_Asi012,"0 + 1 + 2 jet (expected)","l");
    leg->Draw();
+
    
    TPaveText *pt = new TPaveText(0.09,0.9,0.99,0.98,"brtlNDC");
    pt->SetBorderSize(0);
