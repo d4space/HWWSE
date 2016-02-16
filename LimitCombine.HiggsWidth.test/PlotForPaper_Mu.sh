@@ -85,8 +85,15 @@
 #mv cc.png   2j.7and8TeV.png
 rm Results_Mu/kV.results.txt
 
-root -l -q Results_Mu/higgsCombineObserveWWkV012j7.8TeV.MultiDimFit.mH125.6.root \
-           drawExpObsKvbf.cxx\(1,\"012j\ \ \",20\)
+root -l -q Results_Mu/higgsCombineObserveWWkV0j7.8TeV.MultiDimFit.mH125.6.root \
+           Results_Mu/higgsCombineAsimovWWkV0j7.8TeV.MultiDimFit.mH125.6.root \
+           Results_Mu/higgsCombineObserveWWkV1j7.8TeV.MultiDimFit.mH125.6.root \
+           Results_Mu/higgsCombineAsimovWWkV1j7.8TeV.MultiDimFit.mH125.6.root \
+           Results_Mu/higgsCombineObserveWWkV2j7.8TeV.MultiDimFit.mH125.6.root \
+           Results_Mu/higgsCombineAsimovWWkV2j7.8TeV.MultiDimFit.mH125.6.root \
+           Results_Mu/higgsCombineObserveWWkV012j7.8TeV.MultiDimFit.mH125.6.root \
+           Results_Mu/higgsCombineAsimovWWkV012j7.8TeV.MultiDimFit.mH125.6.root \
+           drawExpObsKvbf.cxx\(20\)
            #drawExpObsResult.cxx\(1,\"012j\ \ \"\)
 mv cc.png   Results_Mu/kVWW012j7.8TeV.png
 mv cc.pdf   Results_Mu/kVWW012j7.8TeV.pdf

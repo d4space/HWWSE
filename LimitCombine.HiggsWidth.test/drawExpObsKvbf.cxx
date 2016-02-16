@@ -10,7 +10,7 @@
 //---- 2 = 8   TeV
 //---- 3 = 7   TeV
 
-void drawExpObsKvbf(int alsoSevenTeV = 1, std::string category = "0j", float maxX = 15.0) {
+void drawExpObsKvbf(  float maxX = 15.0) {
  
   std::ofstream myfile;
   myfile.open ("results.txt",std::ofstream::out | std::ofstream::app);
@@ -44,7 +44,7 @@ void drawExpObsKvbf(int alsoSevenTeV = 1, std::string category = "0j", float max
   Frame->SetFillColor(63);
   Frame->SetLineStyle(0);
   Frame->SetMarkerStyle(20);
-  Frame->GetXaxis()->SetTitle("#Gamma_{H} (MeV)");
+  Frame->GetXaxis()->SetTitle("#mu_{VBF}^{off-shell}");
   Frame->GetXaxis()->SetNdivisions(505);
   Frame->GetXaxis()->SetLabelFont(42);
   Frame->GetXaxis()->SetLabelOffset(0.007);
@@ -68,13 +68,20 @@ void drawExpObsKvbf(int alsoSevenTeV = 1, std::string category = "0j", float max
   Frame->GetZaxis()->SetTitleFont(42);
   Frame->Draw("");
  
- TTree* Obs_012   = (TTree*) _file0->Get("limit");
+ TTree* Obs_0     = (TTree*) _file0->Get("limit");
+ TTree* Asi_0     = (TTree*) _file1->Get("limit");
+ TTree* Obs_1     = (TTree*) _file2->Get("limit");
+ TTree* Asi_1     = (TTree*) _file3->Get("limit");
+ TTree* Obs_2     = (TTree*) _file4->Get("limit");
+ TTree* Asi_2     = (TTree*) _file5->Get("limit");
+ TTree* Obs_012   = (TTree*) _file6->Get("limit");
+ TTree* Asi_012   = (TTree*) _file7->Get("limit");
 
  int n = 0;
 
  // 0+1+2 jet==================
  
- n = Obs_012->Draw("2*deltaNLL:kV","deltaNLL<100","goff");
+ n = Obs_012->Draw("2*deltaNLL:kV_off","deltaNLL<100","goff");
 
 
  TGraph *gr_Obs012 = new TGraph(n,Obs_012->GetV2(),Obs_012->GetV1());
