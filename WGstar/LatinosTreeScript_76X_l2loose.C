@@ -147,7 +147,7 @@ void LatinosTreeScript_76X_WgStar(Float_t luminosity,
 
   // l2sel
   if (theSample == "DataRun2015_C") {
-  	tree->Add(filesPath + "22Jan_Run2015C_16Dec2015/l2loose__hadd/" + "latino_Run2015D_16Dec2015_SingleMuon.root");
+  	tree->Add(filesPath + "22Jan_Run2015C_16Dec2015/l2loose__hadd/" + "latino_Run2015C_16Dec2015_SingleMuon.root");
   	tree->Add(filesPath + "22Jan_Run2015C_16Dec2015/l2loose__hadd/" + "latino_Run2015C_16Dec2015_SingleElectron.root");
   	tree->Add(filesPath + "22Jan_Run2015C_16Dec2015/l2loose__hadd/" + "latino_Run2015C_16Dec2015_DoubleMuon.root");
   	tree->Add(filesPath + "22Jan_Run2015C_16Dec2015/l2loose__hadd/" + "latino_Run2015C_16Dec2015_DoubleEG.root");
@@ -155,7 +155,7 @@ void LatinosTreeScript_76X_WgStar(Float_t luminosity,
   }
   if (theSample == "DataRun2015_D") {
   	tree->Add(filesPath + "22Jan_Run2015D_16Dec2015/l2loose__hadd/" + "latino_Run2015D_16Dec2015_SingleMuon.root");
-  	tree->Add(filesPath + "22Jan_Run2015D_16Dec2015/l2loose__hadd/" + "latino_Run2015C_16Dec2015_SingleElectron.root");
+  	tree->Add(filesPath + "22Jan_Run2015D_16Dec2015/l2loose__hadd/" + "latino_Run2015D_16Dec2015_SingleElectron.root");
   	tree->Add(filesPath + "22Jan_Run2015D_16Dec2015/l2loose__hadd/" + "latino_Run2015D_16Dec2015_DoubleMuon.root");
   	tree->Add(filesPath + "22Jan_Run2015D_16Dec2015/l2loose__hadd/" + "latino_Run2015D_16Dec2015_DoubleEG.root");
   	tree->Add(filesPath + "22Jan_Run2015D_16Dec2015/l2loose__hadd/" + "latino_Run2015D_16Dec2015_MuonEG.root");
