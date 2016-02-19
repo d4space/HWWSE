@@ -108,8 +108,8 @@ void LatinosTreeScript(Float_t luminosity,
   TString NameFout=path + theSample +".txt";
   ofstream Fout(NameFout);
   
-  TH1D*   hInvDimu_Recon = new TH1D("hInvDimu_Recon","hInvDimu_Recon",10,4,14);
-  TH1D*   hInvDimu_Gen   = new TH1D("hInvDimu_Gen","hInvDimu_Gen",10,4,14); 
+  TH1D*   hInvDimu_Recon = new TH1D("hInvDimu_Recon","hInvDimu_Recon",20,0,14);
+  TH1D*   hInvDimu_Gen   = new TH1D("hInvDimu_Gen","hInvDimu_Gen",20,0,14); 
   TH1D*   hNmuons   = new TH1D("hNmuons","hNmuons",5,0,5); 
   TH1D*   hTriMuOrder   = new TH1D("hTriMuOrder","hTriMuOrder",5,0,10); 
   TH1D*   hMu1_pt   = new TH1D("hMu1_pt","hMu1_pt",5,0,50); 
@@ -139,8 +139,10 @@ void LatinosTreeScript(Float_t luminosity,
   //if (runAtOviedo) filesPath = "/afs/cern.ch/work/x/xjanssen/public/LatinoTrees/R53X_S1_V08_S2_V09_S3_V13/MoriondeffWPuWtriggW/MC_TightTight_DABCABC/";
   //else             filesPath = "/afs/cern.ch/work/x/xjanssen/public/LatinoTrees/R53X_S1_V08_S2_V09_S3_V13/MoriondeffWPuWtriggW/MC_TightTight_DABCABC/";
   
-  if (runAtOviedo) filesPath = "/u/user/sangilpark/RunIIData/CernBoxHWW2015/";
-  else             filesPath = "/u/user/sangilpark/RunIIData/CernBoxHWW2015/";
+  if (runAtOviedo) filesPath = "/u/user/sangilpark/RunIIData/cernboxHWW76X/";
+  else             filesPath = "/u/user/sangilpark/RunIIData/cernboxHWW76X/";
+  //if (runAtOviedo) filesPath = "/u/user/sangilpark/RunIIData/CernBoxHWW2015/";
+  //else             filesPath = "/u/user/sangilpark/RunIIData/CernBoxHWW2015/";
   //if (runAtOviedo) filesPath = "root://eoscms.cern.ch//eos/cms/store/user/yjcho/nTuple/";
   //else             filesPath = "root://eoscms.cern.ch//eos/cms/store/user/yjcho/nTuple/";
   TChain* tree = new TChain("latino", "latino");
@@ -191,7 +193,8 @@ void LatinosTreeScript(Float_t luminosity,
   }
   else if (theSample == "WZ3LNu") {
   	//tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZ.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo3LNu.root");
+  	//tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo3LNu.root");
+  	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MC__WgStarsel__hadd/" + "latino_WZTo3LNu.root");
   }
   else if (theSample == "ZZ") {
   	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_ZZ.root");
@@ -416,8 +419,10 @@ void LatinosTreeScript(Float_t luminosity,
   	//tree->Add(filesPath + "latino_DYtt_19.5fb.root");
   }
   else if (theSample == "WgammaNoStar") {
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_Wg.root");
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_Wg500.root");
+  	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MC__WgStarsel__hadd/" + "latino_Wg500.root");
+  	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MC__WgStarsel__hadd/" + "latino_Wg_AMCNLOFXFX.root");
+  	//tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_Wg.root");
+  	//tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_Wg500.root");
   }
   else if (theSample == "WgammaStar") {
   	//tree->Add(filesPath + "latino_082_WGstarToElNuMad.root");
@@ -522,6 +527,7 @@ void LatinosTreeScript(Float_t luminosity,
   //TotNtry=500;
 
   for (int ievent=0; ievent<TotNtry; ievent++) {
+    //if(ievent%10 ==0) cout<<"Processing "<<ievent<<"th event"<<endl; 
     if(ievent%1000 ==0) cout<<"Processing "<<ievent<<"th event"<<endl; 
 
     // initialize
