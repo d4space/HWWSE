@@ -208,7 +208,6 @@ void LatinosTreeScript_76X_WgStar(Float_t luminosity,
   }
   else if (theSample == "DY") {
   	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_DYJetsToLL_M-10to50.root");
-  	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_DYJetsToLL_M-50.root");
   	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_DYJetsToLL_M-50_0000__part0.root");
   	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_DYJetsToLL_M-50_0000__part1.root");
   	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_DYJetsToLL_M-50_0000__part2.root");
