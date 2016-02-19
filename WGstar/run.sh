@@ -15,9 +15,10 @@ NJETS=$1
 CHANNELS="MuMu"
 
 #WgammaStar         \
+#WgammaNoStar    \
+#WZ3LNu         \
 SAMPLES="     \
-WgammaNoStar    \
-WZ3LNu         \
+DataRun2015_D     \
 "
 
 #SAMPLES="          \

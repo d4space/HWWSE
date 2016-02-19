@@ -13,7 +13,7 @@
 //typedef ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double> > LorentzVector;
 // Constants
 //------------------------------------------------------------------------------
-const Bool_t runAtOviedo = true;
+const Bool_t runAtLxplus = true;
 
 const Double_t ZMASS = 91.1876;  // GeV
 
@@ -136,25 +136,20 @@ void LatinosTreeScript(Float_t luminosity,
   //----------------------------------------------------------------------------
   TString filesPath;
   
-  //if (runAtOviedo) filesPath = "/afs/cern.ch/work/x/xjanssen/public/LatinoTrees/R53X_S1_V08_S2_V09_S3_V13/MoriondeffWPuWtriggW/MC_TightTight_DABCABC/";
+  //if (runAtLxplus) filesPath = "/afs/cern.ch/work/x/xjanssen/public/LatinoTrees/R53X_S1_V08_S2_V09_S3_V13/MoriondeffWPuWtriggW/MC_TightTight_DABCABC/";
   //else             filesPath = "/afs/cern.ch/work/x/xjanssen/public/LatinoTrees/R53X_S1_V08_S2_V09_S3_V13/MoriondeffWPuWtriggW/MC_TightTight_DABCABC/";
   
-  if (runAtOviedo) filesPath = "/u/user/sangilpark/RunIIData/cernboxHWW76X/";
+  if (runAtLxplus) filesPath = "~/eos/user/j/jlauwers/HWW2015/";
   else             filesPath = "/u/user/sangilpark/RunIIData/cernboxHWW76X/";
-  //if (runAtOviedo) filesPath = "/u/user/sangilpark/RunIIData/CernBoxHWW2015/";
+  //if (runAtLxplus) filesPath = "/u/user/sangilpark/RunIIData/CernBoxHWW2015/";
   //else             filesPath = "/u/user/sangilpark/RunIIData/CernBoxHWW2015/";
-  //if (runAtOviedo) filesPath = "root://eoscms.cern.ch//eos/cms/store/user/yjcho/nTuple/";
+  //if (runAtLxplus) filesPath = "root://eoscms.cern.ch//eos/cms/store/user/yjcho/nTuple/";
   //else             filesPath = "root://eoscms.cern.ch//eos/cms/store/user/yjcho/nTuple/";
   TChain* tree = new TChain("latino", "latino");
 
   // l2sel
   if (theSample == "DataRun2015_D") {
-  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part0.root");
-  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part1.root");
-  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part2.root");
-  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part3.root");
-  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleMuon_0000__part4.root");
-  	tree->Add(filesPath + "21Oct_Run2015D_05Oct2015/l2sel/" + "latino_Run2015D_05Oct2015_SingleMuon_0001__part0.root");
+  	tree->Add(filesPath + "22Jan_Run2015D_16Dec2015/WgStarsel__hadd/" + "latino_Run2015D_16Dec2015_SingleMuon.root");
   }
   else if (theSample == "WJetsLNu") {
 	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WJetsToLNu__part0.root");
