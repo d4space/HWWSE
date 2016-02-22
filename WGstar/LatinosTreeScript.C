@@ -573,11 +573,11 @@ void LatinosTreeScript(Float_t luminosity,
       }
       if( abs(M_mumu - JpsiMASS) < 0.1 ) continue;
       //cout<<"M_mumu: "<<M_mumu<<endl;
-      if(M_mumu < 15)
-      {
+      //if(M_mumu < 15)
+      //{
 	hInvDimu_Recon->Fill(M_mumu, totalW);
 	if(!theSample.Contains("Data"))hInvDimu_Gen->Fill(Gen_ZGstar_mass, totalW);
-      }
+      //}
     }
 
 
