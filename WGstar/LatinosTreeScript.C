@@ -130,8 +130,8 @@ void LatinosTreeScript(Float_t luminosity,
   TString NameFout=path + theSample +".txt";
   ofstream Fout(NameFout);
   
-  TH1D*   hInvDimu_Recon = new TH1D("hInvDimu_Recon","hInvDimu_Recon",6,0,12);
-  TH1D*   hInvDimu_Gen   = new TH1D("hInvDimu_Gen","hInvDimu_Gen",6,0,12); 
+  TH1D*   hInvDimu_Recon = new TH1D("hInvDimu_Recon","hInvDimu_Recon",55,0,110);
+  TH1D*   hInvDimu_Gen   = new TH1D("hInvDimu_Gen","hInvDimu_Gen",55,0,110); 
   TH1D*   hNmuons   = new TH1D("hNmuons","hNmuons",5,0,5); 
   TH1D*   hTriMuOrder   = new TH1D("hTriMuOrder","hTriMuOrder",5,0,10); 
   TH1D*   hMu1_pt   = new TH1D("hMu1_pt","hMu1_pt",5,0,50); 
