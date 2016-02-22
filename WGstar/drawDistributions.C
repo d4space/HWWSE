@@ -169,8 +169,8 @@ void drawDistributions(Int_t    njet       = 0,
 
   // Read input files
   //----------------------------------------------------------------------------
-  TString path_MC   = Form("rootfiles_met25mt25pt30108/%djet/%s/", _njet, _channel.Data());
-  TString path_Data = Form("rootfiles_met25mt25pt30108/%djet/%s/", _njet, _channel.Data());
+  TString path_MC   = Form("rootfiles_met25pt30tight108/%djet/%s/", _njet, _channel.Data());
+  TString path_Data = Form("rootfiles_met25pt30tight108/%djet/%s/", _njet, _channel.Data());
   //TString path_MC   = Form("rootfiles_MC/%djet/%s/", _njet, _channel.Data());
   //TString path_Data = Form("rootfiles/%djet/%s/", _njet, _channel.Data());
 
@@ -475,7 +475,7 @@ void DrawHistogram(TString  hname,
   //DrawLegend(x0 - 0.49, y0 - ndelta, allmc,        Form(" all (%.0f)",  Yield(allmc)),       "f",  0.03, 0.2, yoffset); ndelta += delta;
   DrawLegend(x0 - 0.49, y0 - ndelta, hist[iWW],    Form(" WW (%.0f)",   Yield(hist[iWW])),   "f",  0.03, 0.2, yoffset); ndelta += delta;
   DrawLegend(x0 - 0.49, y0 - ndelta, hist[iWZ],    Form(" WZ (%.0f)",   Yield(hist[iWZ])),  "f",  0.03, 0.2, yoffset); ndelta += delta;
-  DrawLegend(x0 - 0.49, y0 - ndelta, hist[iWg],    Form(" Wg (%.0f)",    Yield(hist[iWg])),   "f",  0.03, 0.2, yoffset); ndelta += delta;
+  DrawLegend(x0 - 0.49, y0 - ndelta, hist[iWg],    Form(" Wg* (%.0f)",    Yield(hist[iWg])),   "f",  0.03, 0.2, yoffset); ndelta += delta;
   DrawLegend(x0 - 0.49, y0 - ndelta, hist[iWj],    Form(" W+jets (%.0f)",Yield(hist[iWj])),   "f",  0.03, 0.2, yoffset); ndelta += delta;
 
 

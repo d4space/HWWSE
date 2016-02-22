@@ -122,7 +122,7 @@ void LatinosTreeScript(Float_t luminosity,
 {
   TH1::SetDefaultSumw2();
   
-  TString path = Form("rootfiles_met25pt30tight108/%djet/%s/", jetChannel, flavorChannel.Data());
+  TString path = Form("rootfiles_met25pt30tight103/%djet/%s/", jetChannel, flavorChannel.Data());
   
   gSystem->mkdir(path, kTRUE);
   
@@ -372,7 +372,7 @@ void LatinosTreeScript(Float_t luminosity,
   struct Cuts{
     const double firstMu=30;
     const double secndMu=10;
-    const double thirdMu=8;
+    const double thirdMu=3;
   }Cuts;
 
   int TotNtry=tree->GetEntries();
