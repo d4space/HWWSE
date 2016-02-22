@@ -23,6 +23,7 @@ CHANNELS="MuMu"
 #WJetsLNu_HT  \
 #"
 
+#DY                 \
 SAMPLES="          \
 DataRun2015     \
 ggWWto2L           \
@@ -33,7 +34,6 @@ WZ3LNu                 \
 ZZ                 \
 TTbar              \
 TW                 \
-DY                 \
 WgammaNoStar       \
 WJetsLNu  \
 DYtautau           \

@@ -417,7 +417,8 @@ void LatinosTreeScript(Float_t luminosity,
     	//efficiencyW = puW * effW * triggW;
     
     	//totalW = (1 + 0.6 * (dataset >= 82 && dataset <= 84)) * baseW * efficiencyW * luminosity;
-    	totalW = baseW * puW* GEN_weight_SM/abs(GEN_weight_SM)* luminosity;
+    	totalW = baseW * puW* luminosity;
+    	//totalW = baseW * puW* GEN_weight_SM/abs(GEN_weight_SM)* luminosity;
     }
 
     while((*std_vector_lepton_flavour)[iLept] >-9999)
