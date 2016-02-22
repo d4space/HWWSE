@@ -26,6 +26,6 @@ NJET=0
 rm -f files/0jet_hInvDimu_Recon.root
 rm -f pdf/0jet/MuMu/hInvDimu_Recon_Lin.pdf
 
-root -l -b -q drawDistributions.C\($NJET,$CHANNEL,553,\"pdf\",true,false,false\)
+root -l -b -q drawDistributions.C\($NJET,$CHANNEL,2264,\"pdf\",true,false,false\)
 
-open pdf/0jet/MuMu/hInvDimu_Recon_Lin.pdf
+#open pdf/0jet/MuMu/hInvDimu_Recon_Lin.pdf
