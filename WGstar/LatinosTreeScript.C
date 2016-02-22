@@ -16,6 +16,7 @@
 const Bool_t runAtLxplus = false;
 
 const Double_t ZMASS = 91.1876;  // GeV
+const Double_t JpsiMASS = 3.09691;  // GeV
 
 const UInt_t numberMetCuts = 5;
 
@@ -121,7 +122,7 @@ void LatinosTreeScript(Float_t luminosity,
 {
   TH1::SetDefaultSumw2();
   
-  TString path = Form("rootfiles/%djet/%s/", jetChannel, flavorChannel.Data());
+  TString path = Form("rootfiles_met25mt25pt30108/%djet/%s/", jetChannel, flavorChannel.Data());
   
   gSystem->mkdir(path, kTRUE);
   
@@ -455,7 +456,7 @@ void LatinosTreeScript(Float_t luminosity,
     // low mas resonance veto
     //if(mpmet < 20 )continue;
     if(metPfType1 < 25 )continue;
-    if(mth < 45 )continue;
+    if(mth < 25 )continue;
 
     if( (*vMuon_4d_rec)[0].Pt() >=(*vMuon_4d_rec)[1].Pt() )
     if( (*vMuon_4d_rec)[1].Pt() >=(*vMuon_4d_rec)[2].Pt() )
@@ -542,7 +543,7 @@ void LatinosTreeScript(Float_t luminosity,
       hMu3_pt->Fill((*vMuon_4d_rec)[2].Pt(),totalW);
     }
 
-    if( Nmuon == 3 && WGstarMuonPtCut){
+    if( Nmuon >= 3 && WGstarMuonPtCut){
       //cout<<"WG* Sample!"<<endl;
       double M_mumu(1000000000.);
       if( (*vMuon_Flv_rec)[0] * (*vMuon_Flv_rec)[1] < 0)
@@ -563,6 +564,7 @@ void LatinosTreeScript(Float_t luminosity,
         mumu4d += (*vMuon_4d_rec)[2];
         if( mumu4d.M() < M_mumu ) M_mumu = mumu4d.M();
       }
+      if( abs(M_mumu - JpsiMASS) < 0.1 ) continue;
       //cout<<"M_mumu: "<<M_mumu<<endl;
       if(M_mumu < 15)
       {

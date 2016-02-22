@@ -169,8 +169,10 @@ void drawDistributions(Int_t    njet       = 0,
 
   // Read input files
   //----------------------------------------------------------------------------
-  TString path_MC   = Form("rootfiles_MC/%djet/%s/", _njet, _channel.Data());
-  TString path_Data = Form("rootfiles/%djet/%s/", _njet, _channel.Data());
+  TString path_MC   = Form("rootfiles_mt45/%djet/%s/", _njet, _channel.Data());
+  TString path_Data = Form("rootfiles_mt45/%djet/%s/", _njet, _channel.Data());
+  //TString path_MC   = Form("rootfiles_MC/%djet/%s/", _njet, _channel.Data());
+  //TString path_Data = Form("rootfiles/%djet/%s/", _njet, _channel.Data());
 
   for (UInt_t ip=0; ip<nProcesses; ip++)
   {
