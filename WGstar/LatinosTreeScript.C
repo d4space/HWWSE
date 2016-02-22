@@ -72,7 +72,7 @@ double M_Muon(0.105);
 //------------------------------------------------------------------------------
    Float_t baseW;
    Float_t puW;
-   Float_t GEN_weight_SM;
+   //Float_t GEN_weight_SM;
    Float_t fakeW;
    Float_t channel;
    Float_t Gen_ZGstar_deltaR;
@@ -130,8 +130,8 @@ void LatinosTreeScript(Float_t luminosity,
   TString NameFout=path + theSample +".txt";
   ofstream Fout(NameFout);
   
-  TH1D*   hInvDimu_Recon = new TH1D("hInvDimu_Recon","hInvDimu_Recon",20,0,14);
-  TH1D*   hInvDimu_Gen   = new TH1D("hInvDimu_Gen","hInvDimu_Gen",20,0,14); 
+  TH1D*   hInvDimu_Recon = new TH1D("hInvDimu_Recon","hInvDimu_Recon",6,0,12);
+  TH1D*   hInvDimu_Gen   = new TH1D("hInvDimu_Gen","hInvDimu_Gen",6,0,12); 
   TH1D*   hNmuons   = new TH1D("hNmuons","hNmuons",5,0,5); 
   TH1D*   hTriMuOrder   = new TH1D("hTriMuOrder","hTriMuOrder",5,0,10); 
   TH1D*   hMu1_pt   = new TH1D("hMu1_pt","hMu1_pt",5,0,50); 
@@ -291,7 +291,7 @@ void LatinosTreeScript(Float_t luminosity,
 
   if(!theSample.Contains("Data"))
   {
-    tree->SetBranchAddress("GEN_weight_SM",      &GEN_weight_SM);
+//    tree->SetBranchAddress("GEN_weight_SM",      &GEN_weight_SM);
   }
   tree->SetBranchAddress("channel",      &channel);
   //tree->SetBranchAddress("Gen_ZGstar_deltaR",      &Gen_ZGstar_deltaR);
