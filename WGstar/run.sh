@@ -24,25 +24,26 @@ CHANNELS="MuMu"
 #"
 
 #DY                 \
-#SAMPLES="          \
-#DataRun2015     \
-#ggWWto2L           \
-#WWTo2L2Nu          \
-#WZ                 \
-#WZ2Q                 \
-#WZ3LNu                 \
-#ZZ                 \
 #TTbar              \
-#TW                 \
-#WgammaNoStar       \
-#WJetsLNu  \
-#DYtautau           \
-#HWW125             \
-#Zgamma             \
-#"
+
 SAMPLES="          \
 DataRun2015     \
+ggWWto2L           \
+WWTo2L2Nu          \
+WZ                 \
+WZ2Q                 \
+WZ3LNu                 \
+ZZ                 \
+TW                 \
+WgammaNoStar       \
+WJetsLNu  \
+DYtautau           \
+HWW125             \
+Zgamma             \
 "
+#SAMPLES="          \
+#DataRun2015     \
+#"
 
 rm -rf rootfiles/${NJETS}jet
 

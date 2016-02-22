@@ -355,12 +355,14 @@ void LatinosTreeScript(Float_t luminosity,
   std::vector<TLorentzVector> *vMuon_4d_gen;
   std::vector<int> *vMuon_Flv_rec;
   std::vector<int> *vMuon_isWgsLepton_rec;
-
+  std::vector<int> *vMuon_isTightLepton_rec;
   std::vector<int> *vMuon_Flv_gen;
+
   vMuon_4d_rec  = new std::vector<TLorentzVector>;
   vMuon_4d_gen  = new std::vector<TLorentzVector>;
   vMuon_Flv_rec = new std::vector<int>;
   vMuon_isWgsLepton_rec = new std::vector<int>;
+  vMuon_isTightLepton_rec = new std::vector<int>;
   vMuon_Flv_gen   = new std::vector<int>;
   
   TLorentzVector muon4d;
@@ -385,7 +387,10 @@ void LatinosTreeScript(Float_t luminosity,
     vMuon_4d_rec->clear();
     vMuon_4d_gen->clear();
     vMuon_Flv_rec->clear();
+    vMuon_isWgsLepton_rec->clear();
+    vMuon_isTightLepton_rec->clear();
     vMuon_Flv_gen->clear();
+
     MuonPtOrder=0;
     //vMuon_4d_rec=0;
     // dump variable
@@ -396,7 +401,7 @@ void LatinosTreeScript(Float_t luminosity,
     //{
     //}
     int iLept(0);
-    double lepton_pt, lepton_eta, lepton_phi, lepton_flv, lepton_isWgsLepton;
+    double lepton_pt, lepton_eta, lepton_phi, lepton_flv, lepton_isWgsLepton, lepton_isTightLepton;
 
     // Weight Calc.
     //
@@ -429,6 +434,7 @@ void LatinosTreeScript(Float_t luminosity,
       lepton_eta  = (*std_vector_lepton_eta)[iLept];
       lepton_phi  = (*std_vector_lepton_phi)[iLept];
       lepton_isWgsLepton  = (*std_vector_lepton_isWgsLepton)[iLept];
+      lepton_isTightLepton  = (*std_vector_lepton_isTightLepton)[iLept];
       //cout<<iLept<<"\t"<<lepton_flv<<
       //  "\t"<<lepton_pt<<"\t"<<lepton_eta<<"\t"<<lepton_phi<<" isWgsLepton:"<<lepton_isWgsLepton<<endl;
       if(fabs(lepton_flv) ==13)
@@ -437,6 +443,7 @@ void LatinosTreeScript(Float_t luminosity,
         vMuon_4d_rec->push_back(muon4d);
         vMuon_Flv_rec->push_back(lepton_flv);
         vMuon_isWgsLepton_rec->push_back(lepton_isWgsLepton);
+        vMuon_isTightLepton_rec->push_back(lepton_isTightLepton);
       }
       iLept++;
 
@@ -456,13 +463,13 @@ void LatinosTreeScript(Float_t luminosity,
     // low mas resonance veto
     //if(mpmet < 20 )continue;
     if(metPfType1 < 25 )continue;
-    if(mth < 25 )continue;
+    //if(mth < 25 )continue;
 
     if( (*vMuon_4d_rec)[0].Pt() >=(*vMuon_4d_rec)[1].Pt() )
     if( (*vMuon_4d_rec)[1].Pt() >=(*vMuon_4d_rec)[2].Pt() )
     if( (*vMuon_4d_rec)[0].Pt() > Cuts.firstMu && (*vMuon_4d_rec)[1].Pt() > Cuts.secndMu && (*vMuon_4d_rec)[2].Pt() > Cuts.thirdMu)
     {
-      if( ((*vMuon_isWgsLepton_rec)[0] != 1) ) continue;
+      if( ((*vMuon_isTightLepton_rec)[0] != 1) ) continue;
       if( ((*vMuon_isWgsLepton_rec)[1] != 1) ) continue;
       if( ((*vMuon_isWgsLepton_rec)[2] != 1) ) continue;
       WGstarMuonPtCut = true;
@@ -477,7 +484,7 @@ void LatinosTreeScript(Float_t luminosity,
     if( (*vMuon_4d_rec)[0].Pt() >=(*vMuon_4d_rec)[2].Pt() )
     if( (*vMuon_4d_rec)[0].Pt() > Cuts.firstMu && (*vMuon_4d_rec)[2].Pt() > Cuts.secndMu && (*vMuon_4d_rec)[1].Pt() > Cuts.thirdMu)
     {
-      if( ((*vMuon_isWgsLepton_rec)[0] != 1) ) continue;
+      if( ((*vMuon_isTightLepton_rec)[0] != 1) ) continue;
       if( ((*vMuon_isWgsLepton_rec)[2] != 1) ) continue;
       if( ((*vMuon_isWgsLepton_rec)[1] != 1) ) continue;
       WGstarMuonPtCut = true;
@@ -491,7 +498,7 @@ void LatinosTreeScript(Float_t luminosity,
     if( (*vMuon_4d_rec)[2].Pt() >=(*vMuon_4d_rec)[0].Pt() )
     if( (*vMuon_4d_rec)[2].Pt() > Cuts.firstMu && (*vMuon_4d_rec)[0].Pt() > Cuts.secndMu && (*vMuon_4d_rec)[1].Pt() > Cuts.thirdMu)
     {
-      if( ((*vMuon_isWgsLepton_rec)[2] != 1) ) continue;
+      if( ((*vMuon_isTightLepton_rec)[2] != 1) ) continue;
       if( ((*vMuon_isWgsLepton_rec)[0] != 1) ) continue;
       if( ((*vMuon_isWgsLepton_rec)[1] != 1) ) continue;
       WGstarMuonPtCut = true;
@@ -505,7 +512,7 @@ void LatinosTreeScript(Float_t luminosity,
     if( (*vMuon_4d_rec)[2].Pt() >=(*vMuon_4d_rec)[1].Pt() )
     if( (*vMuon_4d_rec)[2].Pt() > Cuts.firstMu && (*vMuon_4d_rec)[1].Pt() > Cuts.secndMu  && (*vMuon_4d_rec)[0].Pt() > Cuts.thirdMu)
     {
-      if( ((*vMuon_isWgsLepton_rec)[2] != 1) ) continue;
+      if( ((*vMuon_isTightLepton_rec)[2] != 1) ) continue;
       if( ((*vMuon_isWgsLepton_rec)[1] != 1) ) continue;
       if( ((*vMuon_isWgsLepton_rec)[0] != 1) ) continue;
       WGstarMuonPtCut = true;
@@ -519,7 +526,7 @@ void LatinosTreeScript(Float_t luminosity,
     if( (*vMuon_4d_rec)[1].Pt() >=(*vMuon_4d_rec)[2].Pt() )
     if( (*vMuon_4d_rec)[1].Pt() > Cuts.firstMu && (*vMuon_4d_rec)[2].Pt() > Cuts.secndMu && (*vMuon_4d_rec)[0].Pt() > Cuts.thirdMu)
     {
-      if( ((*vMuon_isWgsLepton_rec)[1] != 1) ) continue;
+      if( ((*vMuon_isTightLepton_rec)[1] != 1) ) continue;
       if( ((*vMuon_isWgsLepton_rec)[2] != 1) ) continue;
       if( ((*vMuon_isWgsLepton_rec)[0] != 1) ) continue;
       WGstarMuonPtCut = true;
@@ -533,7 +540,7 @@ void LatinosTreeScript(Float_t luminosity,
     if( (*vMuon_4d_rec)[1].Pt() >=(*vMuon_4d_rec)[0].Pt() )
     if( (*vMuon_4d_rec)[1].Pt() > Cuts.firstMu && (*vMuon_4d_rec)[0].Pt() > Cuts.secndMu && (*vMuon_4d_rec)[2].Pt() > Cuts.thirdMu)
     {
-      if( ((*vMuon_isWgsLepton_rec)[1] != 1) ) continue;
+      if( ((*vMuon_isTightLepton_rec)[1] != 1) ) continue;
       if( ((*vMuon_isWgsLepton_rec)[0] != 1) ) continue;
       if( ((*vMuon_isWgsLepton_rec)[2] != 1) ) continue;
       WGstarMuonPtCut = true;
