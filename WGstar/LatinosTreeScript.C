@@ -122,7 +122,7 @@ void LatinosTreeScript(Float_t luminosity,
 {
   TH1::SetDefaultSumw2();
   
-  TString path = Form("rootfiles_LeptIDbyGstar_mll_110_met25pt30tight103/%djet/%s/", jetChannel, flavorChannel.Data());
+  TString path = Form("rootfiles_LeptIDbyGstar_mll_110_met25pt30103/%djet/%s/", jetChannel, flavorChannel.Data());
   
   gSystem->mkdir(path, kTRUE);
   
@@ -356,6 +356,7 @@ void LatinosTreeScript(Float_t luminosity,
   std::vector<int> *vMuon_Flv_rec;
   std::vector<int> *vMuon_isWgsLepton_rec;
   std::vector<int> *vMuon_isTightLepton_rec;
+  std::vector<int> *vMuon_isLooseLepton_rec;
   std::vector<int> *vMuon_Flv_gen;
 
   vMuon_4d_rec  = new std::vector<TLorentzVector>;
@@ -363,6 +364,7 @@ void LatinosTreeScript(Float_t luminosity,
   vMuon_Flv_rec = new std::vector<int>;
   vMuon_isWgsLepton_rec = new std::vector<int>;
   vMuon_isTightLepton_rec = new std::vector<int>;
+  vMuon_isLooseLepton_rec = new std::vector<int>;
   vMuon_Flv_gen   = new std::vector<int>;
   
   TLorentzVector muon4d;
@@ -370,7 +372,7 @@ void LatinosTreeScript(Float_t luminosity,
 
   //Cuts=======================
   struct Cuts{
-    const double firstMu=20;
+    const double firstMu=30;
     const double secndMu=10;
     const double thirdMu=3;
   }Cuts;
@@ -389,6 +391,7 @@ void LatinosTreeScript(Float_t luminosity,
     vMuon_Flv_rec->clear();
     vMuon_isWgsLepton_rec->clear();
     vMuon_isTightLepton_rec->clear();
+    vMuon_isLooseLepton_rec->clear();
     vMuon_Flv_gen->clear();
 
     MuonPtOrder=0;
@@ -401,7 +404,8 @@ void LatinosTreeScript(Float_t luminosity,
     //{
     //}
     int iLept(0);
-    double lepton_pt, lepton_eta, lepton_phi, lepton_flv, lepton_isWgsLepton, lepton_isTightLepton;
+    double lepton_pt, lepton_eta, lepton_phi, lepton_flv;
+    double lepton_isWgsLepton, lepton_isTightLepton, lepton_isLooseLepton;
 
     // Weight Calc.
     //
@@ -435,6 +439,7 @@ void LatinosTreeScript(Float_t luminosity,
       lepton_phi  = (*std_vector_lepton_phi)[iLept];
       lepton_isWgsLepton  = (*std_vector_lepton_isWgsLepton)[iLept];
       lepton_isTightLepton  = (*std_vector_lepton_isTightLepton)[iLept];
+      lepton_isLooseLepton  = (*std_vector_lepton_isLooseLepton)[iLept];
       //cout<<iLept<<"\t"<<lepton_flv<<
       //  "\t"<<lepton_pt<<"\t"<<lepton_eta<<"\t"<<lepton_phi<<" isWgsLepton:"<<lepton_isWgsLepton<<" isTightLepton: "<<lepton_isTightLepton<<endl;
       if(fabs(lepton_flv) ==13)
@@ -444,6 +449,7 @@ void LatinosTreeScript(Float_t luminosity,
         vMuon_Flv_rec->push_back(lepton_flv);
         vMuon_isWgsLepton_rec->push_back(lepton_isWgsLepton);
         vMuon_isTightLepton_rec->push_back(lepton_isTightLepton);
+        vMuon_isLooseLepton_rec->push_back(lepton_isLooseLepton);
       }
       iLept++;
 
@@ -542,7 +548,8 @@ void LatinosTreeScript(Float_t luminosity,
         mumu4d += (*vMuon_4d_rec)[1];
         mMini_mumu = mumu4d.M();
 	diMuonCombi=0;
-      }else if( (*vMuon_Flv_rec)[0] * (*vMuon_Flv_rec)[2] < 0)
+      }
+      if( (*vMuon_Flv_rec)[0] * (*vMuon_Flv_rec)[2] < 0)
       {
         TLorentzVector mumu4d = (*vMuon_4d_rec)[0];
         mumu4d += (*vMuon_4d_rec)[2];
@@ -550,7 +557,8 @@ void LatinosTreeScript(Float_t luminosity,
 	  mMini_mumu = mumu4d.M();
 	  diMuonCombi=1;
 	}
-      }else if( (*vMuon_Flv_rec)[1] * (*vMuon_Flv_rec)[2] < 0)
+      }
+      if( (*vMuon_Flv_rec)[1] * (*vMuon_Flv_rec)[2] < 0)
       {
         TLorentzVector mumu4d = (*vMuon_4d_rec)[1];
         mumu4d += (*vMuon_4d_rec)[2];
@@ -558,7 +566,8 @@ void LatinosTreeScript(Float_t luminosity,
 	  mMini_mumu = mumu4d.M();
 	  diMuonCombi=2;
 	}
-      }else continue;
+      }
+      if( diMuonCombi== -1 ) continue;
 
       if( abs(mMini_mumu - JpsiMASS) < 0.1 ) continue;
       // id check
@@ -566,7 +575,7 @@ void LatinosTreeScript(Float_t luminosity,
       {
 	case 0:
 	  {
-            if( ((*vMuon_isTightLepton_rec)[2] != 1) ) continue;
+	    if( ((*vMuon_isTightLepton_rec)[2] != 1) ) continue;
             if( ((*vMuon_isWgsLepton_rec)[0] != 1) ) continue;
             if( ((*vMuon_isWgsLepton_rec)[1] != 1) ) continue;
 	    break;
