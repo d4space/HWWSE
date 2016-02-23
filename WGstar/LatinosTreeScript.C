@@ -532,7 +532,7 @@ void LatinosTreeScript(Float_t luminosity,
       hMu3_pt->Fill((*vMuon_4d_rec)[2].Pt(),totalW);
     }
 
-    int diMuonCombi;
+    int diMuonCombi(-1);
     if( Nmuon >= 3 && MuonPtCut){
       //cout<<"WG* Sample!"<<endl;
       double mMini_mumu(1000000000.);
@@ -542,8 +542,7 @@ void LatinosTreeScript(Float_t luminosity,
         mumu4d += (*vMuon_4d_rec)[1];
         mMini_mumu = mumu4d.M();
 	diMuonCombi=0;
-      }
-      if( (*vMuon_Flv_rec)[0] * (*vMuon_Flv_rec)[2] < 0)
+      }else if( (*vMuon_Flv_rec)[0] * (*vMuon_Flv_rec)[2] < 0)
       {
         TLorentzVector mumu4d = (*vMuon_4d_rec)[0];
         mumu4d += (*vMuon_4d_rec)[2];
@@ -551,8 +550,7 @@ void LatinosTreeScript(Float_t luminosity,
 	  mMini_mumu = mumu4d.M();
 	  diMuonCombi=1;
 	}
-      }
-      if( (*vMuon_Flv_rec)[1] * (*vMuon_Flv_rec)[2] < 0)
+      }else if( (*vMuon_Flv_rec)[1] * (*vMuon_Flv_rec)[2] < 0)
       {
         TLorentzVector mumu4d = (*vMuon_4d_rec)[1];
         mumu4d += (*vMuon_4d_rec)[2];
@@ -560,7 +558,8 @@ void LatinosTreeScript(Float_t luminosity,
 	  mMini_mumu = mumu4d.M();
 	  diMuonCombi=2;
 	}
-      }
+      }else continue;
+
       if( abs(mMini_mumu - JpsiMASS) < 0.1 ) continue;
       // id check
       switch( diMuonCombi)
@@ -570,22 +569,24 @@ void LatinosTreeScript(Float_t luminosity,
             if( ((*vMuon_isTightLepton_rec)[2] != 1) ) continue;
             if( ((*vMuon_isWgsLepton_rec)[0] != 1) ) continue;
             if( ((*vMuon_isWgsLepton_rec)[1] != 1) ) continue;
+	    break;
 	  }
 	case 1:
 	  {
             if( ((*vMuon_isTightLepton_rec)[1] != 1) ) continue;
             if( ((*vMuon_isWgsLepton_rec)[0] != 1) ) continue;
             if( ((*vMuon_isWgsLepton_rec)[2] != 1) ) continue;
+	    break;
 	  }
 	case 2:
 	  {
             if( ((*vMuon_isTightLepton_rec)[0] != 1) ) continue;
             if( ((*vMuon_isWgsLepton_rec)[1] != 1) ) continue;
             if( ((*vMuon_isWgsLepton_rec)[2] != 1) ) continue;
+	    break;
 	  }
 	default:
 	  continue;
-	  ;
       }
       //cout<<"mMini_mumu: "<<mMini_mumu<<endl;
       //if(mMini_mumu < 15)

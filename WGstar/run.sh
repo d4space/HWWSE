@@ -43,10 +43,10 @@ HWW125             \
 Zgamma             \
 "
 #SAMPLES="          \
-#WZ3LNu         \
+#Zgamma             \
 #"
 
-rm -rf rootfiles/${NJETS}jet
+#rm -rf rootfiles/${NJETS}jet
 
 
 # Loop
