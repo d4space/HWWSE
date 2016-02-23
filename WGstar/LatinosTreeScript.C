@@ -436,7 +436,7 @@ void LatinosTreeScript(Float_t luminosity,
       lepton_isWgsLepton  = (*std_vector_lepton_isWgsLepton)[iLept];
       lepton_isTightLepton  = (*std_vector_lepton_isTightLepton)[iLept];
       //cout<<iLept<<"\t"<<lepton_flv<<
-      //  "\t"<<lepton_pt<<"\t"<<lepton_eta<<"\t"<<lepton_phi<<" isWgsLepton:"<<lepton_isWgsLepton<<endl;
+      //  "\t"<<lepton_pt<<"\t"<<lepton_eta<<"\t"<<lepton_phi<<" isWgsLepton:"<<lepton_isWgsLepton<<" isTightLepton: "<<lepton_isTightLepton<<endl;
       if(fabs(lepton_flv) ==13)
       {
         muon4d.SetPtEtaPhiM(lepton_pt,lepton_eta,lepton_phi,M_Muon);
