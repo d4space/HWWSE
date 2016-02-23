@@ -575,33 +575,21 @@ void LatinosTreeScript(Float_t luminosity,
       {
 	case 0:
 	  {
-	    if( (*vMuon_4d_rec)[2].Pt() > 30){
-	      if( ((*vMuon_isTightLepton_rec)[2] != 1) ) continue;
-	    }else{
-	      if( ((*vMuon_isLooseLepton_rec)[2] != 1) ) continue;
-	    }
+	    if( ((*vMuon_isWgsLepton_rec)[2] != 1) ) continue;
             if( ((*vMuon_isWgsLepton_rec)[0] != 1) ) continue;
             if( ((*vMuon_isWgsLepton_rec)[1] != 1) ) continue;
 	    break;
 	  }
 	case 1:
 	  {
-	    if( (*vMuon_4d_rec)[1].Pt() > 30){
-	      if( ((*vMuon_isTightLepton_rec)[1] != 1) ) continue;
-	    }else{
-	      if( ((*vMuon_isLooseLepton_rec)[1] != 1) ) continue;
-	    }
+	    if( ((*vMuon_isWgsLepton_rec)[1] != 1) ) continue;
             if( ((*vMuon_isWgsLepton_rec)[0] != 1) ) continue;
             if( ((*vMuon_isWgsLepton_rec)[2] != 1) ) continue;
 	    break;
 	  }
 	case 2:
 	  {
-	    if( (*vMuon_4d_rec)[0].Pt() > 30){
-	      if( ((*vMuon_isTightLepton_rec)[0] != 1) ) continue;
-	    }else{
-	      if( ((*vMuon_isLooseLepton_rec)[0] != 1) ) continue;
-	    }
+	    if( ((*vMuon_isWgsLepton_rec)[0] != 1) ) continue;
             if( ((*vMuon_isWgsLepton_rec)[1] != 1) ) continue;
             if( ((*vMuon_isWgsLepton_rec)[2] != 1) ) continue;
 	    break;
