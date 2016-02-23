@@ -122,7 +122,7 @@ void LatinosTreeScript(Float_t luminosity,
 {
   TH1::SetDefaultSumw2();
   
-  TString path = Form("rootfiles_mll_110_met25pt30tight103/%djet/%s/", jetChannel, flavorChannel.Data());
+  TString path = Form("rootfiles_LeptIDbyGstar_mll_110_met25pt30tight103/%djet/%s/", jetChannel, flavorChannel.Data());
   
   gSystem->mkdir(path, kTRUE);
   
@@ -206,11 +206,11 @@ void LatinosTreeScript(Float_t luminosity,
   	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_WWTo2L2Nu.root");
   }
   else if (theSample == "WZ") {
-  	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_WZ.root");
+  	//tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_WZ.root");
   	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_WZJets.root");
   }
   else if (theSample == "WZ2Q") {
-  	//tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo2L2Q__part0.root");
+  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo2L2Q__part0.root");
   }
   else if (theSample == "WZ3LNu") {
   	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MC__WgStarsel__hadd/" + "latino_WZTo3LNu.root");
@@ -452,12 +452,12 @@ void LatinosTreeScript(Float_t luminosity,
     hNmuons->Fill(Nmuon,totalW);
     if(Nmuon < 3)continue;
     //cout<<"Nmuon: "<<Nmuon<<endl;
-    bool WGstarMuonPtCut(false);
+    bool MuonPtCut(false);
     // b-jet cut
     //cout<<"nbjettche: "<<nbjettche<<"  bveto_ip: "<<bveto_ip<<" njet: "<<njet<<" mpmet: "<<mpmet<<" mth: "<<mth<<"  metPfType1: "<<metPfType1<<endl;
     if(nbjettche !=0 )continue;
     //if(bveto_mu !=1 )continue;
-    if(bveto_ip !=1 )continue;
+    //if(bveto_ip !=1 )continue;
     if(njet > 1 )continue;
 
     // low mas resonance veto
@@ -469,10 +469,7 @@ void LatinosTreeScript(Float_t luminosity,
     if( (*vMuon_4d_rec)[1].Pt() >=(*vMuon_4d_rec)[2].Pt() )
     if( (*vMuon_4d_rec)[0].Pt() > Cuts.firstMu && (*vMuon_4d_rec)[1].Pt() > Cuts.secndMu && (*vMuon_4d_rec)[2].Pt() > Cuts.thirdMu)
     {
-      if( ((*vMuon_isTightLepton_rec)[0] != 1) ) continue;
-      if( ((*vMuon_isWgsLepton_rec)[1] != 1) ) continue;
-      if( ((*vMuon_isWgsLepton_rec)[2] != 1) ) continue;
-      WGstarMuonPtCut = true;
+      MuonPtCut = true;
       hTriMuOrder->Fill(1,totalW);
       hMu1_pt->Fill((*vMuon_4d_rec)[0].Pt(),totalW);
       hMu2_pt->Fill((*vMuon_4d_rec)[1].Pt(),totalW);
@@ -484,10 +481,7 @@ void LatinosTreeScript(Float_t luminosity,
     if( (*vMuon_4d_rec)[0].Pt() >=(*vMuon_4d_rec)[2].Pt() )
     if( (*vMuon_4d_rec)[0].Pt() > Cuts.firstMu && (*vMuon_4d_rec)[2].Pt() > Cuts.secndMu && (*vMuon_4d_rec)[1].Pt() > Cuts.thirdMu)
     {
-      if( ((*vMuon_isTightLepton_rec)[0] != 1) ) continue;
-      if( ((*vMuon_isWgsLepton_rec)[2] != 1) ) continue;
-      if( ((*vMuon_isWgsLepton_rec)[1] != 1) ) continue;
-      WGstarMuonPtCut = true;
+      MuonPtCut = true;
       hTriMuOrder->Fill(2,totalW);
       hMu1_pt->Fill((*vMuon_4d_rec)[0].Pt(),totalW);
       hMu2_pt->Fill((*vMuon_4d_rec)[2].Pt(),totalW);
@@ -498,10 +492,7 @@ void LatinosTreeScript(Float_t luminosity,
     if( (*vMuon_4d_rec)[2].Pt() >=(*vMuon_4d_rec)[0].Pt() )
     if( (*vMuon_4d_rec)[2].Pt() > Cuts.firstMu && (*vMuon_4d_rec)[0].Pt() > Cuts.secndMu && (*vMuon_4d_rec)[1].Pt() > Cuts.thirdMu)
     {
-      if( ((*vMuon_isTightLepton_rec)[2] != 1) ) continue;
-      if( ((*vMuon_isWgsLepton_rec)[0] != 1) ) continue;
-      if( ((*vMuon_isWgsLepton_rec)[1] != 1) ) continue;
-      WGstarMuonPtCut = true;
+      MuonPtCut = true;
       hTriMuOrder->Fill(3,totalW);
       hMu1_pt->Fill((*vMuon_4d_rec)[2].Pt(),totalW);
       hMu2_pt->Fill((*vMuon_4d_rec)[0].Pt(),totalW);
@@ -512,10 +503,7 @@ void LatinosTreeScript(Float_t luminosity,
     if( (*vMuon_4d_rec)[2].Pt() >=(*vMuon_4d_rec)[1].Pt() )
     if( (*vMuon_4d_rec)[2].Pt() > Cuts.firstMu && (*vMuon_4d_rec)[1].Pt() > Cuts.secndMu  && (*vMuon_4d_rec)[0].Pt() > Cuts.thirdMu)
     {
-      if( ((*vMuon_isTightLepton_rec)[2] != 1) ) continue;
-      if( ((*vMuon_isWgsLepton_rec)[1] != 1) ) continue;
-      if( ((*vMuon_isWgsLepton_rec)[0] != 1) ) continue;
-      WGstarMuonPtCut = true;
+      MuonPtCut = true;
       hTriMuOrder->Fill(4,totalW);
       hMu1_pt->Fill((*vMuon_4d_rec)[2].Pt(),totalW);
       hMu2_pt->Fill((*vMuon_4d_rec)[1].Pt(),totalW);
@@ -526,10 +514,7 @@ void LatinosTreeScript(Float_t luminosity,
     if( (*vMuon_4d_rec)[1].Pt() >=(*vMuon_4d_rec)[2].Pt() )
     if( (*vMuon_4d_rec)[1].Pt() > Cuts.firstMu && (*vMuon_4d_rec)[2].Pt() > Cuts.secndMu && (*vMuon_4d_rec)[0].Pt() > Cuts.thirdMu)
     {
-      if( ((*vMuon_isTightLepton_rec)[1] != 1) ) continue;
-      if( ((*vMuon_isWgsLepton_rec)[2] != 1) ) continue;
-      if( ((*vMuon_isWgsLepton_rec)[0] != 1) ) continue;
-      WGstarMuonPtCut = true;
+      MuonPtCut = true;
       hTriMuOrder->Fill(5,totalW);
       hMu1_pt->Fill((*vMuon_4d_rec)[1].Pt(),totalW);
       hMu2_pt->Fill((*vMuon_4d_rec)[2].Pt(),totalW);
@@ -540,42 +525,72 @@ void LatinosTreeScript(Float_t luminosity,
     if( (*vMuon_4d_rec)[1].Pt() >=(*vMuon_4d_rec)[0].Pt() )
     if( (*vMuon_4d_rec)[1].Pt() > Cuts.firstMu && (*vMuon_4d_rec)[0].Pt() > Cuts.secndMu && (*vMuon_4d_rec)[2].Pt() > Cuts.thirdMu)
     {
-      if( ((*vMuon_isTightLepton_rec)[1] != 1) ) continue;
-      if( ((*vMuon_isWgsLepton_rec)[0] != 1) ) continue;
-      if( ((*vMuon_isWgsLepton_rec)[2] != 1) ) continue;
-      WGstarMuonPtCut = true;
+      MuonPtCut = true;
       hTriMuOrder->Fill(6,totalW);
       hMu1_pt->Fill((*vMuon_4d_rec)[1].Pt(),totalW);
       hMu2_pt->Fill((*vMuon_4d_rec)[0].Pt(),totalW);
       hMu3_pt->Fill((*vMuon_4d_rec)[2].Pt(),totalW);
     }
 
-    if( Nmuon >= 3 && WGstarMuonPtCut){
+    int diMuonCombi;
+    if( Nmuon >= 3 && MuonPtCut){
       //cout<<"WG* Sample!"<<endl;
-      double M_mumu(1000000000.);
+      double mMini_mumu(1000000000.);
       if( (*vMuon_Flv_rec)[0] * (*vMuon_Flv_rec)[1] < 0)
       {
         TLorentzVector mumu4d = (*vMuon_4d_rec)[0];
         mumu4d += (*vMuon_4d_rec)[1];
-        M_mumu = mumu4d.M();
+        mMini_mumu = mumu4d.M();
+	diMuonCombi=0;
       }
       if( (*vMuon_Flv_rec)[0] * (*vMuon_Flv_rec)[2] < 0)
       {
         TLorentzVector mumu4d = (*vMuon_4d_rec)[0];
         mumu4d += (*vMuon_4d_rec)[2];
-        if( mumu4d.M() < M_mumu ) M_mumu = mumu4d.M();
+        if( mumu4d.M() < mMini_mumu ){
+	  mMini_mumu = mumu4d.M();
+	  diMuonCombi=1;
+	}
       }
       if( (*vMuon_Flv_rec)[1] * (*vMuon_Flv_rec)[2] < 0)
       {
         TLorentzVector mumu4d = (*vMuon_4d_rec)[1];
         mumu4d += (*vMuon_4d_rec)[2];
-        if( mumu4d.M() < M_mumu ) M_mumu = mumu4d.M();
+        if( mumu4d.M() < mMini_mumu ){
+	  mMini_mumu = mumu4d.M();
+	  diMuonCombi=2;
+	}
       }
-      if( abs(M_mumu - JpsiMASS) < 0.1 ) continue;
-      //cout<<"M_mumu: "<<M_mumu<<endl;
-      //if(M_mumu < 15)
+      if( abs(mMini_mumu - JpsiMASS) < 0.1 ) continue;
+      // id check
+      switch( diMuonCombi)
+      {
+	case 0:
+	  {
+            if( ((*vMuon_isTightLepton_rec)[2] != 1) ) continue;
+            if( ((*vMuon_isWgsLepton_rec)[0] != 1) ) continue;
+            if( ((*vMuon_isWgsLepton_rec)[1] != 1) ) continue;
+	  }
+	case 1:
+	  {
+            if( ((*vMuon_isTightLepton_rec)[1] != 1) ) continue;
+            if( ((*vMuon_isWgsLepton_rec)[0] != 1) ) continue;
+            if( ((*vMuon_isWgsLepton_rec)[2] != 1) ) continue;
+	  }
+	case 2:
+	  {
+            if( ((*vMuon_isTightLepton_rec)[0] != 1) ) continue;
+            if( ((*vMuon_isWgsLepton_rec)[1] != 1) ) continue;
+            if( ((*vMuon_isWgsLepton_rec)[2] != 1) ) continue;
+	  }
+	default:
+	  continue;
+	  ;
+      }
+      //cout<<"mMini_mumu: "<<mMini_mumu<<endl;
+      //if(mMini_mumu < 15)
       //{
-	hInvDimu_Recon->Fill(M_mumu, totalW);
+	hInvDimu_Recon->Fill(mMini_mumu, totalW);
 	if(!theSample.Contains("Data"))hInvDimu_Gen->Fill(Gen_ZGstar_mass, totalW);
       //}
     }

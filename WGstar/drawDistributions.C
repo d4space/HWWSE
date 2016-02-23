@@ -124,7 +124,8 @@ void drawDistributions(Int_t    njet       = 0,
   process[itt]     = "TTbar";
   process[itW]     = "TW";
   process[iWW]     = "WWTo2L2Nu";
-  process[iWZ]     = "WZ";
+  process[iWZ]     = "WZ3LNu";
+  //process[iWZ]     = "WZ";
   process[iZZ]     = "ZZ";
   process[iWg]     = "WgammaNoStar";
   process[iWj]     = "WJetsLNu";
@@ -139,7 +140,7 @@ void drawDistributions(Int_t    njet       = 0,
   color[itW]     = kYellow-2;
   color[iWW]     = kAzure-9;
   color[iWZ]     = kAzure;
-  color[iZZ]     = kAzure+2;
+  color[iZZ]     = kBlack;
   color[iWg]     = kAzure-2;
   color[iWj]     = kGray+1;
   color[iDY]     = kGreen+3;
@@ -184,7 +185,7 @@ void drawDistributions(Int_t    njet       = 0,
   }
 
 
-  DrawHistogram("hInvDimu_Recon",  "m_{#font[12]{ll}}", 1, 0, "GeV",0, 14,false);
+  DrawHistogram("hInvDimu_Recon",  "m_{#font[12]{ll}}", 1, 0, "GeV",0, 110,false);
 
 
 }
@@ -477,9 +478,9 @@ void DrawHistogram(TString  hname,
   DrawLegend(x0 - 0.49, y0 - ndelta, hist[iWZ],    Form(" WZ (%.0f)",   Yield(hist[iWZ])),  "f",  0.03, 0.2, yoffset); ndelta += delta;
   DrawLegend(x0 - 0.49, y0 - ndelta, hist[iWg],    Form(" Wg* (%.0f)",    Yield(hist[iWg])),   "f",  0.03, 0.2, yoffset); ndelta += delta;
   DrawLegend(x0 - 0.49, y0 - ndelta, hist[iWj],    Form(" W+jets (%.0f)",Yield(hist[iWj])),   "f",  0.03, 0.2, yoffset); ndelta += delta;
+  DrawLegend(x0 - 0.49, y0 - ndelta, hist[iZZ],    Form(" ZZ (%.0f)",    Yield(hist[iZZ])),   "f",  0.03, 0.2, yoffset); ndelta += delta;
 
 
-  //DrawLegend(x0 - 0.23, y0 - ndelta, hist[iZZ],    Form(" ZZ (%.0f)",    Yield(hist[iZZ])),   "f",  0.03, 0.2, yoffset); ndelta += delta;
   ndelta = 0;
   DrawLegend(x0 - 0.23, y0 - ndelta, hist[iDY],    Form(" DY (%.0f)",    Yield(hist[iDY])),   "f",  0.03, 0.2, yoffset); ndelta += delta;
   DrawLegend(x0 - 0.23, y0 - ndelta, hist[iDYtau], Form(" DYtau (%.0f)", Yield(hist[iDYtau])),"f",  0.03, 0.2, yoffset); ndelta += delta;
