@@ -370,7 +370,7 @@ void LatinosTreeScript(Float_t luminosity,
 
   //Cuts=======================
   struct Cuts{
-    const double firstMu=30;
+    const double firstMu=20;
     const double secndMu=10;
     const double thirdMu=3;
   }Cuts;
