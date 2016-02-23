@@ -27,23 +27,24 @@ CHANNELS="MuMu"
 #TTbar              \
 #WZ3LNu                 \
 
-#SAMPLES="          \
-#DataRun2015     \
-#ggWWto2L           \
-#WWTo2L2Nu          \
-#WZ                 \
-#WZ2Q                 \
-#ZZ                 \
-#TW                 \
-#WgammaNoStar       \
-#WJetsLNu  \
-#DYtautau           \
-#HWW125             \
-#Zgamma             \
-#"
 SAMPLES="          \
 DataRun2015     \
+ggWWto2L           \
+WWTo2L2Nu          \
+WZ                 \
+WZ3LNu         \
+WZ2Q                 \
+ZZ                 \
+TW                 \
+WgammaNoStar       \
+WJetsLNu  \
+DYtautau           \
+HWW125             \
+Zgamma             \
 "
+#SAMPLES="          \
+#WZ3LNu         \
+#"
 
 rm -rf rootfiles/${NJETS}jet
 
