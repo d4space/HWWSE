@@ -146,19 +146,22 @@ void LatinosTreeScript_76X_WgStar(Float_t luminosity,
   TChain* tree = new TChain("latino", "latino");
 
   // l2sel
-  if (theSample == "DataRun2015_C") {
+  if (theSample == "DataRun2015") {
+  	tree->Add(filesPath + "22Jan_Run2015C_16Dec2015/WgStarsel__hadd/" + "latino_Run2015C_16Dec2015_SingleMuon.root");
+  	tree->Add(filesPath + "22Jan_Run2015D_16Dec2015/WgStarsel__hadd/" + "latino_Run2015D_16Dec2015_SingleMuon.root");
+  }else if (theSample == "DataRun2015_C") {
   	tree->Add(filesPath + "22Jan_Run2015C_16Dec2015/l2loose__hadd/" + "latino_Run2015C_16Dec2015_SingleMuon.root");
-  	tree->Add(filesPath + "22Jan_Run2015C_16Dec2015/l2loose__hadd/" + "latino_Run2015C_16Dec2015_SingleElectron.root");
-  	tree->Add(filesPath + "22Jan_Run2015C_16Dec2015/l2loose__hadd/" + "latino_Run2015C_16Dec2015_DoubleMuon.root");
-  	tree->Add(filesPath + "22Jan_Run2015C_16Dec2015/l2loose__hadd/" + "latino_Run2015C_16Dec2015_DoubleEG.root");
-  	tree->Add(filesPath + "22Jan_Run2015C_16Dec2015/l2loose__hadd/" + "latino_Run2015C_16Dec2015_MuonEG.root");
+  	//tree->Add(filesPath + "22Jan_Run2015C_16Dec2015/l2loose__hadd/" + "latino_Run2015C_16Dec2015_SingleElectron.root");
+  	//tree->Add(filesPath + "22Jan_Run2015C_16Dec2015/l2loose__hadd/" + "latino_Run2015C_16Dec2015_DoubleMuon.root");
+  	//tree->Add(filesPath + "22Jan_Run2015C_16Dec2015/l2loose__hadd/" + "latino_Run2015C_16Dec2015_DoubleEG.root");
+  	//tree->Add(filesPath + "22Jan_Run2015C_16Dec2015/l2loose__hadd/" + "latino_Run2015C_16Dec2015_MuonEG.root");
   }
-  if (theSample == "DataRun2015_D") {
+  else if (theSample == "DataRun2015_D") {
   	tree->Add(filesPath + "22Jan_Run2015D_16Dec2015/l2loose__hadd/" + "latino_Run2015D_16Dec2015_SingleMuon.root");
-  	tree->Add(filesPath + "22Jan_Run2015D_16Dec2015/l2loose__hadd/" + "latino_Run2015D_16Dec2015_SingleElectron.root");
-  	tree->Add(filesPath + "22Jan_Run2015D_16Dec2015/l2loose__hadd/" + "latino_Run2015D_16Dec2015_DoubleMuon.root");
-  	tree->Add(filesPath + "22Jan_Run2015D_16Dec2015/l2loose__hadd/" + "latino_Run2015D_16Dec2015_DoubleEG.root");
-  	tree->Add(filesPath + "22Jan_Run2015D_16Dec2015/l2loose__hadd/" + "latino_Run2015D_16Dec2015_MuonEG.root");
+  	//tree->Add(filesPath + "22Jan_Run2015D_16Dec2015/l2loose__hadd/" + "latino_Run2015D_16Dec2015_SingleElectron.root");
+  	//tree->Add(filesPath + "22Jan_Run2015D_16Dec2015/l2loose__hadd/" + "latino_Run2015D_16Dec2015_DoubleMuon.root");
+  	//tree->Add(filesPath + "22Jan_Run2015D_16Dec2015/l2loose__hadd/" + "latino_Run2015D_16Dec2015_DoubleEG.root");
+  	//tree->Add(filesPath + "22Jan_Run2015D_16Dec2015/l2loose__hadd/" + "latino_Run2015D_16Dec2015_MuonEG.root");
   }
   else if (theSample == "WJetsLNu") {
   	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_WJetsToLNu.root");
