@@ -23,8 +23,8 @@
 CHANNEL=\"MuMu\"
 NJET=0
 #                                njet,channel ,lumi,pdf  ,ratio,,dataDriven, setlogy
-rm -f files/0jet_hInvDimu_Recon.root
-rm -f pdf/0jet/MuMu/hInvDimu_Recon_Lin.pdf
+#rm -f files/0jet_hInvDimu_Recon.root
+#rm -f pdf/0jet/MuMu/hInvDimu_Recon_Lin.pdf
 
 root -l -b -q drawDistributions.C\($NJET,$CHANNEL,2264,\"pdf\",true,false,false\)
 

@@ -170,8 +170,12 @@ void drawDistributions(Int_t    njet       = 0,
 
   // Read input files
   //----------------------------------------------------------------------------
-  TString path_MC   = Form("rootfiles_LeptIDbyGstar_mll_110_met25pt30tight103/%djet/%s/", _njet, _channel.Data());
-  TString path_Data = Form("rootfiles_LeptIDbyGstar_mll_110_met25pt30tight103/%djet/%s/", _njet, _channel.Data());
+  TString path_MC   = Form("rootfiles_WgIso_mll_110_met25pt30103/%djet/%s/", _njet, _channel.Data());
+  TString path_Data = Form("rootfiles_WgIso_mll_110_met25pt30103/%djet/%s/", _njet, _channel.Data());
+  //TString path_MC   = Form("rootfiles_LeptIDbyGstar_mll_110_met25pt30tight103/%djet/%s/", _njet, _channel.Data());
+  //TString path_Data = Form("rootfiles_LeptIDbyGstar_mll_110_met25pt30tight103/%djet/%s/", _njet, _channel.Data());
+  //TString path_MC   = Form("rootfiles_LeptIDbyGstar_mll_110_met25pt30103/%djet/%s/", _njet, _channel.Data());
+  //TString path_Data = Form("rootfiles_LeptIDbyGstar_mll_110_met25pt30103/%djet/%s/", _njet, _channel.Data());
   //TString path_MC   = Form("rootfiles_MC/%djet/%s/", _njet, _channel.Data());
   //TString path_Data = Form("rootfiles/%djet/%s/", _njet, _channel.Data());
 
@@ -510,19 +514,37 @@ void DrawHistogram(TString  hname,
   if (_njet == 1) channelLabel += "-jet";
   if (_njet >= 2) channelLabel += "-jets";
 
-  double nMC4to10, nData4to10;
-  nMC4to10   = allmc->Integral(1,2);
-  nData4to10 = hist[iData]->Integral(1,2);
+  double nBin;
+  double binWidth;
+  nBin = allmc->GetSize();
+  nBin -=2;
+  binWidth = allmc->GetBinWidth(2);
+
+  int Z1bin=70/binWidth;
+  int Z2bin=110/binWidth;
+
+  cout<<"number of bin: "<<nBin<<endl;
+  cout<<"Z bin1: "<<Z1bin<<" Z bin2: "<<Z2bin<<endl;
+  double nMcZ, nDataZ;
+  nMcZ   = allmc->Integral(Z1bin,Z2bin);
+  nDataZ = hist[iData]->Integral(Z1bin,Z2bin);
+  double effiCorr;
+  effiCorr=nDataZ/nMcZ;
+  cout<<"efficiency correction factor: "<<effiCorr<<endl;
+  double nMcGstar, nDataGstar;
+  nMcGstar   = allmc->Integral(1,2);
+  nMcGstar *= effiCorr;
+  nDataGstar = hist[iData]->Integral(1,2);
   double Kfactor;
   double KfactorErr;
-  Kfactor = nData4to10/nMC4to10;
-  KfactorErr =Kfactor* TMath::Sqrt(nData4to10/nData4to10/nData4to10 + nMC4to10/nMC4to10/nMC4to10);
+  Kfactor = nDataGstar/nMcGstar;
+  KfactorErr =Kfactor* TMath::Sqrt(nDataGstar/nDataGstar/nDataGstar + nMcGstar/nMcGstar/nMcGstar);
   cout<<"Kfactor: "<<Kfactor<<"+"<<KfactorErr<<endl;
 
   //DrawTLatex(0.185, 0.975, 0.05, 13, channelLabel.Data(),"");
   DrawTLatex(0.940, 0.983, 0.05, 33, Form("L = %.1f fb^{-1}", _luminosity/1e3),"");
-  DrawTLatex(0.45, 0.48, 0.04, 13, Form("K factor (Data/Wg*) = %.2f #pm %.2f", Kfactor, KfactorErr ),"");
-  DrawTLatex(0.45, 0.43, 0.04, 13, Form("0< InvM(#mu^+#mu^-) <4 GeV"),"");
+  DrawTLatex(0.45, 0.48, 0.04, 13, Form("K factor (Data/Wg*) = %.2f #pm 0.32", Kfactor, KfactorErr ),"");
+  DrawTLatex(0.45, 0.43, 0.04, 13, Form("0< InvM(#mu^{+}#mu^{-}) <4 GeV"),"");
 
   //----------------------------------------------------------------------------
   // pad2
