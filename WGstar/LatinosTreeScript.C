@@ -75,6 +75,7 @@ double M_Muon(0.105);
    //Float_t GEN_weight_SM;
    Float_t fakeW;
    Float_t channel;
+   Float_t gen_mll;
    Float_t Gen_ZGstar_deltaR;
    Float_t Gen_ZGstar_mass;
    Float_t Gen_ZGstar_mu1_eta;
@@ -117,29 +118,60 @@ void LatinosTreeScript(Float_t luminosity,
 		Int_t   jetChannel,
 		TString flavorChannel,
 		TString theSample,
-		Bool_t  GEnStudy,
-		Bool_t  verbose)
+		TString  TypeStudy="Nominal",
+		Bool_t  verbose=true)
 {
   TH1::SetDefaultSumw2();
+
+  // Set the channel
+  //----------------------------------------------------------------------------
+  Float_t SelectedChannel = -999;
   
-  TString path = Form("rootfiles_WgIso_mll_110_met25pt30103/%djet/%s/", jetChannel, flavorChannel.Data());
-  
+  if      (flavorChannel == "MuMu") SelectedChannel =  0;
+  else if (flavorChannel == "EE"  ) SelectedChannel =  1;
+  else if (flavorChannel == "EMu" ) SelectedChannel =  2;
+  else if (flavorChannel == "MuE" ) SelectedChannel =  3;
+  else if (flavorChannel == "All" ) SelectedChannel = -1;
+  else if (flavorChannel == "SSEMuPlus"  ) SelectedChannel =  2; //Channel is the same
+  else if (flavorChannel == "SSEMuMinus" ) SelectedChannel =  2;
+  else if (flavorChannel == "SSMuEPlus"  ) SelectedChannel =  3;
+  else if (flavorChannel == "SSMuEMinus" ) SelectedChannel =  3;
+
+  enum TYPeSTUDY {Nominal, GenStudy};
+  int SelectedStudy;
+  cout<<"TypeStudy: "<<TypeStudy<<endl;
+  if      (TypeStudy == "GenStudy") SelectedStudy = GenStudy;
+  else if (TypeStudy == "Nominal")  SelectedStudy = Nominal;
+  else                              SelectedStudy = Nominal;
+
+  bool MuonPtCut(false);
+
+  cout<<"Study Type is "<<SelectedStudy<<endl;
+ 
+  // OutPut 
+  //-------------------------------------------------
+  TString path = Form("rootfiles/%djet/%s/", jetChannel, flavorChannel.Data());
+  //TString path = Form("rootfiles_WgIso_mll_110_met25pt30103/%djet/%s/", jetChannel, flavorChannel.Data());
   gSystem->mkdir(path, kTRUE);
   
   TFile* output = new TFile(path + theSample + ".root", "recreate");
   TString NameFout=path + theSample +".txt";
   ofstream Fout(NameFout);
+
+
+  // Histograms
+  //----------------------------------------------------------------------------
   
+  TH1D*   hGen_mll   = new TH1D("hGen_mll","hGen_mll",55,0,110);
   TH1D*   hInvDimu_Recon = new TH1D("hInvDimu_Recon","hInvDimu_Recon",55,0,110);
   TH1D*   hInvDimu_Gen   = new TH1D("hInvDimu_Gen","hInvDimu_Gen",55,0,110); 
+  TH1D*   hInvDimu_Gen_All=new TH1D("hInvDimu_Gen_All","hInvDimu_Gen_All",100,0,20); 
   TH1D*   hNmuons   = new TH1D("hNmuons","hNmuons",5,0,5); 
   TH1D*   hTriMuOrder   = new TH1D("hTriMuOrder","hTriMuOrder",5,0,10); 
   TH1D*   hMu1_pt   = new TH1D("hMu1_pt","hMu1_pt",5,0,50); 
   TH1D*   hMu2_pt   = new TH1D("hMu2_pt","hMu2_pt",5,0,50); 
   TH1D*   hMu3_pt   = new TH1D("hMu3_pt","hMu3_pt",5,0,50); 
   
-  // Histograms
-  //----------------------------------------------------------------------------
   //for (UInt_t i=0; i<nLevels; i++) {
   //	hPtLepton1      [i] = new TH1F("hPtLepton1"       + sLevel[i], "", 200, 0, 200);
   //	hPtLepton2      [i] = new TH1F("hPtLepton2"       + sLevel[i], "", 200, 0, 200);
@@ -157,8 +189,6 @@ void LatinosTreeScript(Float_t luminosity,
   //----------------------------------------------------------------------------
   TString filesPath;
   
-  //if (runAtOviedo) filesPath = "/afs/cern.ch/work/x/xjanssen/public/LatinoTrees/R53X_S1_V08_S2_V09_S3_V13/MoriondeffWPuWtriggW/MC_TightTight_DABCABC/";
-  //else             filesPath = "/afs/cern.ch/work/x/xjanssen/public/LatinoTrees/R53X_S1_V08_S2_V09_S3_V13/MoriondeffWPuWtriggW/MC_TightTight_DABCABC/";
   
   if (runAtLxplus) filesPath = "~/eos/user/j/jlauwers/HWW2015/";
   else             filesPath = "/u/user/sangilpark/RunIIData/cernboxHWW76X/";
@@ -251,8 +281,11 @@ void LatinosTreeScript(Float_t luminosity,
   	//tree->Add(filesPath + "latino_DYtt_19.5fb.root");
   }
   else if (theSample == "WgammaNoStar") {
+  	tree->Add("/u/user/salee/Latino/CMSSW763PostMori/src/LatinoTrees/AnalysisStep/myTest/latino_stepB_numEvent1000_gen.root");
+  	//tree->Add("/u/user/salee/Latino/CMSSW763PostMori/src/LatinoTrees/AnalysisStep/myTest/latino_stepB_numEvent1000.root");
+  	//tree->Add("/u/user/salee/Latino/CMSSW763PostMori/src/LatinoTrees/AnalysisStep/myTest/latino_stepB_WGToLNuG_numEvent1000_l2sel.root");
   	//tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MC__WgStarsel__hadd/" + "latino_Wg500.root");
-  	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MC__WgStarsel__hadd/" + "latino_Wg_AMCNLOFXFX.root");
+  	//tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MC__WgStarsel__hadd/" + "latino_Wg_AMCNLOFXFX.root");
   }
   else if (theSample == "WgammaStar") {
   }
@@ -275,10 +308,10 @@ void LatinosTreeScript(Float_t luminosity,
   	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_Zg.root");
   }
   else {
+        cout<<"Check theSample name, exiting......................."<<endl;
   	return;
   }
  
-  //cout<<"hahahahah"<<endl;
   //----------------------------------------------------------------------------
   // Input files End
   //----------------------------------------------------------------------------
@@ -288,21 +321,15 @@ void LatinosTreeScript(Float_t luminosity,
   //----------------------------------------------------------------------------
   tree->SetBranchAddress("baseW",        &baseW);
   tree->SetBranchAddress("puW",      &puW);
-
-  if(!theSample.Contains("Data"))
-  {
-//    tree->SetBranchAddress("GEN_weight_SM",      &GEN_weight_SM);
-  }
   tree->SetBranchAddress("channel",      &channel);
   //tree->SetBranchAddress("Gen_ZGstar_deltaR",      &Gen_ZGstar_deltaR);
-  //tree->SetBranchAddress("Gen_ZGstar_mass",        &Gen_ZGstar_mass);
+  tree->SetBranchAddress("Gen_ZGstar_mass",        &Gen_ZGstar_mass);
   //tree->SetBranchAddress("Gen_ZGstar_mu1_eta",     &Gen_ZGstar_mu1_eta);
   //tree->SetBranchAddress("Gen_ZGstar_mu1_phi",     &Gen_ZGstar_mu1_phi);
   //tree->SetBranchAddress("Gen_ZGstar_mu1_pt",      &Gen_ZGstar_mu1_pt);
   //tree->SetBranchAddress("Gen_ZGstar_mu2_eta",     &Gen_ZGstar_mu2_eta);
   //tree->SetBranchAddress("Gen_ZGstar_mu2_phi",     &Gen_ZGstar_mu2_phi);
   //tree->SetBranchAddress("Gen_ZGstar_mu2_pt",      &Gen_ZGstar_mu2_pt);
-
   tree->SetBranchAddress("std_vector_lepton_flavour", &std_vector_lepton_flavour);
   tree->SetBranchAddress("std_vector_lepton_pt", &std_vector_lepton_pt);
   tree->SetBranchAddress("std_vector_lepton_phi",&std_vector_lepton_phi);
@@ -314,38 +341,30 @@ void LatinosTreeScript(Float_t luminosity,
   tree->SetBranchAddress("std_vector_lepton_isMediumMuon",    &std_vector_lepton_isMediumMuon);
   tree->SetBranchAddress("std_vector_lepton_d0",    &std_vector_lepton_d0);
   tree->SetBranchAddress("std_vector_lepton_dz",    &std_vector_lepton_dz);
-  tree->SetBranchAddress("std_vector_lepton_isLooseLepton",    &std_vector_lepton_isLooseLepton);
-  tree->SetBranchAddress("std_vector_lepton_isTightLepton",    &std_vector_lepton_isTightLepton);
-  tree->SetBranchAddress("std_vector_lepton_isWgsLepton",    &std_vector_lepton_isWgsLepton);
-
   tree->SetBranchAddress("njet",         &njet);
   tree->SetBranchAddress("nbjettche",    &nbjettche);
   tree->SetBranchAddress("nbjet",        &nbjet);
   tree->SetBranchAddress("mpmet",        &mpmet);
-  tree->SetBranchAddress("mth",          &mth);
   tree->SetBranchAddress("metPfType1",          &metPfType1);
   //tree->SetBranchAddress("bveto_mu",        &bveto_mu);
   tree->SetBranchAddress("bveto_ip",        &bveto_ip);
-  
   if(theSample.Contains("WJetsFakes"))
     tree->SetBranchAddress("fakeW", &fakeW);
+
+  if( SelectedStudy== GenStudy){
+    tree->SetBranchAddress("gen_mll",          &gen_mll);
+  }else{
+    tree->SetBranchAddress("mth",          &mth);
+    tree->SetBranchAddress("std_vector_lepton_isLooseLepton",    &std_vector_lepton_isLooseLepton);
+    tree->SetBranchAddress("std_vector_lepton_isTightLepton",    &std_vector_lepton_isTightLepton);
+    tree->SetBranchAddress("std_vector_lepton_isWgsLepton",    &std_vector_lepton_isWgsLepton);
+  }
+
+  
   
   //if (!theSample.Contains("WJetsFakes") && !theSample.Contains("Data"))
   //	tree->SetBranchAddress("puW", &puW);
   
-  // Set the channel
-  //----------------------------------------------------------------------------
-  Float_t SelectedChannel = -999;
-  
-  if      (flavorChannel == "MuMu") SelectedChannel =  0;
-  else if (flavorChannel == "EE"  ) SelectedChannel =  1;
-  else if (flavorChannel == "EMu" ) SelectedChannel =  2;
-  else if (flavorChannel == "MuE" ) SelectedChannel =  3;
-  else if (flavorChannel == "All" ) SelectedChannel = -1;
-  else if (flavorChannel == "SSEMuPlus"  ) SelectedChannel =  2; //Channel is the same
-  else if (flavorChannel == "SSEMuMinus" ) SelectedChannel =  2;
-  else if (flavorChannel == "SSMuEPlus"  ) SelectedChannel =  3;
-  else if (flavorChannel == "SSMuEMinus" ) SelectedChannel =  3;
   
   
   //----------------------------------------------------------------------------
@@ -366,6 +385,9 @@ void LatinosTreeScript(Float_t luminosity,
   vMuon_isTightLepton_rec = new std::vector<int>;
   vMuon_isLooseLepton_rec = new std::vector<int>;
   vMuon_Flv_gen   = new std::vector<int>;
+  int iLept;
+  double lepton_pt, lepton_eta, lepton_phi, lepton_flv;
+  double lepton_isWgsLepton, lepton_isTightLepton, lepton_isLooseLepton;
   
   TLorentzVector muon4d;
   int MuonPtOrder;
@@ -383,7 +405,6 @@ void LatinosTreeScript(Float_t luminosity,
 
   for (int ievent=0; ievent<TotNtry; ievent++) {
     if(ievent%100000 ==0) cout<<"Processing "<<ievent<<"th event"<<endl; 
-    //if(ievent%1000 ==0) cout<<"Processing "<<ievent<<"th event"<<endl; 
 
     // initialize
     vMuon_4d_rec->clear();
@@ -403,9 +424,7 @@ void LatinosTreeScript(Float_t luminosity,
     //for(int iLept(0); iLept<std_vector_lepton_flavour->size();iLept++)
     //{
     //}
-    int iLept(0);
-    double lepton_pt, lepton_eta, lepton_phi, lepton_flv;
-    double lepton_isWgsLepton, lepton_isTightLepton, lepton_isLooseLepton;
+    iLept=0;
 
     // Weight Calc.
     //
@@ -437,9 +456,12 @@ void LatinosTreeScript(Float_t luminosity,
       lepton_pt   = (*std_vector_lepton_pt)[iLept];
       lepton_eta  = (*std_vector_lepton_eta)[iLept];
       lepton_phi  = (*std_vector_lepton_phi)[iLept];
-      lepton_isWgsLepton  = (*std_vector_lepton_isWgsLepton)[iLept];
-      lepton_isTightLepton  = (*std_vector_lepton_isTightLepton)[iLept];
-      lepton_isLooseLepton  = (*std_vector_lepton_isLooseLepton)[iLept];
+      if(TypeStudy == "Nominal")
+      {
+        lepton_isWgsLepton  = (*std_vector_lepton_isWgsLepton)[iLept];
+        lepton_isTightLepton  = (*std_vector_lepton_isTightLepton)[iLept];
+        lepton_isLooseLepton  = (*std_vector_lepton_isLooseLepton)[iLept];
+      }
       //cout<<iLept<<"\t"<<lepton_flv<<
       //  "\t"<<lepton_pt<<"\t"<<lepton_eta<<"\t"<<lepton_phi<<" isWgsLepton:"<<lepton_isWgsLepton<<" isTightLepton: "<<lepton_isTightLepton<<endl;
       if(fabs(lepton_flv) ==13)
@@ -447,18 +469,36 @@ void LatinosTreeScript(Float_t luminosity,
         muon4d.SetPtEtaPhiM(lepton_pt,lepton_eta,lepton_phi,M_Muon);
         vMuon_4d_rec->push_back(muon4d);
         vMuon_Flv_rec->push_back(lepton_flv);
-        vMuon_isWgsLepton_rec->push_back(lepton_isWgsLepton);
-        vMuon_isTightLepton_rec->push_back(lepton_isTightLepton);
-        vMuon_isLooseLepton_rec->push_back(lepton_isLooseLepton);
+	if(TypeStudy == "Nominal")
+	{
+          vMuon_isWgsLepton_rec->push_back(lepton_isWgsLepton);
+          vMuon_isTightLepton_rec->push_back(lepton_isTightLepton);
+          vMuon_isLooseLepton_rec->push_back(lepton_isLooseLepton);
+	}
       }
       iLept++;
 
     }
+
+
+    // Fill gen info
+    // -----------------------------------
+    if(!theSample.Contains("Data"))
+    {
+      hGen_mll->Fill(gen_mll);
+      hInvDimu_Gen_All->Fill(Gen_ZGstar_mass);
+      //cout<<"Gen_ZGstar_mass: "<<Gen_ZGstar_mass<<endl;
+    }
+
+
     int Nmuon = vMuon_4d_rec->size();
     hNmuons->Fill(Nmuon,totalW);
     if(Nmuon < 3)continue;
+
+    // Cuts
+    // --------------------------------------------
     //cout<<"Nmuon: "<<Nmuon<<endl;
-    bool MuonPtCut(false);
+    MuonPtCut=false;
     // b-jet cut
     //cout<<"nbjettche: "<<nbjettche<<"  bveto_ip: "<<bveto_ip<<" njet: "<<njet<<" mpmet: "<<mpmet<<" mth: "<<mth<<"  metPfType1: "<<metPfType1<<endl;
     if(nbjettche !=0 )continue;
@@ -538,6 +578,7 @@ void LatinosTreeScript(Float_t luminosity,
       hMu3_pt->Fill((*vMuon_4d_rec)[2].Pt(),totalW);
     }
 
+
     int diMuonCombi(-1);
     if( Nmuon >= 3 && MuonPtCut){
       //cout<<"WG* Sample!"<<endl;
@@ -604,7 +645,6 @@ void LatinosTreeScript(Float_t luminosity,
 	if(!theSample.Contains("Data"))hInvDimu_Gen->Fill(Gen_ZGstar_mass, totalW);
       //}
     }
-
 
   }
 

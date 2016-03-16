@@ -27,24 +27,26 @@ CHANNELS="MuMu"
 #TTbar              \
 #WZ3LNu                 \
 
-SAMPLES="          \
-DataRun2015     \
-ggWWto2L           \
-WWTo2L2Nu          \
-WZ                 \
-WZ3LNu         \
-WZ2Q                 \
-ZZ                 \
-TW                 \
-WgammaNoStar       \
-WJetsLNu  \
-DYtautau           \
-HWW125             \
-Zgamma             \
-"
 #SAMPLES="          \
+#DataRun2015     \
+#ggWWto2L           \
+#WWTo2L2Nu          \
+#WZ                 \
+#WZ3LNu         \
+#WZ2Q                 \
+#ZZ                 \
+#TW                 \
+#WgammaNoStar       \
+#WJetsLNu  \
+#DYtautau           \
+#HWW125             \
 #Zgamma             \
 #"
+
+
+SAMPLES="          \
+WgammaNoStar       \
+"
 
 #rm -rf rootfiles/${NJETS}jet
 
@@ -54,7 +56,9 @@ for CHANNEL in $CHANNELS; do
 
     for SAMPLE in $SAMPLES; do 
 	
-	root -l -b -q "LatinosTreeScript.C+($LUMINOSITY,$NJETS,\"$CHANNEL\",\"$SAMPLE\",\"true\",\"true\")"
+	#root -l -b -q "LatinosTreeScript.C+($LUMINOSITY,$NJETS,\"$CHANNEL\",\"$SAMPLE\",\"Nominal\",\"true\")"
+	root -l -b -q "LatinosTreeScript.C+($LUMINOSITY,$NJETS,\"$CHANNEL\",\"$SAMPLE\",\"GenStudy\",\"true\")"
+	#root -l -b -q "LatinosTreeScript.C+(luminosity, jetChannel, flavorChannel, theSample, TYPeSTUDY, verbose)"
 	#root -l -b -q "runLatinosTreeScript.C($LUMINOSITY,$NJETS,\"$CHANNEL\",\"$SAMPLE\")"
   
     done
