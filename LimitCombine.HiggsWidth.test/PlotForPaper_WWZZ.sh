@@ -83,16 +83,19 @@
 #           Observed.higgsCombineTest.MultiDimFit.2j.StandardModel-7TeV-8TeV.root \
 #           HiggsWidth/test/drawExpObs.cxx\(1,\"2j\ \ \ \"\)
 #mv cc.png   2j.7and8TeV.png
-rm Results_WWZZ/Asimov.results.txt
+#rm Results_WWZZ/Asimov.results.txt
+#
+#root -l -q BatchScripts_NoCustAsimov/higgsCombineNoCust_All.MultiDimFit.mH125.6.123456.root \
+#           drawExpObsWWZZ.cxx\(20\)
+#           #drawExpObsResult.cxx\(1,\"012j\ \ \"\)
+#mv cc.png   Results_WWZZ/Asimov.NoCustodial.png
+#mv cc.pdf   Results_WWZZ/Asimov.NoCustodial.pdf
+#mv results.txt Results_WWZZ/Asimov.resultsNoCustodial.txt 
 
-root -l -q BatchScripts_NoCustAsimov/higgsCombineNoCust_All.MultiDimFit.mH125.6.123456.root \
-           drawExpObsWWZZ.cxx\(20\)
-           #drawExpObsResult.cxx\(1,\"012j\ \ \"\)
-mv cc.png   Results_WWZZ/Asimov.NoCustodial.png
-mv cc.pdf   Results_WWZZ/Asimov.NoCustodial.pdf
-mv results.txt Results_WWZZ/Asimov.resultsNoCustodial.txt 
-
-
-
+# paper plot
+root -l -q Results_WWZZ/Observed.higgsCombineTest.MultiDimFit.ZZ.root \
+	drawExpObsWWandZZ.cxx
+mv hwidth_All_HiggsWidthLT_HWidthLT_WidthFloatMu.png Results_WWZZ/
+mv hwidth_All_HiggsWidthLT_HWidthLT_WidthFloatMu.pdf Results_WWZZ/
 
 
