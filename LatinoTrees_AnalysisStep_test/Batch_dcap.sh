@@ -31,10 +31,12 @@ do
   echo "cd ${CurrentDir}" >> batch_${SampleName}_${Index}.sh
   echo "sh ./test-run_Batch.sh ${Index} ${Nevent} ${line} " >> batch_${SampleName}_${Index}.sh
   chmod u+x batch_${SampleName}_${Index}.sh
-  #qsub -q cms batch_$SampleName_$Index.sh
-  #qsub -q cms -l walltime=672:00:00,cput=600:00:00 batch_$SampleName_$Index.sh
-  #qsub -q cms -l walltime=00:30:00,cput=00:30:00 batch_${SampleName}_${Index}.sh
-  qsub -q short batch_${SampleName}_${Index}.sh
+  
+  qsub -q short batch_${SampleName}_${Index}.sh # cputime limit : 30 min
+  #qsub -q cms batch_${SampleName}_${Index}.sh # cputime limit : 48 hour
+  #qsub -q long batch_${SampleName}_${Index}.sh # cputime limit : 600 hour
+
+
   Index="$(($Index+1))"
   #exit 0
   #sleep 3
