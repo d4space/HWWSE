@@ -11,10 +11,11 @@ rm -f $SampleName.txt
 for num in ${FileDirNum[@]};
 do
   FileDir="/pnfs/knu.ac.kr/data/cms/store/mc/RunIIFall15MiniAODv2/WGstarToLNuMuMu_012Jets_13TeV-madgraph/MINIAODSIM/PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/$num/"
-  srmls srm://cluster142.knu.ac.kr:8443/srm/managerv2?SFN=${FileDir}| grep root | awk '{print$2  " "}' |sed 's/\/pnfs\/knu.ac.kr\/data\/cms/    dcap:\/\/cluster142.knu.ac.kr\//' >> $SampleName.txt
+  srmls srm://cluster142.knu.ac.kr:8443/srm/managerv2?SFN=${FileDir}| grep root | awk '{print "dcap://cluster142.knu.ac.kr/" $2}' >> $SampleName.txt
 done
 
-Nevent=1000
+#Nevent=1000
+Nevent=10
 
 
 CurrentDir=$(pwd)
