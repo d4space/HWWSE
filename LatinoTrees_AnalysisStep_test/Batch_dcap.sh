@@ -15,7 +15,7 @@ do
 done
 
 #Nevent=1000
-Nevent=10
+Nevent=300
 
 
 CurrentDir=$(pwd)
@@ -34,6 +34,7 @@ do
   #qsub -q cms batch_$SampleName_$Index.sh
   #qsub -q cms -l walltime=672:00:00,cput=600:00:00 batch_$SampleName_$Index.sh
   #qsub -q cms -l walltime=00:30:00,cput=00:30:00 batch_${SampleName}_${Index}.sh
+  qsub -q short batch_${SampleName}_${Index}.sh
   Index="$(($Index+1))"
   #exit 0
   #sleep 3
