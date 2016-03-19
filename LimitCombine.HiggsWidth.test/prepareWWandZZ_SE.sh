@@ -113,6 +113,10 @@ echo ">>>> WW is2l2nu and mH scaled MHScaleWW in combination with HZZ"
 #                       hzz2l2v=/u/user/salee/Latino/datacards/HIG-14-002/hzz2l2nu/card_combined.dat \
 #                       >   hwidth_hww_hzz.txt
 # 
+#     combineCards.py    \
+#                       hzz4l=/u/user/salee/Latino/datacards/HIG-14-002/hzz4l/hzz4l_all.txt \
+#                       hzz2l2v=/u/user/salee/Latino/datacards/HIG-14-002/hzz2l2nu/card_combined.dat \
+#                       >   Results_WWZZ/hwidth_hzz.txt
 # 
 # /afs/cern.ch/user/a/amassiro/work/Latinos/Limit/CMSSW_6_1_1/src/LimitCombine
 # 
@@ -141,6 +145,7 @@ echo ">>>> WW is2l2nu and mH scaled MHScaleWW in combination with HZZ"
 #   >   hwidth_hzz4l_mycomb.txt
 #   
 #   
+#    text2workspace.py -m 125.6 Results_WWZZ/hwidth_hzz.txt          -P LimitCombine.HiggsWidth.HiggsWidthKappaCustodialMHSscaleWW:higgswidth               --PO=MHScaleWW  -o    Results_WWZZ/model_hzz.root
 #    text2workspace.py -m 125.6 hwidth_hzz4l_mycomb.txt          -P LimitCombine.HiggsWidth.HiggsWidthKappaCustodialMHSscaleWW:higgswidth               --PO=MHScaleWW  -o    model_hzz4l.root
 #    text2workspace.py -m 125.6 hwidth_hzz4l_mycomb.txt          -P LimitCombine.HiggsWidth.HiggsWidthKappaCustodialMHSscaleWWOriginal:higgswidth               --PO=MHScaleWW  -o    model_hzz4l.root
 #
@@ -157,6 +162,8 @@ echo ">>>> WW is2l2nu and mH scaled MHScaleWW in combination with HZZ"
 #    #     text2workspace.py -m 125.6 /afs/cern.ch/user/a/amassiro/work/Latinos/Limit/datacards/HIG-14-002/hzz2l2nu/card_combined.dat   -P LimitCombine.HiggsWidth.testB:higgswidth                               --PO=is2l2nu --PO=MHScaleWW  -o    model_hzz2l2v.root
 #    #     text2workspace.py -m 125.6 /afs/cern.ch/user/a/amassiro/work/Latinos/Limit/datacards/HIG-14-002/hzz2l2nu/card_incl.dat       -P LimitCombine.HiggsWidth.HiggsWidthKappaCustodialMHSscaleWW:higgswidth               --PO=MHScaleWW  -o    model_hzz2l2v.root
 #    text2workspace.py -m 125.6 hwidth_012jet_7TeV_8TeV.txt                                                                       -P LimitCombine.HiggsWidth.HiggsWidthKappaCustodialMHSscaleWW:higgswidth  --PO=is2l2nu --PO=MHScaleWW  -o    model_hwwlvlv.root
+
+
 ########## No Custodial
 #    text2workspace.py -m 125.6 Results_WWZZ/hwidth_hww_hzz.txt                                                                                -P LimitCombine.HiggsWidth.HiggsWidthKappaNoCustodialMHSscaleWW:higgswidth               --PO=MHScaleWW  -o    model_hww_hzz_NoCustodial.root
 #
@@ -177,14 +184,18 @@ echo ">>>> WW is2l2nu and mH scaled MHScaleWW in combination with HZZ"
 #    mv higgsCombineTest.MultiDimFit.mH125.6.123456.root      higgsCombineTest.MultiDimFit.hww.hzz.root
 
 #    combine   -M MultiDimFit Results_WWZZ/model_hww_hzz.root  --algo=grid --points 240  -m 125.6         --minimizerAlgo=Minuit2 --minimizerAlgoForMinos=Minuit2 --minimizerStrategy=1 --minimizerTolerance=0.009 --minimizerToleranceForMinos=0.01 --cminFallbackAlgo Minuit,0.001  --X-rtd FITTER_NEW_CROSSING_ALGO --X-rtd FITTER_NEVER_GIVE_UP --X-rtd FITTER_BOUND      --verbose -1
-#    mv higgsCombineTest.MultiDimFit.mH125.6.root      Observed.higgsCombineTest.MultiDimFit.WWZZ.root
+#    mv higgsCombineTest.MultiDimFit.mH125.6.root      Results_WWZZ/Observed.higgsCombineTest.MultiDimFit.WWZZ.root
+
+    combine   -M MultiDimFit Results_WWZZ/model_hzz.root  --algo=grid --points 240  -m 125.6         --minimizerAlgo=Minuit2 --minimizerAlgoForMinos=Minuit2 --minimizerStrategy=1 --minimizerTolerance=0.009 --minimizerToleranceForMinos=0.01 --cminFallbackAlgo Minuit,0.001  --X-rtd FITTER_NEW_CROSSING_ALGO --X-rtd FITTER_NEVER_GIVE_UP --X-rtd FITTER_BOUND      --verbose -1
+    mv higgsCombineTest.MultiDimFit.mH125.6.root      Results_WWZZ/Observed.higgsCombineTest.MultiDimFit.ZZ.root
 
 #   NoCustodial
+# -----------------------------------------------
 #    combine   -M MultiDimFit Results_WWZZ/model_hww_hzz_NoCustodial.root  --algo=grid --points 240  -m 125.6         --minimizerAlgo=Minuit2 --minimizerAlgoForMinos=Minuit2 --minimizerStrategy=1 --minimizerTolerance=0.009 --minimizerToleranceForMinos=0.01 --cminFallbackAlgo Minuit,0.001  --X-rtd FITTER_NEW_CROSSING_ALGO --X-rtd FITTER_NEVER_GIVE_UP --X-rtd FITTER_BOUND      --verbose -1
 #    mv higgsCombineTest.MultiDimFit.mH125.6.root      Observed.higgsCombineTest.MultiDimFit.WWZZ.NoCustodial.root
 
-    combine -M MultiDimFit Results_WWZZ/model_hww_hzz_NoCustodial.root  --algo=grid --points 120  -m 125.6   -t -1 --expectSignal=1 --saveToys  --setPhysicsModelParameterRanges CMS_zz4l_GGsm=0.000001,30          --verbose -1
-    mv higgsCombineTest.MultiDimFit.mH125.6.123456.root      Asimov.higgsCombineTest.MultiDimFit.WWZZ.NoCustodial.root
+#    combine -M MultiDimFit Results_WWZZ/model_hww_hzz_NoCustodial.root  --algo=grid --points 120  -m 125.6   -t -1 --expectSignal=1 --saveToys  --setPhysicsModelParameterRanges CMS_zz4l_GGsm=0.000001,30          --verbose -1
+#    mv higgsCombineTest.MultiDimFit.mH125.6.123456.root      Asimov.higgsCombineTest.MultiDimFit.WWZZ.NoCustodial.root
 #
 #    
 #    
