@@ -1,7 +1,7 @@
 echo "hadd for root files: "
 
 
-FILES="latino_stepB_*_numEvent1000.root"
+FILES="higgsCombineNoCust_*.MultiDimFit.mH125.6.123456.root"
 ToTalFiles=""
 
 for f in $FILES
@@ -13,5 +13,5 @@ done
 
 echo "Total files: $ToTalFiles"
 
-hadd latino_stepB_WZJet_n1000ForEachData.root $ToTalFiles
+hadd higgsCombineNoCust_All.MultiDimFit.mH125.6.123456.root $ToTalFiles
 
