@@ -27,14 +27,14 @@ fi
 if [ $# == 2 ]; then
   rm -rf latino_stepB_numEvent${EVENTS}.root
 else
-  rm -rf latino_stepB_numEvent.root
+  rm -rf latino_stepB.root
 fi
 
 #    globalTag=74X_mcRun2_asymptotic_v4\
 #    globalTag=74X_dataRun2_v5 \
 
 cmsRun stepB.py print         \
-    reportEvery=10                      \
+    reportEvery=100                      \
     summary=false                       \
     is50ns=False                        \
     isPromptRecoData=True               \

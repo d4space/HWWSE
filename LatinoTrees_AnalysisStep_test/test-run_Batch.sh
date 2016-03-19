@@ -1,25 +1,34 @@
-if [ $# -lt 2 ]; then
+if [ $# -lt 2 ] || [ $# -gt 3 ]; then
     echo "  "
-    echo "  ./test-run_Batch.sh index inputFile"
+    echo "  ./test-run_Batch.sh index [EVENTS] inputFile"
     echo "  "
     exit -1
 fi
 
-export Index=$1
-export MYFILE=file:$2
+if [ $# == 2 ]; then
+  export Index=$1
+  export EVENTS=-1
+  export MYFILE=$2
+elif [ $# == 3 ]; then
+  export Index=$1
+  export EVENTS=$2
+  export MYFILE=$3
+fi
 echo "file name is $MYFILE"
 
 #####
 ### MC example
 #####
 
-
-rm -rf latino_stepB_${Index}.root
-#rm -rf latino_stepB_${Index}_numEvent${EVENTS}.root
+if [ $# == 3 ]; then
+  rm -rf latino_stepB_${Index}_numEvent${EVENTS}.root
+else
+  rm -rf latino_stepB_${Index}.root
+fi
 
     #maxEvents=3000                      \
 cmsRun stepB.py print                   \
-    reportEvery=10                      \
+    reportEvery=500                      \
     summary=false                       \
     is50ns=False                        \
     isPromptRecoData=True               \
@@ -36,12 +45,18 @@ cmsRun stepB.py print                   \
     doFatJet=True                       \
     doLHE=True                          \
     doMCweights=True                    \
+    maxEvents=${EVENTS}                 \
     inputFiles=${MYFILE}
 #   LHEweightSource=externalLHEProducer \
                     
-python cmssw2latino.py stepB_${Index}.root
-#python cmssw2latino.py stepB_${Index}_numEvent3000.root
-
-#rm -rf stepB_${Index}.root
+if [ $# == 3 ]; then
+  rm -rf latino_stepB_${Index}_numEvent${EVENTS}.root
+  python cmssw2latino.py stepB_${Index}_numEvent${EVENTS}.root
+  rm -rf stepB_${Index}_numEvent${EVENTS}.root
+else
+  rm -rf latino_stepB_${Index}.root
+  python cmssw2latino.py stepB_${Index}.root
+  rm -rf stepB_${Index}.root
+fi
 
 
