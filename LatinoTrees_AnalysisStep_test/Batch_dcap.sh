@@ -1,16 +1,25 @@
 #! /bin/bash 
 
 ######### make batch file ########
-SampleName=WGstarToLNuMuMu
+#SampleName=WGstarToLNuMuMu
+SampleName=WGstarToLNuEE
 Index=0
-echo "Check Dir number first : uberftp cluster142.knu.ac.kr \"ls /pnfs/knu.ac.kr/data/cms/store/mc/RunIIFall15MiniAODv2/WGstarToLNuMuMu_012Jets_13TeV-madgraph/MINIAODSIM/PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/\" "
-FileDirNum=(00000 10000 40000 60000)
+if [$SampleName -eq "WGstarToLNuMuMu"]; then
+  echo Check Dir number first : uberftp cluster142.knu.ac.kr "ls /pnfs/knu.ac.kr/data/cms/store/mc/RunIIFall15MiniAODv2/WGstarToLNuMuMu_012Jets_13TeV-madgraph/MINIAODSIM/PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/" 
+else
+  echo Check Dir number first : uberftp cluster142.knu.ac.kr "ls /pnfs/knu.ac.kr/data/cms/store/mc/RunIIFall15MiniAODv2/WGstarToLNuEE_012Jets_13TeV-madgraph/MINIAODSIM/PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/" 
+fi
+
+#FileDirNum=(00000 10000 40000 60000) #Muon
+FileDirNum=(00000 10000 40000 60000 80000) #Ele
+
 
 rm -f $SampleName.txt
 
 for num in ${FileDirNum[@]};
 do
-  FileDir="/pnfs/knu.ac.kr/data/cms/store/mc/RunIIFall15MiniAODv2/WGstarToLNuMuMu_012Jets_13TeV-madgraph/MINIAODSIM/PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/$num/"
+  #FileDir="/pnfs/knu.ac.kr/data/cms/store/mc/RunIIFall15MiniAODv2/WGstarToLNuMuMu_012Jets_13TeV-madgraph/MINIAODSIM/PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/$num/"
+  FileDir="/pnfs/knu.ac.kr/data/cms/store/mc/RunIIFall15MiniAODv2/WGstarToLNuEE_012Jets_13TeV-madgraph/MINIAODSIM/PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/$num/"
   srmls srm://cluster142.knu.ac.kr:8443/srm/managerv2?SFN=${FileDir}| grep root | awk '{print "dcap://cluster142.knu.ac.kr/" $2}' >> $SampleName.txt
 done
 
