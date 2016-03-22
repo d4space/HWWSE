@@ -114,7 +114,7 @@ double M_Muon(0.105);
 //------------------------------------------------------------------------------
 // LatinosTreeScript
 //------------------------------------------------------------------------------
-void LatinosTreeScript_sangil(Float_t luminosity,
+void LatinosTreeScript_dcap(Float_t luminosity,
 		Int_t   jetChannel,
 		TString flavorChannel,
 		TString theSample,
@@ -162,7 +162,7 @@ void LatinosTreeScript_sangil(Float_t luminosity,
   // Histograms
   //----------------------------------------------------------------------------
   
-  TH1D*   hGen_mll   = new TH1D("hGen_mll","hGen_mll",55,0,210);
+  TH1D*   hGen_mll   = new TH1D("hGen_mll","hGen_mll",55,0,110);
   TH1D*   hInvDimu_Recon = new TH1D("hInvDimu_Recon","hInvDimu_Recon",55,0,110);
   TH1D*   hInvDimu_Gen   = new TH1D("hInvDimu_Gen","hInvDimu_Gen",55,0,110); 
   TH1D*   hInvDimu_Gen_All=new TH1D("hInvDimu_Gen_All","hInvDimu_Gen_All",100,0,20); 
