@@ -12,7 +12,7 @@ fi
 
 if [ $# -lt 1 ]; then
   echo "Usage : ./run_Gardener_batch.sh [InputDir]"
-  exit -1
+  exit 1
 fi
 
 num=0
