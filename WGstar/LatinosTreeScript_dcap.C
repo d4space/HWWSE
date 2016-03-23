@@ -196,21 +196,27 @@ void LatinosTreeScript_dcap(Float_t luminosity,
   //if (runAtOviedo) filesPath = "root://eoscms.cern.ch//eos/cms/store/user/yjcho/nTuple/";
   //else             filesPath = "root://eoscms.cern.ch//eos/cms/store/user/yjcho/nTuple/";
   TChain* tree = new TChain("latino", "latino");
-dcap://cluster142.knu.ac.kr//pnfs/knu.ac.kr/data/cms/store/user/spak
+  
   // l2sel
   if (theSample == "DataRun2015") {
-  	tree->Add(filesPath + "22Jan_Run2015C_16Dec2015/WgStarsel__hadd/" + "latino_Run2015C_16Dec2015_SingleMuon.root");
-  	tree->Add(filesPath + "22Jan_Run2015D_16Dec2015/WgStarsel__hadd/" + "latino_Run2015D_16Dec2015_SingleMuon.root");
+  	tree->Add("dcap://cluster142.knu.ac.kr//pnfs/knu.ac.kr/data/cms/store/user/spak/CernBox_Rebeca/03Mar_Run2015C_16Dec2015/WgStarsel__hadd/latino_Run2015C_16Dec2015_SingleMuon.root");
+  	tree->Add("dcap://cluster142.knu.ac.kr//pnfs/knu.ac.kr/data/cms/store/user/spak/CernBox_Rebeca/03Mar_Run2015D_16Dec2015/WgStarsel__hadd/latino_Run2015D_16Dec2015_SingleMuon.root");
+  	//tree->Add(filesPath + "22Jan_Run2015C_16Dec2015/WgStarsel__hadd/" + "latino_Run2015C_16Dec2015_SingleMuon.root");
+  	//tree->Add(filesPath + "22Jan_Run2015D_16Dec2015/WgStarsel__hadd/" + "latino_Run2015D_16Dec2015_SingleMuon.root");
   }else if (theSample == "DataRun2015_C") {
-    	TString fileName=filesPath + "22Jan_Run2015C_16Dec2015/WgStarsel__hadd/" + "latino_Run2015C_16Dec2015_SingleMuon.root";
-	cout<<"Input file : "<<fileName<<endl;
-  	tree->Add(filesPath + "22Jan_Run2015C_16Dec2015/WgStarsel__hadd/" + "latino_Run2015C_16Dec2015_SingleMuon.root");
+    	//TString fileName=filesPath + "22Jan_Run2015C_16Dec2015/WgStarsel__hadd/" + "latino_Run2015C_16Dec2015_SingleMuon.root";
+	//cout<<"Input file : "<<fileName<<endl;
+  	tree->Add("dcap://cluster142.knu.ac.kr//pnfs/knu.ac.kr/data/cms/store/user/spak/CernBox_Rebeca/03Mar_Run2015C_16Dec2015/WgStarsel__hadd/latino_Run2015C_16Dec2015_SingleMuon.root");
+  	//tree->Add("dcap://cluster142.knu.ac.kr//pnfs/knu.ac.kr/data/cms/store/user/spak/CernBox_Rebeca/03Mar_Run2015C_16Dec2015/WgStarsel__hadd/latino_Run2015C_16Dec2015_SingleElectron.root");
+  	//tree->Add(filesPath + "22Jan_Run2015C_16Dec2015/WgStarsel__hadd/" + "latino_Run2015C_16Dec2015_SingleMuon.root");
   	//tree->Add(filesPath + "22Jan_Run2015C_16Dec2015/WgStarsel__hadd/" + "latino_Run2015C_16Dec2015_SingleElectron.root");
   	//tree->Add(filesPath + "22Jan_Run2015C_16Dec2015/WgStarsel__hadd/" + "latino_Run2015C_16Dec2015_DoubleMuon.root");
   	//tree->Add(filesPath + "22Jan_Run2015C_16Dec2015/l2loose__hadd/" + "latino_Run2015C_16Dec2015_DoubleEG.root");
   	//tree->Add(filesPath + "22Jan_Run2015C_16Dec2015/l2loose__hadd/" + "latino_Run2015C_16Dec2015_MuonEG.root");
   }else if (theSample == "DataRun2015_D") {
-  	tree->Add(filesPath + "22Jan_Run2015D_16Dec2015/WgStarsel__hadd/" + "latino_Run2015D_16Dec2015_SingleMuon.root");
+  	tree->Add("dcap://cluster142.knu.ac.kr//pnfs/knu.ac.kr/data/cms/store/user/spak/CernBox_Rebeca/03Mar_Run2015D_16Dec2015/WgStarsel__hadd/latino_Run2015D_16Dec2015_SingleMuon.root");
+  	//tree->Add("dcap://cluster142.knu.ac.kr//pnfs/knu.ac.kr/data/cms/store/user/spak/CernBox_Rebeca/03Mar_Run2015D_16Dec2015/WgStarsel__hadd/latino_Run2015D_16Dec2015_SingleElectron.root");
+  	//tree->Add(filesPath + "22Jan_Run2015D_16Dec2015/WgStarsel__hadd/" + "latino_Run2015D_16Dec2015_SingleMuon.root");
   	//tree->Add(filesPath + "22Jan_Run2015D_16Dec2015/WgStarsel__hadd/" + "latino_Run2015D_16Dec2015_SingleElectron.root");
   	//tree->Add(filesPath + "22Jan_Run2015D_16Dec2015/WgStarsel__hadd/" + "latino_Run2015D_16Dec2015_DoubleMuon.root");
   	//tree->Add(filesPath + "22Jan_Run2015D_16Dec2015/l2loose__hadd/" + "latino_Run2015D_16Dec2015_DoubleEG.root");
@@ -288,7 +294,11 @@ dcap://cluster142.knu.ac.kr//pnfs/knu.ac.kr/data/cms/store/user/spak
   	//tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MC__WgStarsel__hadd/" + "latino_Wg500.root");
   	//tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MC__WgStarsel__hadd/" + "latino_Wg_AMCNLOFXFX.root");
   }
-  else if (theSample == "WgammaStar") {
+  else if (theSample == "WgammaStarToLNuMuMu") {
+  	tree->Add("/u/user/sangilpark/WorkDir/HWW_RunII/CMSSW_7_6_3/src/LatinoTrees/AnalysisStep/test/latinoNtuple_WgstarMu/latino_WgstarMu_hadd.root");
+  }
+  else if (theSample == "WgammaStarToLNuEE") {
+  	tree->Add("/u/user/sangilpark/WorkDir/HWW_RunII/CMSSW_7_6_3/src/LatinoTrees/AnalysisStep/test/latinoNtuple_WgstarEle/latino_WgstarEle_hadd.root");
   }
   else if (theSample == "HWW125") { 
   	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_GluGluHToWWTo2L2NuAMCNLO_M125.root");
