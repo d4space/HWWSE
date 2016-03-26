@@ -36,7 +36,7 @@ do
   echo "if [ -f /cvmfs/cms.cern.ch/cmsset_default.sh ]; then" >> Gardener_batch_$num.sh
   echo "  source /cvmfs/cms.cern.ch/cmsset_default.sh">> Gardener_batch_$num.sh
   echo "fi">> Gardener_batch_$num.sh
-  #echo "eosmount ~/eos">> Gardener_batch_$num.sh # in lxplus
+  echo "eosmount ~/eos">> Gardener_batch_$num.sh # in lxplus
 
   echo "cd $CMSSW_BASE/src" >> Gardener_batch_$num.sh
   echo "cmsenv" >> Gardener_batch_$num.sh
