@@ -23,7 +23,6 @@ fi
 #  exit 1
 #fi
 
-num=0
 InputDir=~/eos/cms/store/group/phys_higgs/cmshww/amassiro/RunII/22Jan/MC/25ns/LatinoTrees/	#input file location
 PostDir=~/eos_cernbox/user/s/spak/HWW2015/PostGardener	# output save location
 #PostDir=PostGardener
@@ -32,16 +31,14 @@ PWD=$(pwd)
 if [ ! -e $PostDir ]; then
   mkdir $PostDir
 fi
-#for file in `ls $InputDir/ | grep root`;
-for file in `ls $InputDir/ | grep latino_ZZTo4L__part`;
+for file in `ls $InputDir/ | grep root`;	# For all root files
+#for file in `ls $InputDir/ | grep latino_ZZTo4L__part`;	# specific sample
 do
   if [ -z $file ]; then
     echo "No files detected"
     exit 1
   else 
     echo "$file is going to be post-processed"
-    #echo "${file%%.root}"
-    #echo "${file#latino_}"
     tmpString=${file%%.root}
     SampleName=${tmpString#latino_}
     echo "$SampleName"
