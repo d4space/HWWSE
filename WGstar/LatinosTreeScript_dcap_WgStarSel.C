@@ -114,7 +114,7 @@ double M_Muon(0.105);
 //------------------------------------------------------------------------------
 // LatinosTreeScript
 //------------------------------------------------------------------------------
-void LatinosTreeScript_dcap(Float_t luminosity,
+void LatinosTreeScript_dcap_WgStarSel(Float_t luminosity,
 		Int_t   jetChannel,
 		TString flavorChannel,
 		TString theSample,
@@ -275,7 +275,7 @@ void LatinosTreeScript_dcap(Float_t luminosity,
   	//tree->Add(filesPath + "latino_DYtt_19.5fb.root");
   }
   else if (theSample == "WgammaNoStar") {
-  	tree->Add("/u/user/salee/Latino/CMSSW763PostMori/src/LatinoTrees/AnalysisStep/myTest/latino_stepB_numEvent1000_gen.root");
+  	//tree->Add("/u/user/salee/Latino/CMSSW763PostMori/src/LatinoTrees/AnalysisStep/myTest/latino_stepB_numEvent1000_gen.root");
   	//tree->Add("/u/user/salee/Latino/CMSSW763PostMori/src/LatinoTrees/AnalysisStep/myTest/latino_stepB_numEvent1000.root");
   	//tree->Add("/u/user/salee/Latino/CMSSW763PostMori/src/LatinoTrees/AnalysisStep/myTest/latino_stepB_WGToLNuG_numEvent1000_l2sel.root");
   	//tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MC__WgStarsel__hadd/" + "latino_Wg500.root");
