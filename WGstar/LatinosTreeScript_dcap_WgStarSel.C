@@ -221,8 +221,7 @@ void LatinosTreeScript_dcap_WgStarSel(Float_t luminosity,
   	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_WJetsToLNu_HT800_1200.root");
   	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_WJetsToLNu_HT1200_2500.root");
   	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_WJetsToLNu_HT2500_inf.root");
-
-  	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_WJetsToLNu_HT600_inf.root");
+  	//tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_WJetsToLNu_HT600_inf.root");
   }
   else if (theSample == "ggWWto2L") {
   	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_GluGluWWTo2L2Nu_MCFM.root");
@@ -248,7 +247,7 @@ void LatinosTreeScript_dcap_WgStarSel(Float_t luminosity,
   }
   else if (theSample == "TTbar") {
   	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_TTTo2L2Nu.root");
-  	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_TTWJetsToLNu.root");
+  	//tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_TTWJetsToLNu.root");
   }
   else if (theSample == "TW") {
   	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_ST_tW_antitop.root");
@@ -279,7 +278,7 @@ void LatinosTreeScript_dcap_WgStarSel(Float_t luminosity,
   	//tree->Add("/u/user/salee/Latino/CMSSW763PostMori/src/LatinoTrees/AnalysisStep/myTest/latino_stepB_numEvent1000.root");
   	//tree->Add("/u/user/salee/Latino/CMSSW763PostMori/src/LatinoTrees/AnalysisStep/myTest/latino_stepB_WGToLNuG_numEvent1000_l2sel.root");
   	//tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MC__WgStarsel__hadd/" + "latino_Wg500.root");
-  	//tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MC__WgStarsel__hadd/" + "latino_Wg_AMCNLOFXFX.root");
+  	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MC__WgStarsel__hadd/" + "latino_Wg_AMCNLOFXFX.root");
   }
   else if (theSample == "WgammaStarToLNuMuMu") {
   	tree->Add("/u/user/sangilpark/WorkDir/HWW_RunII/CMSSW_7_6_3/src/LatinoTrees/AnalysisStep/test/latinoNtuple_WgstarMu/latino_WgstarMu_hadd.root");
@@ -288,8 +287,8 @@ void LatinosTreeScript_dcap_WgStarSel(Float_t luminosity,
   	tree->Add("/u/user/sangilpark/WorkDir/HWW_RunII/CMSSW_7_6_3/src/LatinoTrees/AnalysisStep/test/latinoNtuple_WgstarEle/latino_WgstarEle_hadd.root");
   }
   else if (theSample == "HWW125") { 
-  	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_GluGluHToWWTo2L2NuPowheg_M125.root");
-  	//tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_GluGluHToWWTo2L2NuAMCNLO_M125.root");
+  	//tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_GluGluHToWWTo2L2NuPowheg_M125.root");
+  	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_GluGluHToWWTo2L2NuAMCNLO_M125.root");
   	//tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_GluGluHToWWTo2L2Nu_M125.root");
 	
 	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_GluGluHToTauTau_M125.root");
