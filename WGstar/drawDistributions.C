@@ -543,7 +543,7 @@ void DrawHistogram(TString  hname,
 
   //DrawTLatex(0.185, 0.975, 0.05, 13, channelLabel.Data(),"");
   DrawTLatex(0.940, 0.983, 0.05, 33, Form("L = %.1f fb^{-1}", _luminosity/1e3),"");
-  DrawTLatex(0.45, 0.48, 0.04, 13, Form("K factor (Data/Wg*) = %.2f #pm 0.32", Kfactor, KfactorErr ),"");
+  DrawTLatex(0.45, 0.48, 0.04, 13, Form("K factor (Data/Wg*) = %.2f #pm %.2f", Kfactor, KfactorErr+0.1 ),"");
   DrawTLatex(0.45, 0.43, 0.04, 13, Form("0< InvM(#mu^{+}#mu^{-}) <4 GeV"),"");
 
   //----------------------------------------------------------------------------
