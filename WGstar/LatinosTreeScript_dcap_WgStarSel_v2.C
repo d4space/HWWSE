@@ -114,7 +114,7 @@ double M_Muon(0.105);
 //------------------------------------------------------------------------------
 // LatinosTreeScript
 //------------------------------------------------------------------------------
-void LatinosTreeScript_dcap_WgStarSel(Float_t luminosity,
+void LatinosTreeScript_dcap_WgStarSel_v2(Float_t luminosity,
 		Int_t   jetChannel,
 		TString flavorChannel,
 		TString theSample,
@@ -234,7 +234,7 @@ void LatinosTreeScript_dcap_WgStarSel(Float_t luminosity,
   	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCl2loose__hadd/" + "latino_WZJets.root");
   }
   else if (theSample == "WZ2Q") {
-  	tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo2L2Q__part0.root");
+  	//tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo2L2Q__part0.root");
   }
   else if (theSample == "WZ3LNu") {
   	tree->Add("dcap://cluster142.knu.ac.kr//pnfs/knu.ac.kr/data/cms/store/user/spak/CernBox_Rebeca/22Jan_25ns_mAODv2_MC/MCl2loose__hadd__bSFL2pTEff__l2tight/latino_WZTo3LNu.root");
@@ -401,7 +401,8 @@ void LatinosTreeScript_dcap_WgStarSel(Float_t luminosity,
   //TotNtry=500;
   cout<<"Total number of event to process: "<<TotNtry<<endl;
 
-  for (int ievent=0; ievent<TotNtry; ievent++) {
+  //for (int ievent=0; ievent<TotNtry; ievent++) {
+  for (int ievent=0; ievent<10000; ievent++) {
     if(ievent%100000 ==0) cout<<"Processing "<<ievent<<"th event"<<endl; 
 
     // initialize
