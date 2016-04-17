@@ -617,12 +617,12 @@ void drawExpObsKvbf(  float maxX = 15.0) {
    leg->SetFillStyle(1001);
 
    TLegendEntry *entry=leg->AddEntry("NULL","H #rightarrow WW","h");
-   entry=leg->AddEntry("gr_Obs0","0-jet (observed)","l");
-   entry=leg->AddEntry("gr_Asi0","0-jet (expected)","l");
-   entry=leg->AddEntry("gr_Obs1","1-jet (observed)","l");
-   entry=leg->AddEntry("gr_Asi1","1-jet (expected)","l");
-   entry=leg->AddEntry("gr_Obs2","2-jet (observed)","l");
-   entry=leg->AddEntry("gr_Asi2","2-jet (expected)","l");
+   entry=leg->AddEntry(gr_Obs0,"0-jet (observed)","l");
+   entry=leg->AddEntry(gr_Asi0,"0-jet (expected)","l");
+   entry=leg->AddEntry(gr_Obs1,"1-jet (observed)","l");
+   entry=leg->AddEntry(gr_Asi1,"1-jet (expected)","l");
+   entry=leg->AddEntry(gr_Obs2,"2-jet (observed)","l");
+   entry=leg->AddEntry(gr_Asi2,"2-jet (expected)","l");
    entry=leg->AddEntry(gr_Obs012,"0 + 1 + 2 jet (observed)","l");
    entry=leg->AddEntry(gr_Asi012,"0 + 1 + 2 jet (expected)","l");
    leg->Draw();
