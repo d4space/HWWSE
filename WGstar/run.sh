@@ -27,6 +27,10 @@ CHANNELS="MuMu"
 #TTbar              \
 #WZ3LNu                 \
 
+SAMPLES="          \
+WgammaNoStar       \
+"
+
 #SAMPLES="          \
 #DataRun2015     \
 #ggWWto2L           \
@@ -44,9 +48,9 @@ CHANNELS="MuMu"
 #"
 
 
-SAMPLES="          \
-WgammaNoStar       \
-"
+#SAMPLES="          \
+#WgammaNoStar       \
+#"
 
 #rm -rf rootfiles/${NJETS}jet
 
