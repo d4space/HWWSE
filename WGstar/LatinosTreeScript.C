@@ -278,7 +278,8 @@ void LatinosTreeScript(Float_t luminosity,
   	//tree->Add("/u/user/salee/Latino/CMSSW763PostMori/src/LatinoTrees/AnalysisStep/myTest/latino_stepB_numEvent1000.root");
   	//tree->Add("/u/user/salee/Latino/CMSSW763PostMori/src/LatinoTrees/AnalysisStep/myTest/latino_stepB_WGToLNuG_numEvent1000_l2sel.root");
   	//tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MC__WgStarsel__hadd/" + "latino_Wg500.root");
-  	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MC__WgStarsel__hadd/" + "latino_Wg_AMCNLOFXFX.root");
+  	//tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MC__WgStarsel__hadd/" + "latino_Wg_AMCNLOFXFX.root");
+  	tree->Add("~/Latino/CMSSW763PostMori/src/LatinoTrees/AnalysisStep/test/latino_stepB_numEvent500.root");
   }
   else if (theSample == "WgammaStarToLNuMuMu") {
   	//tree->Add("/u/user/sangilpark/WorkDir/HWW_RunII/CMSSW_7_6_3/src/LatinoTrees/AnalysisStep/test/latinoNtuple_WgstarMu/latino_WgstarMu_hadd.root");
@@ -447,7 +448,7 @@ void LatinosTreeScript(Float_t luminosity,
     	totalW = baseW * puW* luminosity;
     	//totalW = baseW * puW* GEN_weight_SM/abs(GEN_weight_SM)* luminosity;
     }
-
+/******************
     while((*std_vector_lepton_flavour)[iLept] >-9999)
     {
       lepton_flv  = (*std_vector_lepton_flavour)[iLept];
@@ -477,7 +478,7 @@ void LatinosTreeScript(Float_t luminosity,
       iLept++;
 
     }
-
+*********************/
 
     // Fill gen info
     // -----------------------------------
@@ -488,7 +489,7 @@ void LatinosTreeScript(Float_t luminosity,
       //cout<<"Gen_ZGstar_mass: "<<Gen_ZGstar_mass<<endl;
     }
 
-
+/******************
     int Nmuon = vMuon_4d_rec->size();
     hNmuons->Fill(Nmuon,totalW);
     if(Nmuon < 3)continue;
@@ -643,7 +644,7 @@ void LatinosTreeScript(Float_t luminosity,
 	if(!theSample.Contains("Data"))hInvDimu_Gen->Fill(Gen_ZGstar_mass, totalW);
       //}
     }
-
+*****************/
   }
 
   // Save the histograms
