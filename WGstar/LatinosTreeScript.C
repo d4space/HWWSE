@@ -84,6 +84,9 @@ double M_Muon(0.105);
    Float_t Gen_ZGstar_mu2_eta;
    Float_t Gen_ZGstar_mu2_phi;
    Float_t Gen_ZGstar_mu2_pt;
+   Float_t   Gen_ZGstar_MomId;
+   Float_t   Gen_ZGstar_MomStatus;
+   Float_t   Gen_ZGstar_MomInitStatus;
 
    // B-jet
    Float_t njet;
@@ -323,6 +326,9 @@ void LatinosTreeScript(Float_t luminosity,
   tree->SetBranchAddress("channel",      &channel);
   //tree->SetBranchAddress("Gen_ZGstar_deltaR",      &Gen_ZGstar_deltaR);
   tree->SetBranchAddress("Gen_ZGstar_mass",        &Gen_ZGstar_mass);
+  tree->SetBranchAddress("Gen_ZGstar_MomId",       &Gen_ZGstar_MomId);
+  tree->SetBranchAddress("Gen_ZGstar_MomStatus",   &Gen_ZGstar_MomStatus);
+  tree->SetBranchAddress("Gen_ZGstar_MomInitStatus",&Gen_ZGstar_MomInitStatus);
   //tree->SetBranchAddress("Gen_ZGstar_mu1_eta",     &Gen_ZGstar_mu1_eta);
   //tree->SetBranchAddress("Gen_ZGstar_mu1_phi",     &Gen_ZGstar_mu1_phi);
   //tree->SetBranchAddress("Gen_ZGstar_mu1_pt",      &Gen_ZGstar_mu1_pt);
@@ -486,7 +492,12 @@ void LatinosTreeScript(Float_t luminosity,
     {
       hGen_mll->Fill(gen_mll);
       hInvDimu_Gen_All->Fill(Gen_ZGstar_mass);
-      //cout<<"Gen_ZGstar_mass: "<<Gen_ZGstar_mass<<endl;
+      if(Gen_ZGstar_mass > 0){
+        cout<<"Gen_ZGstar_mass: "<<Gen_ZGstar_mass<<endl;
+        cout<<"Gen_ZGstar_MomId: "<<Gen_ZGstar_MomId<<endl;
+        cout<<"Gen_ZGstar_MomStatus: "<<Gen_ZGstar_MomStatus<<endl;
+        cout<<"Gen_ZGstar_MomInitStatus: "<<Gen_ZGstar_MomInitStatus<<endl;
+      }
     }
 
 /******************
