@@ -27,25 +27,27 @@ CHANNELS="MuMu"
 #TTbar              \
 #WZ3LNu                 \
 
-SAMPLES="          \
-WgammaNoStar       \
-"
-
 #SAMPLES="          \
-#DataRun2015     \
-#ggWWto2L           \
-#WWTo2L2Nu          \
-#WZ                 \
-#WZ3LNu         \
-#WZ2Q                 \
-#ZZ                 \
-#TW                 \
 #WgammaNoStar       \
-#WJetsLNu  \
-#DYtautau           \
-#HWW125             \
-#Zgamma             \
 #"
+
+SAMPLES="          \
+DataRun2015     \
+ggWWto2L           \
+WWTo2L2Nu          \
+WZ                 \
+WZ3LNu         \
+WZ2Q                 \
+ZZ                 \
+TW                 \
+WgammaNoStar       \
+WgammaStarToLNuMuMu       \
+WgammaStarToLNuEE       \
+WJetsLNu  \
+DYtautau           \
+HWW125             \
+Zgamma             \
+"
 
 
 #SAMPLES="          \

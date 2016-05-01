@@ -8,10 +8,10 @@
 #include "TString.h"
 #include "draw/draw.h"
 
-const UInt_t nProcesses = 12;
+const UInt_t nProcesses = 14;
 
 //enum {iData, iWW, iWZ, iZZ, iWg, itt, itW, iWj, iDY, iDYtau, iZgamma, iH125};
-enum {iData, iWW, iH125, iDY, iDYtau, itt, itW, iWZ, iZZ, iWg, iZgamma, iWj};
+enum {iData, iWW, iH125, iDY, iDYtau, itt, itW, iWZ, iZZ, iWg,iWgSMu, iWgSEl, iZgamma, iWj};
 
 TFile* input[nProcesses];
 
@@ -128,6 +128,8 @@ void drawDistributions(Int_t    njet       = 0,
   //process[iWZ]     = "WZ";
   process[iZZ]     = "ZZ";
   process[iWg]     = "WgammaNoStar";
+  process[iWgSMu]  = "WgammaStarToLNuMuMu";
+  process[iWgSEl]  = "WgammaStarToLNuEE";
   process[iWj]     = "WJetsLNu";
   process[iDY]     = "DY";
   process[iDYtau]  = "DYtautau";
@@ -141,7 +143,9 @@ void drawDistributions(Int_t    njet       = 0,
   color[iWW]     = kAzure-9;
   color[iWZ]     = kAzure;
   color[iZZ]     = kBlack;
-  color[iWg]     = kAzure-2;
+  color[iWg]     = kViolet;
+  color[iWgSMu]  = kAzure-2;
+  color[iWgSEl]  = kPink;
   color[iWj]     = kGray+1;
   color[iDY]     = kGreen+3;
   color[iDYtau]  = kGreen-4;
@@ -170,8 +174,10 @@ void drawDistributions(Int_t    njet       = 0,
 
   // Read input files
   //----------------------------------------------------------------------------
-  TString path_MC   = Form("rootfiles_WgIso_mll_110_met25pt30103/%djet/%s/", _njet, _channel.Data());
-  TString path_Data = Form("rootfiles_WgIso_mll_110_met25pt30103/%djet/%s/", _njet, _channel.Data());
+  TString path_MC   = Form("rootfiles/%djet/%s/", _njet, _channel.Data());
+  TString path_Data = Form("rootfiles/%djet/%s/", _njet, _channel.Data());
+  //TString path_MC   = Form("rootfiles_WgIso_mll_110_met25pt30103/%djet/%s/", _njet, _channel.Data());
+  //TString path_Data = Form("rootfiles_WgIso_mll_110_met25pt30103/%djet/%s/", _njet, _channel.Data());
   //TString path_MC   = Form("rootfiles_LeptIDbyGstar_mll_110_met25pt30tight103/%djet/%s/", _njet, _channel.Data());
   //TString path_Data = Form("rootfiles_LeptIDbyGstar_mll_110_met25pt30tight103/%djet/%s/", _njet, _channel.Data());
   //TString path_MC   = Form("rootfiles_LeptIDbyGstar_mll_110_met25pt30103/%djet/%s/", _njet, _channel.Data());
@@ -296,6 +302,8 @@ void DrawHistogram(TString  hname,
   TH1F* WZ;
   TH1F* ZZ;
   TH1F* Wg;
+  TH1F* WgSMu;
+  TH1F* WgSEl;
   TH1F* Wjets;
   TH1F* Zjets;
   TH1F* DYtau;
@@ -318,6 +326,8 @@ void DrawHistogram(TString  hname,
     if(ip == iWZ)     WZ     = (TH1F*)hist[iWZ]->Clone("WZ");   //VV     -> Sumw2();
     if(ip == iZZ)     ZZ     = (TH1F*)hist[iZZ]->Clone("ZZ");         //ZZ     -> Sumw2();
     if(ip == iWg)     Wg     = (TH1F*)hist[iWg]->Clone("Wg");         //Wg     -> Sumw2();
+    if(ip == iWgSMu)  WgSMu  = (TH1F*)hist[iWgSMu]->Clone("WgSMu");         //WgSMu     -> Sumw2();
+    if(ip == iWgSEl)  WgSEl  = (TH1F*)hist[iWgSEl]->Clone("WgSEl");         //WgSel     -> Sumw2();
     if(ip == iWj)     Wjets  = (TH1F*)hist[iWj]->Clone("W+jets");     //Wjets  -> Sumw2();
     if(ip == iDY)     Zjets  = (TH1F*)hist[iDY]->Clone("Z+jets");     //Zjets  -> Sumw2();
     if(ip == iDYtau)  DYtau  = (TH1F*)hist[iDYtau]->Clone("DYtau");   //DYtau  -> Sumw2();
@@ -480,7 +490,9 @@ void DrawHistogram(TString  hname,
   //DrawLegend(x0 - 0.49, y0 - ndelta, allmc,        Form(" all (%.0f)",  Yield(allmc)),       "f",  0.03, 0.2, yoffset); ndelta += delta;
   DrawLegend(x0 - 0.49, y0 - ndelta, hist[iWW],    Form(" WW (%.0f)",   Yield(hist[iWW])),   "f",  0.03, 0.2, yoffset); ndelta += delta;
   DrawLegend(x0 - 0.49, y0 - ndelta, hist[iWZ],    Form(" WZ (%.0f)",   Yield(hist[iWZ])),  "f",  0.03, 0.2, yoffset); ndelta += delta;
-  DrawLegend(x0 - 0.49, y0 - ndelta, hist[iWg],    Form(" Wg* (%.0f)",    Yield(hist[iWg])),   "f",  0.03, 0.2, yoffset); ndelta += delta;
+  DrawLegend(x0 - 0.49, y0 - ndelta, hist[iWg],    Form(" Wg (%.0f)",    Yield(hist[iWg])),   "f",  0.03, 0.2, yoffset); ndelta += delta;
+  DrawLegend(x0 - 0.49, y0 - ndelta, hist[iWgSMu], Form(" Wg*Mu (%.0f)",    Yield(hist[iWgSMu])),   "f",  0.03, 0.2, yoffset); ndelta += delta;
+  DrawLegend(x0 - 0.49, y0 - ndelta, hist[iWgSEl], Form(" Wg*El (%.0f)",    Yield(hist[iWgSEl])),   "f",  0.03, 0.2, yoffset); ndelta += delta;
   DrawLegend(x0 - 0.49, y0 - ndelta, hist[iWj],    Form(" W+jets (%.0f)",Yield(hist[iWj])),   "f",  0.03, 0.2, yoffset); ndelta += delta;
   DrawLegend(x0 - 0.49, y0 - ndelta, hist[iZZ],    Form(" ZZ (%.0f)",    Yield(hist[iZZ])),   "f",  0.03, 0.2, yoffset); ndelta += delta;
 

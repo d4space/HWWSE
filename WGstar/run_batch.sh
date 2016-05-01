@@ -2,28 +2,28 @@
 LUMINOSITY=2.264 #16Dec2015 RECO of 2015C and 2015D datasets, available in 76x latinos
 NJETS=(0)
 CHANNELS="MuMu"
-SAMPLES="Zgamma"
+#SAMPLES="Zgamma"
 
-#SAMPLES="          \
-#DataRun2015     \
-#WJetsLNu  \
 #WJetsLNu_HT  \
-#ggWWto2L           \
-#WWTo2L2Nu          \
-#WZ                 \
-#WZ2Q                 \
-#WZ3LNu         \
-#ZZ                 \
-#TTbar                 \
-#TW                 \
-#DY           \
-#DYtautau           \
-#WgammaNoStar       \
-#HWW125             \
-#Zgamma             \
-#"
-#WgammaStarToLNuMuMu       \
-#WgammaStarToLNuEE       \
+SAMPLES="          \
+DataRun2015     \
+WJetsLNu  \
+ggWWto2L           \
+WWTo2L2Nu          \
+WZ                 \
+WZ2Q                 \
+WZ3LNu         \
+ZZ                 \
+TTbar                 \
+TW                 \
+DY           \
+DYtautau           \
+WgammaNoStar       \
+WgammaStarToLNuMuMu       \
+WgammaStarToLNuEE       \
+HWW125             \
+Zgamma             \
+"
 
 PWD=`pwd`
 
