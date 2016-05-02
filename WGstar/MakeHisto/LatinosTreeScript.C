@@ -114,6 +114,10 @@ double M_Muon(0.105);
    vector<float>   *std_vector_lepton_isTightLepton;
    vector<float>   *std_vector_lepton_isWgsLepton;
 
+   vector<float>   *std_vector_leptonGen_pt;
+   vector<float>   *std_vector_leptonGen_pid;
+   vector<float>   *std_vector_leptonGen_status;
+
 //------------------------------------------------------------------------------
 // LatinosTreeScript
 //------------------------------------------------------------------------------
@@ -165,11 +169,15 @@ void LatinosTreeScript(Float_t luminosity,
   // Histograms
   //----------------------------------------------------------------------------
   
+  TH1D*   hCutFlow  = new TH1D("hCutFlow","hCutFlow",20,0,20);
   TH1D*   hGen_mll   = new TH1D("hGen_mll","hGen_mll",55,0,110);
   TH1D*   hInvDimu_Recon = new TH1D("hInvDimu_Recon","hInvDimu_Recon",55,0,110);
   TH1D*   hInvDimu_Gen   = new TH1D("hInvDimu_Gen","hInvDimu_Gen",55,0,110); 
   TH1D*   hInvDimu_Gen_All=new TH1D("hInvDimu_Gen_All","hInvDimu_Gen_All",100,0,20); 
   TH1D*   hZGstar_Gen_InvDimu=new TH1D("hZGstar_Gen_InvDimu","hZGstar_Gen_InvDimu",100,0,20); 
+  TH1D*   hGen_mu1_pt=new TH1D("hGen_mu1_pt","hGen_mu1_pt",100,0,50); 
+  TH1D*   hGen_ZGstar_mu1_pt=new TH1D("hGen_ZGstar_mu1_pt","hGen_ZGstar_mu1_pt",100,0,50); 
+  TH1D*   hGen_ZGstar_mu2_pt=new TH1D("hGen_ZGstar_mu2_pt","hGen_ZGstar_mu2_pt",100,0,50); 
   TH1D*   hZGstar_Gen_MomId=new TH1D("hZGstar_Gen_MomId","hZGstar_Gen_MomId",100,0,100); 
   TH1D*   hZGstar_Gen_MomStatus=new TH1D("hZGstar_Gen_MomStatus","hZGstar_Gen_MomStatus",100,0,100); 
   TH1D*   hZGstar_Gen_MomInitStatus=new TH1D("hZGstar_Gen_MomInitStatus","hZGstar_Gen_MomInitStatus",100,0,100); 
@@ -342,18 +350,23 @@ void LatinosTreeScript(Float_t luminosity,
   tree->SetBranchAddress("channel",      &channel);
   //tree->SetBranchAddress("Gen_ZGstar_deltaR",      &Gen_ZGstar_deltaR);
 
-  if(theSample == "WgammaNoStar"){
   tree->SetBranchAddress("Gen_ZGstar_mass",        &Gen_ZGstar_mass);
+  if(theSample == "WgammaNoStar"){
   tree->SetBranchAddress("Gen_ZGstar_MomId",       &Gen_ZGstar_MomId);
   tree->SetBranchAddress("Gen_ZGstar_MomStatus",   &Gen_ZGstar_MomStatus);
   tree->SetBranchAddress("Gen_ZGstar_MomInitStatus",&Gen_ZGstar_MomInitStatus);
   }
-  //tree->SetBranchAddress("Gen_ZGstar_mu1_eta",     &Gen_ZGstar_mu1_eta);
-  //tree->SetBranchAddress("Gen_ZGstar_mu1_phi",     &Gen_ZGstar_mu1_phi);
-  //tree->SetBranchAddress("Gen_ZGstar_mu1_pt",      &Gen_ZGstar_mu1_pt);
-  //tree->SetBranchAddress("Gen_ZGstar_mu2_eta",     &Gen_ZGstar_mu2_eta);
-  //tree->SetBranchAddress("Gen_ZGstar_mu2_phi",     &Gen_ZGstar_mu2_phi);
-  //tree->SetBranchAddress("Gen_ZGstar_mu2_pt",      &Gen_ZGstar_mu2_pt);
+  if(!theSample.Contains("Data")){ 
+    tree->SetBranchAddress("Gen_ZGstar_mu1_eta",     &Gen_ZGstar_mu1_eta);
+    tree->SetBranchAddress("Gen_ZGstar_mu1_phi",     &Gen_ZGstar_mu1_phi);
+    tree->SetBranchAddress("Gen_ZGstar_mu1_pt",      &Gen_ZGstar_mu1_pt);
+    tree->SetBranchAddress("Gen_ZGstar_mu2_eta",     &Gen_ZGstar_mu2_eta);
+    tree->SetBranchAddress("Gen_ZGstar_mu2_phi",     &Gen_ZGstar_mu2_phi);
+    tree->SetBranchAddress("Gen_ZGstar_mu2_pt",      &Gen_ZGstar_mu2_pt);
+    tree->SetBranchAddress("std_vector_leptonGen_pt",&std_vector_leptonGen_pt);
+    tree->SetBranchAddress("std_vector_leptonGen_pid",&std_vector_leptonGen_pid);
+    tree->SetBranchAddress("std_vector_leptonGen_status",&std_vector_leptonGen_status);
+  }
   tree->SetBranchAddress("std_vector_lepton_flavour", &std_vector_lepton_flavour);
   tree->SetBranchAddress("std_vector_lepton_pt", &std_vector_lepton_pt);
   tree->SetBranchAddress("std_vector_lepton_phi",&std_vector_lepton_phi);
@@ -418,8 +431,8 @@ void LatinosTreeScript(Float_t luminosity,
 
   //Cuts=======================
   struct Cuts{
-    const double firstMu=30;
-    const double secndMu=10;
+    const double firstMu=20;
+    const double secndMu=5;
     const double thirdMu=3;
   }Cuts;
 
@@ -505,48 +518,69 @@ void LatinosTreeScript(Float_t luminosity,
     }
 
     // Fill gen info
-    // -----------------------------------
+    // --------------------------------
     if(!theSample.Contains("Data"))
     {
       hGen_mll->Fill(gen_mll);
       hInvDimu_Gen_All->Fill(Gen_ZGstar_mass);
-      if(theSample == "WgammaNoStar")if(Gen_ZGstar_mass > 0){
-	Nzgstar++;
-        //cout<<"Gen_ZGstar_mass: "<<Gen_ZGstar_mass<<endl;
-        //cout<<"Gen_ZGstar_MomId: "<<Gen_ZGstar_MomId<<endl;
-        //cout<<"Gen_ZGstar_MomStatus: "<<Gen_ZGstar_MomStatus<<endl;
-        //cout<<"Gen_ZGstar_MomInitStatus: "<<Gen_ZGstar_MomInitStatus<<endl;
-	hZGstar_Gen_InvDimu->Fill(Gen_ZGstar_mass);
-	hZGstar_Gen_MomId->Fill(Gen_ZGstar_MomId);
-	hZGstar_Gen_MomStatus->Fill(Gen_ZGstar_MomStatus);
-	hZGstar_Gen_MomInitStatus->Fill(Gen_ZGstar_MomInitStatus);
+      // g* case
+      if(Gen_ZGstar_mass > 0)
+      {
+	// g* decays to diMuon
+        if(Gen_ZGstar_mu1_pt > 0){
+	  // W->muon nu case
+	  if( abs( (*std_vector_leptonGen_pid)[0]) == 13){
+	    hGen_mu1_pt->Fill( (*std_vector_leptonGen_pt)[0], totalW);
+	    hGen_ZGstar_mu1_pt->Fill(Gen_ZGstar_mu1_pt,totalW);
+	    hGen_ZGstar_mu2_pt->Fill(Gen_ZGstar_mu2_pt,totalW);
+	    hZGstar_Gen_InvDimu->Fill(Gen_ZGstar_mass, totalW);
+	  }
+	}
+        if(theSample == "WgammaNoStar")if(Gen_ZGstar_mass > 0){
+  	  Nzgstar++;
+          //cout<<"Gen_ZGstar_mass: "<<Gen_ZGstar_mass<<endl;
+          //cout<<"Gen_ZGstar_MomId: "<<Gen_ZGstar_MomId<<endl;
+          //cout<<"Gen_ZGstar_MomStatus: "<<Gen_ZGstar_MomStatus<<endl;
+          //cout<<"Gen_ZGstar_MomInitStatus: "<<Gen_ZGstar_MomInitStatus<<endl;
+	  hZGstar_Gen_MomId->Fill(Gen_ZGstar_MomId);
+	  hZGstar_Gen_MomStatus->Fill(Gen_ZGstar_MomStatus);
+	  hZGstar_Gen_MomInitStatus->Fill(Gen_ZGstar_MomInitStatus);
+        }
       }
     }
 
     int Nmuon = vMuon_4d_rec->size();
     hNmuons->Fill(Nmuon,totalW);
-    if(Nmuon < 3)continue;
+
+    hCutFlow->Fill(0.,totalW);
 
     // Cuts
     // --------------------------------------------
+    if(Nmuon < 3)continue;
+    hCutFlow->Fill(1.,totalW);
+
     // Wg* veto for Wgamma sample
     if(theSample == "WgammaNoStar")
     {
       if(Gen_ZGstar_mass>0 && Gen_ZGstar_MomId == 22) continue;
     }
+    hCutFlow->Fill(2.,totalW);
 
     //cout<<"Nmuon: "<<Nmuon<<endl;
     MuonPtCut=false;
     // b-jet cut
     //cout<<"nbjettche: "<<nbjettche<<"  bveto_ip: "<<bveto_ip<<" njet: "<<njet<<" mpmet: "<<mpmet<<" mth: "<<mth<<"  metPfType1: "<<metPfType1<<endl;
-    if(nbjettche !=0 )continue;
+    //if(nbjettche !=0 )continue;
+    hCutFlow->Fill(3.,totalW);
     //if(bveto_mu !=1 )continue;
     //if(bveto_ip !=1 )continue;
     if(njet > 1 )continue;
+    hCutFlow->Fill(4.,totalW);
 
     // low mas resonance veto
     //if(mpmet < 20 )continue;
-    if(metPfType1 < 25 )continue;
+    if(metPfType1 < 20 )continue;
+    hCutFlow->Fill(5.,totalW);
     //if(mth < 25 )continue;
 
     if( (*vMuon_4d_rec)[0].Pt() >=(*vMuon_4d_rec)[1].Pt() )
@@ -619,6 +653,7 @@ void LatinosTreeScript(Float_t luminosity,
 
     int diMuonCombi(-1);
     if( Nmuon >= 3 && MuonPtCut){
+    hCutFlow->Fill(6.,totalW);
       //cout<<"WG* Sample!"<<endl;
       double mMini_mumu(1000000000.);
       if( (*vMuon_Flv_rec)[0] * (*vMuon_Flv_rec)[1] < 0)
