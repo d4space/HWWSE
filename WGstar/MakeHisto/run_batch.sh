@@ -38,7 +38,7 @@ for CHANNEL in $CHANNELS; do
   for SAMPLE in $SAMPLES; do
     for NJET in ${NJETS[@]}; do
       echo "#!/bin/sh" >& run_${CHANNEL}_${SAMPLE}_${NJET}jet.sh
-      #echo "export SCRAM_ARCH=slc6_amd64_gcc493" >> run_${CHANNEL}_${SAMPLE}_${NJET}jet.sh
+      echo "export SCRAM_ARCH=slc6_amd64_gcc493" >> run_${CHANNEL}_${SAMPLE}_${NJET}jet.sh
       #echo "if [ -f /cvmfs/cms.cern.ch/cmsset_default.sh ]; then" >> run_${CHANNEL}_${SAMPLE}_${NJET}jet.sh
       echo "  source /cvmfs/cms.cern.ch/cmsset_default.sh" >> run_${CHANNEL}_${SAMPLE}_${NJET}jet.sh
       #echo "fi" >> run_${CHANNEL}_${SAMPLE}_${NJET}jet.sh
