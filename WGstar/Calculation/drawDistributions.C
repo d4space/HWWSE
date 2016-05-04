@@ -174,8 +174,8 @@ void drawDistributions(Int_t    njet       = 0,
 
   // Read input files
   //----------------------------------------------------------------------------
-  TString path_MC   = Form("rootfiles/%djet/%s/", _njet, _channel.Data());
-  TString path_Data = Form("rootfiles/%djet/%s/", _njet, _channel.Data());
+  TString path_MC   = Form("../MakeHisto/rootfiles/%djet/%s/", _njet, _channel.Data());
+  TString path_Data = Form("../MakeHisto/rootfiles/%djet/%s/", _njet, _channel.Data());
   //TString path_MC   = Form("rootfiles_WgIso_mll_110_met25pt30103/%djet/%s/", _njet, _channel.Data());
   //TString path_Data = Form("rootfiles_WgIso_mll_110_met25pt30103/%djet/%s/", _njet, _channel.Data());
   //TString path_MC   = Form("rootfiles_LeptIDbyGstar_mll_110_met25pt30tight103/%djet/%s/", _njet, _channel.Data());
@@ -326,8 +326,14 @@ void DrawHistogram(TString  hname,
     if(ip == iWZ)     WZ     = (TH1F*)hist[iWZ]->Clone("WZ");   //VV     -> Sumw2();
     if(ip == iZZ)     ZZ     = (TH1F*)hist[iZZ]->Clone("ZZ");         //ZZ     -> Sumw2();
     if(ip == iWg)     Wg     = (TH1F*)hist[iWg]->Clone("Wg");         //Wg     -> Sumw2();
-    if(ip == iWgSMu)  WgSMu  = (TH1F*)hist[iWgSMu]->Clone("WgSMu");         //WgSMu     -> Sumw2();
-    if(ip == iWgSEl)  WgSEl  = (TH1F*)hist[iWgSEl]->Clone("WgSEl");         //WgSel     -> Sumw2();
+    if(ip == iWgSMu){
+      WgSMu  = (TH1F*)hist[iWgSMu]->Clone("WgSMu");         //WgSMu     -> Sumw2();
+      hist[iWgSMu]->Scale(3);
+    }
+    if(ip == iWgSEl){
+      WgSEl  = (TH1F*)hist[iWgSEl]->Clone("WgSEl");         //WgSel     -> Sumw2();
+      hist[iWgSEl]->Scale(3);         //WgSel     -> Sumw2();
+    }
     if(ip == iWj)     Wjets  = (TH1F*)hist[iWj]->Clone("W+jets");     //Wjets  -> Sumw2();
     if(ip == iDY)     Zjets  = (TH1F*)hist[iDY]->Clone("Z+jets");     //Zjets  -> Sumw2();
     if(ip == iDYtau)  DYtau  = (TH1F*)hist[iDYtau]->Clone("DYtau");   //DYtau  -> Sumw2();
