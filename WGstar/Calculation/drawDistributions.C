@@ -328,11 +328,11 @@ void DrawHistogram(TString  hname,
     if(ip == iWg)     Wg     = (TH1F*)hist[iWg]->Clone("Wg");         //Wg     -> Sumw2();
     if(ip == iWgSMu){
       WgSMu  = (TH1F*)hist[iWgSMu]->Clone("WgSMu");         //WgSMu     -> Sumw2();
-      hist[iWgSMu]->Scale(3);
+      hist[iWgSMu]->Scale(1.5);
     }
     if(ip == iWgSEl){
       WgSEl  = (TH1F*)hist[iWgSEl]->Clone("WgSEl");         //WgSel     -> Sumw2();
-      hist[iWgSEl]->Scale(3);         //WgSel     -> Sumw2();
+      hist[iWgSEl]->Scale(1.5);         //WgSel     -> Sumw2();
     }
     if(ip == iWj)     Wjets  = (TH1F*)hist[iWj]->Clone("W+jets");     //Wjets  -> Sumw2();
     if(ip == iDY)     Zjets  = (TH1F*)hist[iDY]->Clone("Z+jets");     //Zjets  -> Sumw2();
@@ -549,19 +549,24 @@ void DrawHistogram(TString  hname,
   double effiCorr;
   effiCorr=nDataZ/nMcZ;
   cout<<"efficiency correction factor: "<<effiCorr<<endl;
-  double nMcGstar, nDataGstar;
-  nMcGstar   = allmc->Integral(1,2);
+  double nMcGstar, nDataGstar, nMcGamma;
+  nMcGstar   = hist[iWgSMu]->Integral(1,2);
+  nMcGamma   = hist[iWg]->Integral(1,2);
+  //nMcGstar   = allmc->Integral(1,2);
   nMcGstar *= effiCorr;
+  nMcGamma *= effiCorr;
   nDataGstar = hist[iData]->Integral(1,2);
   double Kfactor;
   double KfactorErr;
+  nDataGstar -= nMcGamma;
   Kfactor = nDataGstar/nMcGstar;
   KfactorErr =Kfactor* TMath::Sqrt(nDataGstar/nDataGstar/nDataGstar + nMcGstar/nMcGstar/nMcGstar);
+  KfactorErr += 0.1;
   cout<<"Kfactor: "<<Kfactor<<"+"<<KfactorErr<<endl;
 
   //DrawTLatex(0.185, 0.975, 0.05, 13, channelLabel.Data(),"");
   DrawTLatex(0.940, 0.983, 0.05, 33, Form("L = %.1f fb^{-1}", _luminosity/1e3),"");
-  DrawTLatex(0.45, 0.48, 0.04, 13, Form("K factor (Data/Wg*) = %.2f #pm %.2f", Kfactor, KfactorErr+0.1 ),"");
+  DrawTLatex(0.45, 0.48, 0.04, 13, Form("K factor (Data/Wg*) = %.2f #pm %.2f", Kfactor, KfactorErr ),"");
   DrawTLatex(0.45, 0.43, 0.04, 13, Form("0< InvM(#mu^{+}#mu^{-}) <4 GeV"),"");
 
   //----------------------------------------------------------------------------

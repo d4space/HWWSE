@@ -172,9 +172,10 @@ void LatinosTreeScript(Float_t luminosity,
   TH1D*   hCutFlow  = new TH1D("hCutFlow","hCutFlow",20,0,20);
   TH1D*   hGen_mll   = new TH1D("hGen_mll","hGen_mll",55,0,110);
   TH1D*   hInvDimu_Recon = new TH1D("hInvDimu_Recon","hInvDimu_Recon",55,0,110);
-  TH1D*   hInvDimu_Gen   = new TH1D("hInvDimu_Gen","hInvDimu_Gen",55,0,110); 
+  TH1D*   hInvDimu_Recon_SmallWindow = new TH1D("hInvDimu_Recon_SmallWindow","hInvDimu_Recon_SmallWindow",24,0,12);
+  TH1D*   hInvDimu_Gen   = new TH1D("hInvDimu_Gen","hInvDimu_Gen",100,0,20); 
   TH1D*   hInvDimu_Gen_All=new TH1D("hInvDimu_Gen_All","hInvDimu_Gen_All",100,0,20); 
-  TH1D*   hZGstar_Gen_InvDimu=new TH1D("hZGstar_Gen_InvDimu","hZGstar_Gen_InvDimu",100,0,20); 
+  TH1D*   hZGstar_Gen_InvDimu=new TH1D("hZGstar_Gen_InvDimu","hZGstar_Gen_InvDimu",50,0,10); 
   TH1D*   hGen_mu1_pt=new TH1D("hGen_mu1_pt","hGen_mu1_pt",100,0,50); 
   TH1D*   hGen_ZGstar_mu1_pt=new TH1D("hGen_ZGstar_mu1_pt","hGen_ZGstar_mu1_pt",100,0,50); 
   TH1D*   hGen_ZGstar_mu2_pt=new TH1D("hGen_ZGstar_mu2_pt","hGen_ZGstar_mu2_pt",100,0,50); 
@@ -182,6 +183,7 @@ void LatinosTreeScript(Float_t luminosity,
   TH1D*   hZGstar_Gen_MomStatus=new TH1D("hZGstar_Gen_MomStatus","hZGstar_Gen_MomStatus",100,0,100); 
   TH1D*   hZGstar_Gen_MomInitStatus=new TH1D("hZGstar_Gen_MomInitStatus","hZGstar_Gen_MomInitStatus",100,0,100); 
   TH1D*   hNmuons   = new TH1D("hNmuons","hNmuons",5,0,5); 
+  TH1D*   hRecNmuons_forGenDiMu   = new TH1D("hRecNmuons_forGenDiMu","hRecNmuons_forGenDiMu",5,0,5); 
   TH1D*   hTriMuOrder   = new TH1D("hTriMuOrder","hTriMuOrder",5,0,10); 
   TH1D*   hMu1_pt   = new TH1D("hMu1_pt","hMu1_pt",5,0,50); 
   TH1D*   hMu2_pt   = new TH1D("hMu2_pt","hMu2_pt",5,0,50); 
@@ -422,18 +424,36 @@ void LatinosTreeScript(Float_t luminosity,
   vMuon_isTightLepton_rec = new std::vector<int>;
   vMuon_isLooseLepton_rec = new std::vector<int>;
   vMuon_Flv_gen   = new std::vector<int>;
-  int iLept;
+
+  std::vector<TLorentzVector> *vElec_4d_rec;
+  std::vector<TLorentzVector> *vElec_4d_gen;
+  std::vector<int> *vElec_Flv_rec;
+  std::vector<int> *vElec_isWgsLepton_rec;
+  std::vector<int> *vElec_isTightLepton_rec;
+  std::vector<int> *vElec_isLooseLepton_rec;
+  std::vector<int> *vElec_Flv_gen;
+
+  vElec_4d_rec  = new std::vector<TLorentzVector>;
+  vElec_4d_gen  = new std::vector<TLorentzVector>;
+  vElec_Flv_rec = new std::vector<int>;
+  vElec_isWgsLepton_rec = new std::vector<int>;
+  vElec_isTightLepton_rec = new std::vector<int>;
+  vElec_isLooseLepton_rec = new std::vector<int>;
+  vElec_Flv_gen   = new std::vector<int>;
+
+  int iLept, Nmuon;
   double lepton_pt, lepton_eta, lepton_phi, lepton_flv;
   double lepton_isWgsLepton, lepton_isTightLepton, lepton_isLooseLepton;
   
   TLorentzVector muon4d;
+  TLorentzVector electron4d;
   int MuonPtOrder;
 
   //Cuts=======================
   struct Cuts{
-    const double firstMu=20;
-    const double secndMu=5;
-    const double thirdMu=3;
+    const double firstMu=30;
+    const double secndMu=7;
+    const double thirdMu=5;
   }Cuts;
 
   int TotNtry=tree->GetEntries();
@@ -453,6 +473,16 @@ void LatinosTreeScript(Float_t luminosity,
     vMuon_isLooseLepton_rec->clear();
     vMuon_Flv_gen->clear();
 
+    vElec_4d_rec->clear();
+    vElec_4d_gen->clear();
+    vElec_Flv_rec->clear();
+    vElec_isWgsLepton_rec->clear();
+    vElec_isTightLepton_rec->clear();
+    vElec_isLooseLepton_rec->clear();
+    vElec_Flv_gen->clear();
+
+    iLept=0;
+    Nmuon=0;
     MuonPtOrder=0;
     //vMuon_4d_rec=0;
     // dump variable
@@ -462,7 +492,6 @@ void LatinosTreeScript(Float_t luminosity,
     //for(int iLept(0); iLept<std_vector_lepton_flavour->size();iLept++)
     //{
     //}
-    iLept=0;
 
     // Weight Calc.
     //
@@ -513,9 +542,23 @@ void LatinosTreeScript(Float_t luminosity,
           vMuon_isLooseLepton_rec->push_back(lepton_isLooseLepton);
 	}
       }
+      if(fabs(lepton_flv) ==11)
+      {
+        electron4d.SetPtEtaPhiM(lepton_pt,lepton_eta,lepton_phi,M_Muon);
+        vElec_4d_rec->push_back(electron4d);
+        vElec_Flv_rec->push_back(lepton_flv);
+	if(TypeStudy == "Nominal")
+	{
+          vElec_isWgsLepton_rec->push_back(lepton_isWgsLepton);
+          vElec_isTightLepton_rec->push_back(lepton_isTightLepton);
+          vElec_isLooseLepton_rec->push_back(lepton_isLooseLepton);
+	}
+      }
       iLept++;
 
     }
+
+    Nmuon = vMuon_4d_rec->size();
 
     // Fill gen info
     // --------------------------------
@@ -529,12 +572,16 @@ void LatinosTreeScript(Float_t luminosity,
 	// g* decays to diMuon
         if(Gen_ZGstar_mu1_pt > 0){
 	  // W->muon nu case
-	  if( abs( (*std_vector_leptonGen_pid)[0]) == 13){
+	  //if( abs( (*std_vector_leptonGen_pid)[0] ) == 13){
 	    hGen_mu1_pt->Fill( (*std_vector_leptonGen_pt)[0], totalW);
 	    hGen_ZGstar_mu1_pt->Fill(Gen_ZGstar_mu1_pt,totalW);
 	    hGen_ZGstar_mu2_pt->Fill(Gen_ZGstar_mu2_pt,totalW);
-	    hZGstar_Gen_InvDimu->Fill(Gen_ZGstar_mass, totalW);
-	  }
+	    //if((*std_vector_leptonGen_pt)[0] > 10 && Gen_ZGstar_mu1_pt > 5 && Gen_ZGstar_mu2_pt >5)
+	    if(Gen_ZGstar_mu1_pt > 5 && Gen_ZGstar_mu2_pt >5){
+	      hZGstar_Gen_InvDimu->Fill(Gen_ZGstar_mass, totalW);
+              hRecNmuons_forGenDiMu->Fill(Nmuon,totalW);
+	    }
+	  //}
 	}
         if(theSample == "WgammaNoStar")if(Gen_ZGstar_mass > 0){
   	  Nzgstar++;
@@ -549,10 +596,7 @@ void LatinosTreeScript(Float_t luminosity,
       }
     }
 
-    int Nmuon = vMuon_4d_rec->size();
     hNmuons->Fill(Nmuon,totalW);
-
-    hCutFlow->Fill(0.,totalW);
 
     // Cuts
     // --------------------------------------------
@@ -577,9 +621,8 @@ void LatinosTreeScript(Float_t luminosity,
     if(njet > 1 )continue;
     hCutFlow->Fill(4.,totalW);
 
-    // low mas resonance veto
     //if(mpmet < 20 )continue;
-    if(metPfType1 < 20 )continue;
+    if(metPfType1 < 25 )continue;
     hCutFlow->Fill(5.,totalW);
     //if(mth < 25 )continue;
 
@@ -689,21 +732,21 @@ void LatinosTreeScript(Float_t luminosity,
       {
 	case 0:
 	  {
-	    if( ((*vMuon_isWgsLepton_rec)[2] != 1) ) continue;
+	    if( ((*vMuon_isTightLepton_rec)[2] != 1) ) continue;
             if( ((*vMuon_isWgsLepton_rec)[0] != 1) ) continue;
             if( ((*vMuon_isWgsLepton_rec)[1] != 1) ) continue;
 	    break;
 	  }
 	case 1:
 	  {
-	    if( ((*vMuon_isWgsLepton_rec)[1] != 1) ) continue;
+	    if( ((*vMuon_isTightLepton_rec)[1] != 1) ) continue;
             if( ((*vMuon_isWgsLepton_rec)[0] != 1) ) continue;
             if( ((*vMuon_isWgsLepton_rec)[2] != 1) ) continue;
 	    break;
 	  }
 	case 2:
 	  {
-	    if( ((*vMuon_isWgsLepton_rec)[0] != 1) ) continue;
+	    if( ((*vMuon_isTightLepton_rec)[0] != 1) ) continue;
             if( ((*vMuon_isWgsLepton_rec)[1] != 1) ) continue;
             if( ((*vMuon_isWgsLepton_rec)[2] != 1) ) continue;
 	    break;
@@ -715,6 +758,7 @@ void LatinosTreeScript(Float_t luminosity,
       //if(mMini_mumu < 15)
       //{
 	hInvDimu_Recon->Fill(mMini_mumu, totalW);
+	hInvDimu_Recon_SmallWindow->Fill(mMini_mumu, totalW);
 	if(!theSample.Contains("Data"))hInvDimu_Gen->Fill(Gen_ZGstar_mass, totalW);
       //}
     }
