@@ -38,16 +38,17 @@ for CHANNEL in $CHANNELS; do
   for SAMPLE in $SAMPLES; do
     for NJET in ${NJETS[@]}; do
       echo "#!/bin/sh" >& run_${CHANNEL}_${SAMPLE}_${NJET}jet.sh
-      echo "export SCRAM_ARCH=slc6_amd64_gcc493" >> run_${CHANNEL}_${SAMPLE}_${NJET}jet.sh
-      echo "if [ -f /cvmfs/cms.cern.ch/cmsset_default.sh ]; then" >> run_${CHANNEL}_${SAMPLE}_${NJET}jet.sh
+      #echo "export SCRAM_ARCH=slc6_amd64_gcc493" >> run_${CHANNEL}_${SAMPLE}_${NJET}jet.sh
+      #echo "if [ -f /cvmfs/cms.cern.ch/cmsset_default.sh ]; then" >> run_${CHANNEL}_${SAMPLE}_${NJET}jet.sh
       echo "  source /cvmfs/cms.cern.ch/cmsset_default.sh" >> run_${CHANNEL}_${SAMPLE}_${NJET}jet.sh
-      echo "fi" >> run_${CHANNEL}_${SAMPLE}_${NJET}jet.sh
+      #echo "fi" >> run_${CHANNEL}_${SAMPLE}_${NJET}jet.sh
       echo "cd $PWD" >> run_${CHANNEL}_${SAMPLE}_${NJET}jet.sh
       echo "cmsenv" >> run_${CHANNEL}_${SAMPLE}_${NJET}jet.sh
       #echo "root -l -b -q LatinosTreeScript.C\+\($LUMINOSITY,$NJET,\\\"$CHANNEL\\\",\\\"$SAMPLE\\\",\\\"GenStudy\\\",\\\"true\\\"\)" >> run_${CHANNEL}_${SAMPLE}_${NJET}jet.sh
       echo "root -l -b -q LatinosTreeScript.C\+\($LUMINOSITY,$NJET,\\\"$CHANNEL\\\",\\\"$SAMPLE\\\",\\\"Nominal\\\",\\\"true\\\"\)" >> run_${CHANNEL}_${SAMPLE}_${NJET}jet.sh
       chmod u+x run_${CHANNEL}_${SAMPLE}_${NJET}jet.sh
-      qsub -q short run_${CHANNEL}_${SAMPLE}_${NJET}jet.sh
+      #qsub -q short run_${CHANNEL}_${SAMPLE}_${NJET}jet.sh
+      qsub -q cms run_${CHANNEL}_${SAMPLE}_${NJET}jet.sh
 
     done
   done
