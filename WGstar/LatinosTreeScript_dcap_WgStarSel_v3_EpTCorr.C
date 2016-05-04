@@ -13,8 +13,8 @@
 //typedef ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double> > LorentzVector;
 // Constants
 //------------------------------------------------------------------------------
-//const Bool_t runAtLxplus = false;
-const Bool_t runAtLxplus = true;
+const Bool_t runAtLxplus = false;
+//const Bool_t runAtLxplus = true;
 
 const Double_t ZMASS = 91.1876;  // GeV
 const Double_t JpsiMASS = 3.09691;  // GeV
@@ -249,7 +249,11 @@ void LatinosTreeScript_dcap_WgStarSel_v3_EpTCorr(Float_t luminosity,
   	else tree->Add("dcap://cluster142.knu.ac.kr//pnfs/knu.ac.kr/data/cms/store/user/spak/cernboxHWW76X/22Jan_25ns_mAODv2_MC/MCl2loose__hadd/latino_WZJets.root");
   }
   else if (theSample == "WZ2Q") {
-  	//tree->Add(filesPath + "21Oct_25ns_MC/mcwghtcount__MC__l2sel/" + "latino_WZTo2L2Q__part0.root");
+  	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCWgStarsel__hadd__EpTCorr/" + "latino_WZTo2L2Q__part1.root");
+  	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCWgStarsel__hadd__EpTCorr/" + "latino_WZTo2L2Q__part2.root");
+  	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCWgStarsel__hadd__EpTCorr/" + "latino_WZTo2L2Q__part3.root");
+  	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCWgStarsel__hadd__EpTCorr/" + "latino_WZTo2L2Q__part4.root");
+  	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCWgStarsel__hadd__EpTCorr/" + "latino_WZTo2L2Q__part5.root");
   }
   else if (theSample == "WZ3LNu") {
   	tree->Add(filesPath + "22Jan_25ns_mAODv2_MC/MCWgStarsel__hadd__EpTCorr/" + "latino_WZTo3LNu.root");
