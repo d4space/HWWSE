@@ -1,7 +1,7 @@
 SAMPLE_DIR=../test
 
 #
-root -l ctlMET.C+\(\"$SAMPLE_DIR/XYshiftNtupleScript.root\"\)
+root -l ctlMET.C+\(\"$SAMPLE_DIR/XYshiftNtupleDB.root\"\)
 # Z->ee and Z->mm dilepton mass plots: dependency on PU
 #
 #root -l plotDileptonMass.C+\(\"$SAMPLE_DIR/Zee/zee_select_PU4bx50.root\",\"$SAMPLE_DIR/Zee/zee_select_PU20bx25.root\"\)

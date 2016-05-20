@@ -9,13 +9,16 @@
 #include <TVector2.h>
 #include <TF1.h>
 #include <TMath.h>
+#include <TStyle.h>
 
 void ctlMET(const TString inputFileName = "Wenu_p_select.root") {
 
   //
   // Settings
   //
-  Int_t NVTXBINS = 35; // 70 for Wenu_p, 35 for Wmunu_p
+  gStyle->SetOptStat(0);
+  //
+  Int_t NVTXBINS = 45; // 70 for Wenu_p, 35 for Wmunu_p
   //
   // Setup input ntuple
   //
@@ -98,23 +101,19 @@ void ctlMET(const TString inputFileName = "Wenu_p_select.root") {
   TH1D* hmety_proj = new TH1D();
   Double_t meanmetx, meanmety;
 
-  TH2D* hMEtMeanVtx_x = new TH2D("hMEtMeanVtx_x","MET_{x} v. Number of vertices",NVTXBINS,0,NVTXBINS,100,-25,5);
+  TH2D* hMEtMeanVtx_x = new TH2D("hMEtMeanVtx_x","MET_{x} v. Number of vertices",NVTXBINS,0,NVTXBINS,100,-25,7);
         hMEtMeanVtx_x->GetXaxis()->SetTitle("Number of vertices");
         hMEtMeanVtx_x->GetYaxis()->SetTitle("<MET_{x}> [GeV]");
-        hMEtMeanVtx_x->SetMarkerSize(21);
-  TH2D* hMEtMeanVtx_y = new TH2D("hMEtMeanVtx_y","MET_{y} v. Number of vertices",NVTXBINS,0,NVTXBINS,100,-25,5);
+  TH2D* hMEtMeanVtx_y = new TH2D("hMEtMeanVtx_y","MET_{y} v. Number of vertices",NVTXBINS,0,NVTXBINS,100,-25,7);
         hMEtMeanVtx_y->GetXaxis()->SetTitle("Number of vertices");
         hMEtMeanVtx_y->GetYaxis()->SetTitle("<MET_{y}> [GeV]");
-        hMEtMeanVtx_y->SetMarkerSize(21);
 
-  TH2D* hMEtMeanVtx_Txy_x = new TH2D("hMEtMeanVtx_Txy_x","MET_{x} v. Number of vertices",NVTXBINS,0,NVTXBINS,100,-25,5);
+  TH2D* hMEtMeanVtx_Txy_x = new TH2D("hMEtMeanVtx_Txy_x","MET_{x} v. Number of vertices",NVTXBINS,0,NVTXBINS,100,-25,7);
         hMEtMeanVtx_Txy_x->GetXaxis()->SetTitle("Number of vertices");
         hMEtMeanVtx_Txy_x->GetYaxis()->SetTitle("<MET_{x}> [GeV]");
-        hMEtMeanVtx_Txy_x->SetMarkerSize(21);
-  TH2D* hMEtMeanVtx_Txy_y = new TH2D("hMEtMeanVtx_Txy_y","MET_{y} v. Number of vertices",NVTXBINS,0,NVTXBINS,100,-25,5);
+  TH2D* hMEtMeanVtx_Txy_y = new TH2D("hMEtMeanVtx_Txy_y","MET_{y} v. Number of vertices",NVTXBINS,0,NVTXBINS,100,-25,7);
         hMEtMeanVtx_Txy_y->GetXaxis()->SetTitle("Number of vertices");
         hMEtMeanVtx_Txy_y->GetYaxis()->SetTitle("<MET_{y}> [GeV]");
-        hMEtMeanVtx_Txy_y->SetMarkerSize(21);
 
 
   for(int jbin=1;jbin<hMEtMeanVtx_x->GetNbinsX()+1;jbin++) {
@@ -137,7 +136,7 @@ void ctlMET(const TString inputFileName = "Wenu_p_select.root") {
   //
   // Save plots
   //
-  TLegend *leg_Vtx_x = new TLegend(0.4181034,0.6758475,0.6954023,0.8135593,NULL,"brNDC");
+  TLegend *leg_Vtx_x = new TLegend(0.15,0.15,0.4,0.3,NULL,"brNDC");
   leg_Vtx_x->SetTextFont(62);
   leg_Vtx_x->SetTextSize(0.03330866);
   leg_Vtx_x->SetLineColor(1);
@@ -146,17 +145,21 @@ void ctlMET(const TString inputFileName = "Wenu_p_select.root") {
   leg_Vtx_x->SetFillColor(0);
   leg_Vtx_x->SetFillStyle(1001);
   leg_Vtx_x->SetBorderSize(0);
-  leg_Vtx_x->AddEntry(hMEtMeanVtx_x,"Type1PfMet","lp");
-  leg_Vtx_x->AddEntry(hMEtMeanVtx_Txy_x,"Type1PfMet + Txy","l");
+  leg_Vtx_x->AddEntry(hMEtMeanVtx_x,"Type1PfMet","p");
+  leg_Vtx_x->AddEntry(hMEtMeanVtx_Txy_x,"Type1PfMet + Txy","p");
 
 
   TCanvas* tc_metVtx_x = new TCanvas();
   tc_metVtx_x->cd();
-  hMEtMeanVtx_x->SetMarkerStyle(21);
+  hMEtMeanVtx_x->SetMarkerStyle(24);
   hMEtMeanVtx_x->SetMarkerSize(1);
+  hMEtMeanVtx_x->SetMarkerColor(kRed);
   hMEtMeanVtx_x->Draw("p0");
   //hSlimMet->Draw("p9");
-  hMEtMeanVtx_Txy_x->Draw("same");
+  hMEtMeanVtx_Txy_x->SetMarkerStyle(26);
+  hMEtMeanVtx_Txy_x->SetMarkerSize(1);
+  hMEtMeanVtx_Txy_x->SetMarkerColor(kBlue);
+  hMEtMeanVtx_Txy_x->Draw("samep0");
   leg_Vtx_x->Draw("same");
   tc_metVtx_x->Print("Plots/MetvsVtx_x.png");
   tc_metVtx_x->Print("Plots/MetvsVtx_x.pdf");
@@ -165,7 +168,7 @@ void ctlMET(const TString inputFileName = "Wenu_p_select.root") {
   //-------------------
   // Met vs Vtx y-axis
   //-------------------
-  TLegend *leg_Vtx_y = new TLegend(0.4181034,0.6758475,0.6954023,0.8135593,NULL,"brNDC");
+  TLegend *leg_Vtx_y = new TLegend(0.15,0.15,0.4,0.3,NULL,"brNDC");
   leg_Vtx_y->SetTextFont(62);
   leg_Vtx_y->SetTextSize(0.03330866);
   leg_Vtx_y->SetLineColor(1);
@@ -174,16 +177,20 @@ void ctlMET(const TString inputFileName = "Wenu_p_select.root") {
   leg_Vtx_y->SetFillColor(0);
   leg_Vtx_y->SetFillStyle(1001);
   leg_Vtx_y->SetBorderSize(0);
-  leg_Vtx_y->AddEntry(hMEtMeanVtx_y,"Type1PfMet","lp");
-  leg_Vtx_y->AddEntry(hMEtMeanVtx_Txy_y,"Type1PfMet + Txy","l");
+  leg_Vtx_y->AddEntry(hMEtMeanVtx_y,"Type1PfMet","p");
+  leg_Vtx_y->AddEntry(hMEtMeanVtx_Txy_y,"Type1PfMet + Txy","p");
 
 
   TCanvas* tc_metVtx_y = new TCanvas();
   tc_metVtx_y->cd();
-  hMEtMeanVtx_y->SetMarkerStyle(21);
+  hMEtMeanVtx_y->SetMarkerStyle(24);
   hMEtMeanVtx_y->SetMarkerSize(1);
+  hMEtMeanVtx_y->SetMarkerColor(kRed);
   hMEtMeanVtx_y->Draw("p0");
   //hSlimMet->Draw("p9");
+  hMEtMeanVtx_Txy_y->SetMarkerStyle(26);
+  hMEtMeanVtx_Txy_y->SetMarkerSize(1);
+  hMEtMeanVtx_Txy_y->SetMarkerColor(kBlue);
   hMEtMeanVtx_Txy_y->Draw("same");
   leg_Vtx_y->Draw("same");
   tc_metVtx_y->Print("Plots/MetvsVtx_y.png");
