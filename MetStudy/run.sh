@@ -1,8 +1,9 @@
 if [ $# -lt 1 ]; then
     echo "  "
-    echo "  ./run.sh NJETS"
-    echo "  "
-    exit -1
+    #echo "  ./run.sh NJETS"
+    echo "Jet Inclusive  "
+    $1="Incl"
+    #exit -1
 fi
 
 
@@ -14,6 +15,7 @@ NJETS=$1
 #CHANNELS="SSEMuPlus SSEMuMinus SSMuEPlus SSMuEMinus"
 #CHANNELS="EE MuMu EMu MuE SSEMuPlus SSEMuMinus SSMuEPlus SSMuEMinus"
 CHANNELS="MuMu"
+CHANNELS="Incl"
 
 SAMPLES="          \
 Test                 \
@@ -35,7 +37,7 @@ Test                 \
 #Zgamma             \
 #"
 
-rm -rf rootfiles/${NJETS}jet
+rm -rf rootfiles/${NJETS}Jet
 
 
 # Loop
@@ -48,7 +50,7 @@ for CHANNEL in $CHANNELS; do
   
     done
 
-    OUTPATH=rootfiles/${NJETS}jet/${CHANNEL}
+    OUTPATH=rootfiles/${NJETS}Jet/${CHANNEL}
 
     # Merge some MC files
     #hadd ${OUTPATH}/WW.root     ${OUTPATH}/ggWWto2L.root     ${OUTPATH}/WWTo2L2Nu.root 
