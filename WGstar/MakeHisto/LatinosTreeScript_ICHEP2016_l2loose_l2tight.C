@@ -198,7 +198,8 @@ void LatinosTreeScript_ICHEP2016_l2loose_l2tight(Float_t luminosity,
   }
   else if (theSample == "DataRun2015_D") {
   }
-  else if (theSample == "DataRun2016_B") { // Luminosity : 805 pb^-1 from Xavier mail
+  else if (theSample == "DataRun2016_B") { // Luminosity : 805 pb^-1 from Xavier mail,
+	// https://groups.cern.ch/group/latinos-hep/Lists/Archive/Flat.aspx?RootFolder=%2Fgroup%2Flatinos%2Dhep%2FLists%2FArchive%2F805%20pb%2D1%20of%20data%20post%2Dprocessed&FolderCTID=0x012002005F41232413B3A741AEE1524B81D499EF
   	tree->Add("dcap://cluster142.knu.ac.kr//pnfs/knu.ac.kr/data/cms/store/user/spak/CernBox_Jasper_76X/07Jun2016_Run2016B_PromptReco/l2loose16__hadd__l2tight/latino_Run2016B_PromptReco_SingleMuon.root");
   }
   else if (theSample == "WJetsLNu") {
