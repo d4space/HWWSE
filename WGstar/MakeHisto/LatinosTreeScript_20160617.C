@@ -191,7 +191,13 @@ void LatinosTreeScript_dcap_WgStarSel_v3_EpTCorr(Float_t luminosity,
   TString filesPath;
   
   
-  if (theSample == "DataRun2016_B") {
+  if (theSample == "DataRun2015") {
+  }
+  else if (theSample == "DataRun2015_C") {
+  }
+  else if (theSample == "DataRun2015_D") {
+  }
+  else if (theSample == "DataRun2016_B") {
   	tree->Add("dcap://cluster142.knu.ac.kr//pnfs/knu.ac.kr/data/cms/store/user/spak/CernBox_Jasper_76X/07Jun2016_Run2016B_PromptReco/l2loose16__hadd__l2tight/latino_Run2016B_PromptReco_SingleMuon.root");
   }
   else if (theSample == "WJetsLNu") {
@@ -200,8 +206,22 @@ void LatinosTreeScript_dcap_WgStarSel_v3_EpTCorr(Float_t luminosity,
   else if (theSample == "WJetsLNu_HT") { 
   	tree->Add("/u/user/sangilpark/Cernbox_Jasper/07Jun2016_spring16__mAODv2/MCl2loose16__hadd__l2tight/latino_WJetsToLNu_HT2500_inf.root");
   }
+  else if (theSample == "ggWWto2L") {
+  }
+  else if (theSample == "WWTo2L2Nu") {
+  }
   else if (theSample == "WZ") {
-  	else tree->Add("/u/user/sangilpark/Cernbox_Jasper/07Jun2016_spring16__mAODv2/MCl2loose16__hadd__l2tight/latino_WZ.root");
+  	tree->Add("/u/user/sangilpark/Cernbox_Jasper/07Jun2016_spring16__mAODv2/MCl2loose16__hadd__l2tight/latino_WZ.root");
+  }
+  else if (theSample == "WZ2Q") {
+  }
+  else if (theSample == "WZ3LNu") {
+  }
+  else if (theSample == "ZZ") {
+  }
+  else if (theSample == "TTbar") {
+  }
+  else if (theSample == "TW") {
   }
   else if (theSample == "DY") {
   	tree->Add("/u/user/sangilpark/Cernbox_Jasper/07Jun2016_spring16__mAODv2/MCl2loose16__hadd__l2tight/latino_DYJetsToLL_M-10to50.root");
@@ -216,6 +236,8 @@ void LatinosTreeScript_dcap_WgStarSel_v3_EpTCorr(Float_t luminosity,
   	tree->Add("/u/user/sangilpark/Cernbox_Jasper/07Jun2016_spring16__mAODv2/MCl2loose16__hadd__l2tight/latino_DYJetsToLL_M-50_0001__part3.root");
   	tree->Add("/u/user/sangilpark/Cernbox_Jasper/07Jun2016_spring16__mAODv2/MCl2loose16__hadd__l2tight/latino_DYJetsToLL_M-50_0001__part4.root");
   	tree->Add("/u/user/sangilpark/Cernbox_Jasper/07Jun2016_spring16__mAODv2/MCl2loose16__hadd__l2tight/latino_DYJetsToLL_M-50_0002__part4.root");
+  }
+  else if (theSample == "WgammaNoStar") {
   }
   else if (theSample == "WgammaStarToLNuMuMu") {
   	tree->Add("/u/user/sangilpark/Cernbox_Jasper/07Jun2016_spring16__mAODv2/MCl2loose16__hadd__l2tight/latino_WgStarLNuMuMu.root");
