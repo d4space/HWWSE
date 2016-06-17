@@ -115,7 +115,7 @@ double M_Muon(0.105);
 //------------------------------------------------------------------------------
 // LatinosTreeScript
 //------------------------------------------------------------------------------
-void LatinosTreeScript_dcap_WgStarSel_v3_EpTCorr(Float_t luminosity,
+void LatinosTreeScript_ICHEP2016_l2loose_l2tight(Float_t luminosity,
 		Int_t   jetChannel,
 		TString flavorChannel,
 		TString theSample,
@@ -190,6 +190,7 @@ void LatinosTreeScript_dcap_WgStarSel_v3_EpTCorr(Float_t luminosity,
   //----------------------------------------------------------------------------
   TString filesPath;
   
+  TChain* tree = new TChain("latino", "latino");
   
   if (theSample == "DataRun2015") {
   }
