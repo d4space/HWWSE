@@ -198,7 +198,7 @@ void LatinosTreeScript_ICHEP2016_l2loose_l2tight(Float_t luminosity,
   }
   else if (theSample == "DataRun2015_D") {
   }
-  else if (theSample == "DataRun2016_B") {
+  else if (theSample == "DataRun2016_B") { // Luminosity : 805 pb^-1 from Xavier mail
   	tree->Add("dcap://cluster142.knu.ac.kr//pnfs/knu.ac.kr/data/cms/store/user/spak/CernBox_Jasper_76X/07Jun2016_Run2016B_PromptReco/l2loose16__hadd__l2tight/latino_Run2016B_PromptReco_SingleMuon.root");
   }
   else if (theSample == "WJetsLNu") {
