@@ -31,9 +31,9 @@ CHANNELS="MuMu"
 #WgammaStarToLNuMuMu       \
 #WZ                 \
 #WgammaNoStar    \
-SAMPLES="          \
-DataRun2015     \
-"
+#SAMPLES="          \
+#DataRun2015     \
+#"
 
 #SAMPLES="          \
 #DataRun2015     \
@@ -53,6 +53,18 @@ DataRun2015     \
 #Zgamma             \
 #"
 
+SAMPLES="          \
+DataRun2016_B	\
+WJetsLNu	\
+WJetsLNu_HT	\
+WZ		\
+ZZ		\
+DY       \
+WgammaStarToLNuMuMu       \
+WgammaStarToLNuEE       \
+HWW125       \
+Zgamma       \
+"
 
 #SAMPLES="          \
 #WgammaNoStar       \
