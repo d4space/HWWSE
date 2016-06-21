@@ -6,8 +6,9 @@ if [ $# -lt 1 ]; then
 fi
 
 
+LUMINOSITY=0.805 #Run2015D_05Oct2015 (553.150 pb-1) 
 #LUMINOSITY=0.553 #Run2015D_05Oct2015 (553.150 pb-1) 
-LUMINOSITY=2.264 #16Dec2015 RECO of 2015C and 2015D datasets, available in 76x latinos
+#LUMINOSITY=2.264 #16Dec2015 RECO of 2015C and 2015D datasets, available in 76x latinos
 
 NJETS=$1
 
@@ -32,9 +33,6 @@ CHANNELS="MuMu"
 #WgammaNoStar    \
 SAMPLES="          \
 DataRun2015     \
-WgammaStarToLNuMuMu       \
-WgammaNoStar       \
-WZ3LNu         \
 "
 
 #SAMPLES="          \

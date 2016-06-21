@@ -1,8 +1,8 @@
   
-  //----------------------------------------------------------------------------
-  //----------------------------------------------------------------------------
-  // Input files
-  //----------------------------------------------------------------------------
+
+void ConnectTree(TChain* tree, TString theSample, Bool_t runAtLxplus){
+
+
   TString PathDcapKNU = "dcap://cluster142.knu.ac.kr//pnfs/knu.ac.kr/data/cms/store/user/spak/CernBox_Jasper_76X/07Jun2016_Run2016B_PromptReco/";
   TString PathUser    = "/u/user/sangilpark/Cernbox_Jasper/07Jun2016_spring16__mAODv2/MCl2loose16__hadd__l2tight/";
   
@@ -75,8 +75,5 @@
         cout<<"Check theSample name, exiting......................."<<endl;
   	return;
   }
- 
-  //----------------------------------------------------------------------------
-  // Input files End
-  //----------------------------------------------------------------------------
 
+}
