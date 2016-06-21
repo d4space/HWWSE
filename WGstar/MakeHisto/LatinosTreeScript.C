@@ -10,7 +10,7 @@
 #include "Math/PtEtaPhiM4D.h"
 #include "TLorentzVector.h"
 
-#include "LatinoNtupleList_test.h"
+#include "../../LatinoNtupleList/LatinoNtupleList_test.h"
 
 //typedef ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double> > LorentzVector;
 // Constants
