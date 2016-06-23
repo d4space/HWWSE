@@ -2,8 +2,8 @@ import sys
 
 if len(sys.argv) <= 1 :
   print "no argument" 
-  print "Usage : convert.py [File to convert]"
-  print "ex : convert.py multPhiCorr_741_25nsDY_cfi.py >& XYShiftMC_76X.txt"
+  print "Usage : XYshiftParaChngFormat.py [File to convert] >& [txt]"
+  print "ex : XYshiftParaChngFormat.py multPhiCorr_741_25nsDY_cfi.py >& XYShiftMC_76X.txt"
   exit()
 
 FileToConvert = sys.argv[1]
