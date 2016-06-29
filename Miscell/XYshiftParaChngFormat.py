@@ -47,7 +47,7 @@ for line in lines:
   if line.find('etaMax') != -1:
     netaMax = line[24:-3]	# slice charactor index 
   if line.find('fx') != -1:
-    formula = line[21:-3]	# slice charactor index 
+    formula = line[21:-4]	# slice charactor index 
   if line.find('px') != -1:
     ncountpx = line.count(',')  # count number of "," character = number of value
     if ncountpx == 2:
