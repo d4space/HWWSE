@@ -16,62 +16,25 @@ NJETS=$1
 #CHANNELS="EE MuMu EMu MuE SSEMuPlus SSEMuMinus SSMuEPlus SSMuEMinus"
 CHANNELS="MuMu"
 
-#WgammaStar         \
-#WgammaNoStar    \
-#WZ3LNu         \
-#SAMPLES="     \
-#DataRun2015_D     \
-#WJetsLNu_HT  \
-#"
-
-#DY                 \
-#TTbar              \
-#WZ3LNu                 \
-
-#WgammaStarToLNuMuMu       \
-#WZ                 \
-#WgammaNoStar    \
-#SAMPLES="          \
-#DataRun2015     \
-#"
-
-#SAMPLES="          \
-#DataRun2015     \
-#ggWWto2L           \
-#WWTo2L2Nu          \
-#WZ                 \
-#WZ3LNu         \
-#WZ2Q                 \
-#ZZ                 \
-#TW                 \
-#WgammaNoStar       \
-#WgammaStarToLNuMuMu       \
-#WgammaStarToLNuEE       \
-#WJetsLNu  \
-#DYtautau           \
-#HWW125             \
-#Zgamma             \
-#"
-
 SAMPLES="          \
 DataRun2016_B	\
 WJetsLNu	\
 WJetsLNu_HT	\
+ggWWto2L	\
+WWTo2L2Nu	\
 WZ		\
-ZZ		\
+WZ2Q       \
+WZ3LNu       \
+ZZ       \
+TTbar       \
+TW       \
 DY       \
+WgammaNoStar       \
 WgammaStarToLNuMuMu       \
 WgammaStarToLNuEE       \
 HWW125       \
 Zgamma       \
 "
-
-#SAMPLES="          \
-#WgammaNoStar       \
-#"
-
-#rm -rf rootfiles/${NJETS}jet
-
 
 # Loop
 for CHANNEL in $CHANNELS; do
