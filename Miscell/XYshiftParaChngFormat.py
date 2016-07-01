@@ -82,7 +82,7 @@ for line in lines:
       spy2 = splitpy[1]
       spy3 = splitpy[2]
       py1 = spy1[21:]
-      py2 = spy2[1:]
+      py2 = spy2[0:]
       py3 = spy3[:-1]
       print ('[%s]') % Section
       print ('{%s 1 eta 1 %s %s}') % (ptclType,nameParVar,formula)
