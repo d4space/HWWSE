@@ -50,6 +50,10 @@ for line in lines:
     formula = line[21:-4]	# slice charactor index 
   if line.find('px') != -1:
     ncountpx = line.count(',')  # count number of "," character = number of value
+    if ncountpx == 1:
+      splitpx = line.split(',')	# split by "," character 
+      spx1 = splitpx[0]
+      px1 = spx1[21:-1]
     if ncountpx == 2:
       splitpx = line.split(',')	# split by "," character 
       spx1 = splitpx[0]
@@ -66,6 +70,14 @@ for line in lines:
       px3 = spx3[:-1]
   if line.find('py') != -1:
     ncountpy = line.count(',')  # count number of "," character = number of value
+    if ncountpy == 1:
+      splitpy = line.split(',')	# split by "," character 
+      spy1 = splitpy[0]
+      py1 = spy1[21:-1]
+      print ('[%s]') % Section
+      print ('{%s 1 eta 1 %s %s}') % (ptclType,nameParVar,formula)
+      print ('X %s %s %s %s') % (netaMin,netaMax, ncountpx, px1)
+      print ('Y %s %s %s %s') % (netaMin,netaMax, ncountpy, py1)
     if ncountpy == 2:
       splitpy = line.split(',')	# split by "," character 
       spy1 = splitpy[0]
