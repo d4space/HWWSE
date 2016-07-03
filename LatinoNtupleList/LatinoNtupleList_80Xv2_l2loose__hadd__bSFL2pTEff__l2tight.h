@@ -6,7 +6,7 @@ void ConnectTree(TChain* tree, TString theSample, Bool_t runAtLxplus){
   
   //filesPathData = "dcap://cluster142.knu.ac.kr//pnfs/knu.ac.kr/data/cms/store/user/spak/Latino_CernBox/80Xv2/07Jun2016_Run2016B_PromptReco/l2loose16bis__hadd__l2tight/";
   //filesPathMC = "dcap://cluster142.knu.ac.kr//pnfs/knu.ac.kr/data/cms/store/user/spak/Latino_CernBox/80Xv2/07Jun2016_spring16__mAODv2/MCl2loose__hadd__bSFLepEff__l2tight/";
-  filesPathData = "/u/user/sangilpark/Latino_CernBox/80Xv2/07Jun2016_Run2016B_PromptReco/l2loose16bis__hadd__l2tight/";
+  filesPathData = "/u/user/sangilpark/Latino_CernBox/80Xv2/07Jun2016_Run2016B_PromptReco/l2loose__hadd__EpTCorr__l2tight/";
   filesPathMC = "/u/user/sangilpark/Latino_CernBox/80Xv2/07Jun2016_spring16_mAODv2/MCl2loose__hadd__bSFL2pTEff__l2tight/";
   
   // l2sel
@@ -35,22 +35,22 @@ void ConnectTree(TChain* tree, TString theSample, Bool_t runAtLxplus){
   }else if (theSample == "WZ3LNu") {
   }else if (theSample == "ZZ") {
   	tree->Add( filesPathMC + "latino_ZZ.root");
-  	tree->Add( filesPathMC + "latino_ZZTo2L2Nu.root"); // /ZZTo2L2Nu_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM
-  	tree->Add( filesPathMC + "latino_ZZTo2L2Q__part0.root"); // /ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM
-  	tree->Add( filesPathMC + "latino_ZZTo2L2Q__part1.root");
+  	//tree->Add( filesPathMC + "latino_ZZTo2L2Nu.root"); // /ZZTo2L2Nu_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM
+  	//tree->Add( filesPathMC + "latino_ZZTo2L2Q__part0.root"); // /ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM
+  	//tree->Add( filesPathMC + "latino_ZZTo2L2Q__part1.root");
   	//tree->Add( filesPathMC + "latino_ZZTo2L2Q__part2.root");
-  	tree->Add( filesPathMC + "latino_ZZTo2L2Q__part3.root");
+  	//tree->Add( filesPathMC + "latino_ZZTo2L2Q__part3.root");
   	//tree->Add( filesPathMC + "latino_ZZTo4L.root"); // /ZZTo4L_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM
   }else if (theSample == "TTbar") {
   	tree->Add( filesPathMC + "latino_TTJets.root");
-  	tree->Add( filesPathMC + "latino_TTTo2L2Nu_ext1__part0.root"); // /TTTo2L2Nu_13TeV-powheg/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext1-v1/MINIAODSIM
-  	tree->Add( filesPathMC + "latino_TTTo2L2Nu_ext1__part1.root");
-  	tree->Add( filesPathMC + "latino_TTTo2L2Nu_ext1__part2.root");
-  	tree->Add( filesPathMC + "latino_TTTo2L2Nu_ext1__part3.root");
-  	tree->Add( filesPathMC + "latino_TTTo2L2Nu_ext1__part4.root");
-  	tree->Add( filesPathMC + "latino_TTJetsDiLep-LO-ext1_0000__part2.root");
-  	tree->Add( filesPathMC + "latino_TTJetsDiLep-LO-ext1_0000__part4.root");
-  	tree->Add( filesPathMC + "latino_TTJetsDiLep-LO-ext1_0001__part1.root"); // /TTJets_DiLept_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3_ext1-v1/MINIAODSIM
+  	//tree->Add( filesPathMC + "latino_TTTo2L2Nu_ext1__part0.root"); // /TTTo2L2Nu_13TeV-powheg/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext1-v1/MINIAODSIM
+  	//tree->Add( filesPathMC + "latino_TTTo2L2Nu_ext1__part1.root");
+  	//tree->Add( filesPathMC + "latino_TTTo2L2Nu_ext1__part2.root");
+  	//tree->Add( filesPathMC + "latino_TTTo2L2Nu_ext1__part3.root");
+  	//tree->Add( filesPathMC + "latino_TTTo2L2Nu_ext1__part4.root");
+  	//tree->Add( filesPathMC + "latino_TTJetsDiLep-LO-ext1_0000__part2.root");
+  	//tree->Add( filesPathMC + "latino_TTJetsDiLep-LO-ext1_0000__part4.root");
+  	//tree->Add( filesPathMC + "latino_TTJetsDiLep-LO-ext1_0001__part1.root"); // /TTJets_DiLept_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3_ext1-v1/MINIAODSIM
   }else if (theSample == "TW") {
   	tree->Add( filesPathMC + "latino_ST_tW_antitop.root"); // /ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM
   	//tree->Add( filesPathMC + "latino_ST_tW_antitop_noHad.root");  // /ST_tW_antitop_5f_NoFullyHadronicDecays_13TeV-powheg_TuneCUETP8M1/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM
