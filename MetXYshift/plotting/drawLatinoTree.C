@@ -12,6 +12,7 @@
 #include <TMath.h>
 #include <TStyle.h>
 
+  vector<float>   *std_vector_lepton_pt;
 void drawLatinoTree(const TString inputFileName = "Wenu_p_select.root") {
 
   //
@@ -40,6 +41,7 @@ void drawLatinoTree(const TString inputFileName = "Wenu_p_select.root") {
   inputTree->SetBranchAddress("metPfType1Phi",    &metPfType1Phi);
   inputTree->SetBranchAddress("corrPfType1Met",   &corrPfType1Met);
   inputTree->SetBranchAddress("corrPfType1Phi",   &corrPfType1Phi);
+  inputTree->SetBranchAddress("std_vector_lepton_pt", &std_vector_lepton_pt);
            
   //
   // Declare histograms
@@ -50,6 +52,17 @@ void drawLatinoTree(const TString inputFileName = "Wenu_p_select.root") {
   TH1D *hSlimMetTxy  = new TH1D("hSlimMetTxy","",100,0,150);
         hSlimMetTxy->SetStats(0);
         hSlimMetTxy->SetLineColor(2);
+
+  TH1D *hMetDiff  = new TH1D("hMetDiff","",100,-15,15);
+        hMetDiff->SetStats(0);
+        hMetDiff->GetXaxis()->SetTitle("Corr. - PfType1Met");
+  TH1D *hMetPull  = new TH1D("hMetPull","",100,-1,1);
+        hMetPull->SetStats(0);
+        hMetPull->GetXaxis()->SetTitle("[Corr. - PfType1Met]/PfType1Met");
+  TH1D *hPhiDiff  = new TH1D("hPhiDiff","",100,-1,1);
+        hPhiDiff->SetStats(0);
+        hPhiDiff->GetXaxis()->SetTitle("Corr.Phi - PfType1Phi");
+
   TH1D *hPhi = new TH1D("hPhi","",20,-3.5,3.5);
         hPhi->SetStats(0);
         hPhi->SetLineColor(1);
@@ -73,13 +86,23 @@ void drawLatinoTree(const TString inputFileName = "Wenu_p_select.root") {
   Int_t totalEvents=0;
 
   double phi;
-  for(int jentry=0;jentry<inputTree->GetEntries();jentry++) {
+  int ttNtry = inputTree->GetEntries();
+  for(int jentry=0; jentry<ttNtry; jentry++) {
     inputTree->GetEntry(jentry);
     totalEvents += nEvents;
 
+
+    if (std_vector_lepton_pt->size() < 2) continue;
+    if ( (*std_vector_lepton_pt)[0] < 20) continue;
+    if ( (*std_vector_lepton_pt)[1] < 10) continue;
+
+    if( metPfType1 < 20) continue;
     //
     // Fill histograms
     //
+    hMetDiff->Fill(corrPfType1Met - metPfType1);
+    hMetPull->Fill( (corrPfType1Met - metPfType1)/metPfType1 );
+    hPhiDiff->Fill(corrPfType1Phi - metPfType1Phi);
     hMETnVtx_x->Fill(nvtx,metPfType1*TMath::Cos(metPfType1Phi));
     hMETnVtx_y->Fill(nvtx,metPfType1*TMath::Sin(metPfType1Phi));
     hMETnVtx_Txy_x->Fill(nvtx,corrPfType1Met*TMath::Cos(corrPfType1Phi));
@@ -229,4 +252,29 @@ void drawLatinoTree(const TString inputFileName = "Wenu_p_select.root") {
   leg_Phi->Draw("same");
   tc_phi->Print("LatinPlots/phi.png");
   tc_phi->Print("LatinPlots/phi.pdf");
+
+  //---------------------
+  // corr-org 
+  //---------------------
+  TCanvas* tc_metDiff = new TCanvas();
+  tc_metDiff->cd();
+  hMetDiff->SetMarkerStyle(21);
+  hMetDiff->Draw("e");
+  tc_metDiff->Print("LatinPlots/MetDiff.png");
+  tc_metDiff->Print("LatinPlots/MetDiff.pdf");
+
+  TCanvas* tc_metPull = new TCanvas();
+  tc_metPull->cd();
+  hMetPull->SetMarkerStyle(21);
+  hMetPull->Draw("e");
+  tc_metPull->Print("LatinPlots/MetPull.png");
+  tc_metPull->Print("LatinPlots/MetPull.pdf");
+
+  TCanvas* tc_phiDiff = new TCanvas();
+  tc_phiDiff->cd();
+  hPhiDiff->SetMarkerStyle(21);
+  hPhiDiff->Draw("e");
+  tc_phiDiff->Print("LatinPlots/PhiDiff.png");
+  tc_phiDiff->Print("LatinPlots/PhiDiff.pdf");
+
 }
