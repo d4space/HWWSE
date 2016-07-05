@@ -11,7 +11,7 @@
 #include "TLorentzVector.h"
 
 //#include "../../LatinoNtupleList/LatinoNtupleList_test.h"
-#include "../../LatinoNtupleList/LatinoNtupleList_80Xv2_l2loose_l2tight_WgStarsel_MCR9Corr.h"
+#include "../../LatinoNtupleList/LatinoNtupleList_80Xv2_WgStarsel__EpTCorr.h"
 
 //typedef ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double> > LorentzVector;
 // Constants
