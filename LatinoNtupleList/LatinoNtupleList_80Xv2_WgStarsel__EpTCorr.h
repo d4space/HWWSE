@@ -15,8 +15,8 @@ void ConnectTree(TChain* tree, TString theSample, Bool_t runAtLxplus){
   }else if (theSample == "DataRun2015_C") {
   }else if (theSample == "DataRun2015_D") {
   }else if (theSample == "DataRun2016_B") {
-    // Luminosity : 805 pb^-1 from Xavier mail,
-    // https://groups.cern.ch/group/latinos-hep/Lists/Archive/Flat.aspx?RootFolder=%2Fgroup%2Flatinos%2Dhep%2FLists%2FArchive%2F805%20pb%2D1%20of%20data%20post%2Dprocessed&FolderCTID=0x012002005F41232413B3A741AEE1524B81D499EF
+    // Luminosity 2.6 fb^-1 from Xavier mail,
+    // https://groups.cern.ch/group/latinos-hep/Lists/Archive/Flat.aspx?RootFolder=%2Fgroup%2Flatinos%2Dhep%2FLists%2FArchive%2FPost%20processing%20for%202%2E6%20fb%2D1%20DONE%20%28AND%20CLOSED%29&FolderCTID=0x012002005F41232413B3A741AEE1524B81D499EF
   	tree->Add( filesPathData + "latino_Run2016B_PromptReco_SingleMuon.root");
   }else if (theSample == "WJetsLNu") {
   }else if (theSample == "WJetsLNu_HT") { 
