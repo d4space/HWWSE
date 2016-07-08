@@ -3,7 +3,6 @@ void ConnectTree(TChain* tree, TString theSample, Bool_t runAtLxplus){
 
   TString filesPathData;
   TString filesPathMC;
-  TString filesPathMC_WgStar;
   
   //filesPathData = "dcap://cluster142.knu.ac.kr//pnfs/knu.ac.kr/data/cms/store/user/spak/Latino_CernBox/80Xv2/07Jun2016_Run2016B_PromptReco/l2loose16bis__hadd__l2tight/";
   //filesPathMC = "dcap://cluster142.knu.ac.kr//pnfs/knu.ac.kr/data/cms/store/user/spak/Latino_CernBox/80Xv2/07Jun2016_spring16__mAODv2/MCl2loose__hadd__bSFLepEff__l2tight/";

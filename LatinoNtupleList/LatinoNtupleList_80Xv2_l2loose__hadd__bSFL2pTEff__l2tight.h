@@ -23,8 +23,8 @@ void ConnectTree(TChain* tree, TString theSample, Bool_t runAtLxplus){
  	tree->Add( filesPathMC + "latino_WJetsToLNu_HT200_400.root");
  	tree->Add( filesPathMC + "latino_WJetsToLNu_HT2500_inf.root");
   }else if (theSample == "ggWWto2L") {
-        tree->Add( filesPathMC + "latino_GluGluWWTo2L2Nu_MCFM.root"); // /GluGluWWTo2L2Nu_MCFM_13TeV/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM
-        //tree->Add( filesPathMC + "latino_GluGluWWTo2L2NuHiggs_MCFM.root"); // /GluGluWWTo2L2Nu_HInt_MCFM_13TeV/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM
+        tree->Add( filesPathMC + "latino_GluGluWWTo2L2Nu_MCFM.root"); 
+        //tree->Add( filesPathMC + "latino_GluGluWWTo2L2NuHiggs_MCFM.root"); 
   }else if (theSample == "WWTo2L2Nu") {
         tree->Add( filesPathMC + "latino_WWTo2L2Nu.root");
         //tree->Add( filesPathMC + "latino_WWTo2L2NuHerwigPS.root"); // WW PS
@@ -35,27 +35,27 @@ void ConnectTree(TChain* tree, TString theSample, Bool_t runAtLxplus){
   }else if (theSample == "WZ3LNu") {
   }else if (theSample == "ZZ") {
   	tree->Add( filesPathMC + "latino_ZZ.root");
-  	//tree->Add( filesPathMC + "latino_ZZTo2L2Nu.root"); // /ZZTo2L2Nu_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM
-  	//tree->Add( filesPathMC + "latino_ZZTo2L2Q__part0.root"); // /ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM
+  	//tree->Add( filesPathMC + "latino_ZZTo2L2Nu.root"); 
+  	//tree->Add( filesPathMC + "latino_ZZTo2L2Q__part0.root"); 
   	//tree->Add( filesPathMC + "latino_ZZTo2L2Q__part1.root");
   	//tree->Add( filesPathMC + "latino_ZZTo2L2Q__part2.root");
   	//tree->Add( filesPathMC + "latino_ZZTo2L2Q__part3.root");
-  	//tree->Add( filesPathMC + "latino_ZZTo4L.root"); // /ZZTo4L_13TeV_powheg_pythia8/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM
+  	//tree->Add( filesPathMC + "latino_ZZTo4L.root"); 
   }else if (theSample == "TTbar") {
   	tree->Add( filesPathMC + "latino_TTJets.root");
-  	//tree->Add( filesPathMC + "latino_TTTo2L2Nu_ext1__part0.root"); // /TTTo2L2Nu_13TeV-powheg/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext1-v1/MINIAODSIM
+  	//tree->Add( filesPathMC + "latino_TTTo2L2Nu_ext1__part0.root");
   	//tree->Add( filesPathMC + "latino_TTTo2L2Nu_ext1__part1.root");
   	//tree->Add( filesPathMC + "latino_TTTo2L2Nu_ext1__part2.root");
   	//tree->Add( filesPathMC + "latino_TTTo2L2Nu_ext1__part3.root");
   	//tree->Add( filesPathMC + "latino_TTTo2L2Nu_ext1__part4.root");
   	//tree->Add( filesPathMC + "latino_TTJetsDiLep-LO-ext1_0000__part2.root");
   	//tree->Add( filesPathMC + "latino_TTJetsDiLep-LO-ext1_0000__part4.root");
-  	//tree->Add( filesPathMC + "latino_TTJetsDiLep-LO-ext1_0001__part1.root"); // /TTJets_DiLept_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3_ext1-v1/MINIAODSIM
+  	//tree->Add( filesPathMC + "latino_TTJetsDiLep-LO-ext1_0001__part1.root"); 
   }else if (theSample == "TW") {
-  	tree->Add( filesPathMC + "latino_ST_tW_antitop.root"); // /ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM
-  	//tree->Add( filesPathMC + "latino_ST_tW_antitop_noHad.root");  // /ST_tW_antitop_5f_NoFullyHadronicDecays_13TeV-powheg_TuneCUETP8M1/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM
-  	tree->Add( filesPathMC + "latino_ST_tW_top.root"); // /ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v2/MINIAODSIM
-  	//tree->Add( filesPathMC + "latino_ST_tW_top_noHad.root"); // /ST_tW_top_5f_NoFullyHadronicDecays_13TeV-powheg_TuneCUETP8M1/RunIISpring16MiniAODv2-PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0-v1/MINIAODSIM
+  	tree->Add( filesPathMC + "latino_ST_tW_antitop.root"); 
+  	//tree->Add( filesPathMC + "latino_ST_tW_antitop_noHad.root"); 
+  	tree->Add( filesPathMC + "latino_ST_tW_top.root"); 
+  	//tree->Add( filesPathMC + "latino_ST_tW_top_noHad.root"); 
   }else if (theSample == "DY") {
   	//tree->Add( filesPathMC + "latino_DYJetsToLL_M-5to50-LO.root");
   	//tree->Add( filesPathMC + "latino_DYJetsToLL_M-10to50-LO.root");
