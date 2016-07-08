@@ -6,7 +6,7 @@ void ConnectTree(TChain* tree, TString theSample, Bool_t runAtLxplus){
   
   //filesPathData = "dcap://cluster142.knu.ac.kr//pnfs/knu.ac.kr/data/cms/store/user/spak/Latino_CernBox/80Xv2/07Jun2016_Run2016B_PromptReco/l2loose16bis__hadd__l2tight/";
   //filesPathMC = "dcap://cluster142.knu.ac.kr//pnfs/knu.ac.kr/data/cms/store/user/spak/Latino_CernBox/80Xv2/07Jun2016_spring16__mAODv2/MCl2loose__hadd__bSFLepEff__l2tight/";
-  filesPathData = "/u/user/sangilpark/Latino_CernBox/80Xv2/07Jun2016_Run2016B_PromptReco/l2loose__hadd__EpTCorr__l2tight/";
+  filesPathData = "/u/user/sangilpark/Latino_CernBox/80Xv2/21Jun2016_Run2016B_PromptReco/l2loose__hadd__EpTCorr__l2tight/";
   filesPathMC = "/u/user/sangilpark/Latino_CernBox/80Xv2/07Jun2016_spring16_mAODv2/MCl2loose__hadd__bSFL2pTEff__l2tight/";
   
   // l2sel
@@ -14,8 +14,8 @@ void ConnectTree(TChain* tree, TString theSample, Bool_t runAtLxplus){
   }else if (theSample == "DataRun2015_C") {
   }else if (theSample == "DataRun2015_D") {
   }else if (theSample == "DataRun2016_B") {
-    // Luminosity : 805 pb^-1 from Xavier mail,
-    // https://groups.cern.ch/group/latinos-hep/Lists/Archive/Flat.aspx?RootFolder=%2Fgroup%2Flatinos%2Dhep%2FLists%2FArchive%2F805%20pb%2D1%20of%20data%20post%2Dprocessed&FolderCTID=0x012002005F41232413B3A741AEE1524B81D499EF
+    // Luminosity 2.6 fb^-1 from Xavier mail,
+    // https://groups.cern.ch/group/latinos-hep/Lists/Archive/Flat.aspx?RootFolder=%2Fgroup%2Flatinos%2Dhep%2FLists%2FArchive%2FPost%20processing%20for%202%2E6%20fb%2D1%20DONE%20%28AND%20CLOSED%29&FolderCTID=0x012002005F41232413B3A741AEE1524B81D499EF
   	tree->Add( filesPathData + "latino_Run2016B_PromptReco_SingleMuon.root");
   }else if (theSample == "WJetsLNu") {
         tree->Add( filesPathMC + "latino_WJetsToLNu.root");
