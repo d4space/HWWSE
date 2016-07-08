@@ -78,6 +78,15 @@ void ConnectTree(TChain* tree, TString theSample, Bool_t runAtLxplus){
   	//tree->Add( filesPathMC + "latino_DY2JetsToLL__part5.root");
   	//tree->Add( filesPathMC + "latino_DY3JetsToLL.root");
   	//tree->Add( filesPathMC + "latino_DY4JetsToLL.root");
+  
+	//tree->Add( filesPathMC + "latino_DYJetsToEE_Pow_0000__part1.root");
+	//tree->Add( filesPathMC + "latino_DYJetsToEE_Pow_0000__part2.root");
+	//tree->Add( filesPathMC + "latino_DYJetsToEE_Pow_0000__part3.root");
+	//tree->Add( filesPathMC + "latino_DYJetsToEE_Pow_0001__part2.root");
+  }else if (theSample == "DY_HT") {
+  	tree->Add( filesPathMC + "latino_DYJetsToLL_M-50_HT-100to200_ext1.root");
+  	tree->Add( filesPathMC + "latino_DYJetsToLL_M-50_HT-200to400_ext1.root");
+  	tree->Add( filesPathMC + "latino_DYJetsToLL_M-50_HT-600toInf.root");
 
   }else if (theSample == "WgammaNoStar") {
   }else if (theSample == "WgammaStarToLNuMuMu") {
@@ -91,10 +100,48 @@ void ConnectTree(TChain* tree, TString theSample, Bool_t runAtLxplus){
 	
 	tree->Add( filesPathMC + "latino_VBFHToTauTau_M125.root");
 	//tree->Add( filesPathMC + "latino_VBFHToTauTau_M125_HerwigPS.root");
+	//tree->Add( filesPathMC + "latino_VBFHToTauTau_M125_PythiaFragment_Up.root");
+	//tree->Add( filesPathMC + "latino_VBFHToTauTau_M125_PythiaFragment_Down.root");
 	tree->Add( filesPathMC + "latino_VBFHToWWTo2L2NuPowheg_M125.root");
 	//tree->Add( filesPathMC + "latino_VBFHToWWTo2L2Nu_alternative_M125.root");
   }else if (theSample == "Zgamma") { 
 	tree->Add( filesPathMC + "latino_Zg.root");
+  }else if (theSample == "QCD") { 
+	tree->Add( filesPathMC + "latino_QCD_Pt-15to20_MuEnrichedPt5.root");
+	tree->Add( filesPathMC + "latino_QCD_Pt_250toInf_bcToE.root");
+  }else if (theSample == "TTWJetsLNu") { 
+	tree->Add( filesPathMC + "latino_TTWJetsToLNu.root");
+  }else if (theSample == "TTWJets2Q") { 
+	tree->Add( filesPathMC + "latino_TTWJetsToQQ.root");
+  }else if (theSample == "TTZjet") { 
+	tree->Add( filesPathMC + "latino_TTZjets.root");
+	//tree->Add( filesPathMC + "latino_TTZToQQ.root");
+	//tree->Add( filesPathMC + "latino_TTZToLLNuNu_M-10.root");
+  }else if (theSample == "WWW") { 
+	tree->Add( filesPathMC + "latino_WWW.root");
+  }else if (theSample == "WWZ") { 
+	tree->Add( filesPathMC + "latino_WWZ.root");
+  }else if (theSample == "WZZ") { 
+	tree->Add( filesPathMC + "latino_WZZ.root");
+  }else if (theSample == "ZZZ") { 
+	tree->Add( filesPathMC + "latino_ZZZ.root");
+  }else if (theSample == "WW") { 
+	tree->Add( filesPathMC + "latino_WW-LO.root");
+	//tree->Add( filesPathMC + "latino_WW_DoubleScattering.root");
+	//tree->Add( filesPathMC + "latino_WWTo4Q.root");
+	//tree->Add( filesPathMC + "latino_WWToLNuQQext.root");
+  }else if (theSample == "WpWpJJ") { 
+	tree->Add( filesPathMC + "latino_WpWpJJ_EWK.root");
+	tree->Add( filesPathMC + "latino_WpWpJJ_EWK_QCD.root");
+	tree->Add( filesPathMC + "latino_WpWpJJ_QCD.root");
+  }else if (theSample == "bbHWWTo2L2Nu_M125") { 
+	tree->Add( filesPathMC + "latino_bbHToWWTo2L2Nu_M125_yb2.root");
+	tree->Add( filesPathMC + "latino_bbHToWWTo2L2Nu_M125_ybyt.root");
+  }else if (theSample == "ST") { 
+	tree->Add( filesPathMC + "latino_ST_s-channel.root");
+	tree->Add( filesPathMC + "latino_ST_t-channel_antitop.root");
+  }else if (theSample == "ggHToTauTau_M125") { 
+	tree->Add( filesPathMC + "latino_GluGluHToTauTau_M125.root");
   }
   else {
         cout<<"Check theSample name, exiting......................."<<endl;
