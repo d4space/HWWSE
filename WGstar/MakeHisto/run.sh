@@ -30,11 +30,25 @@ ZZ       \
 TTbar       \
 TW       \
 DY       \
+DY_HT       \
 WgammaNoStar       \
 WgammaStarToLNuMuMu       \
 WgammaStarToLNuEE       \
 HWW125       \
 Zgamma       \
+QCD       \
+TTWJetsLNu	\
+TTWJets2Q	\
+TTZjet		\
+WWW	\
+WWZ	\
+WZZ	\
+ZZZ	\	
+WW	\
+WpWpJJ	\
+bbHWWTo2L2Nu_M125	\
+ST	\
+ggHToTauTau_M125	\
 "
 
 # Loop
