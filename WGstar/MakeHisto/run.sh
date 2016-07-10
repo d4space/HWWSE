@@ -47,8 +47,13 @@ ZZZ	\
 WW	\
 WpWpJJ	\
 bbHWWTo2L2Nu_M125	\
+ggZH_HToWW_M125	\
 ST	\
 ggHToTauTau_M125	\
+HWJ_M125	\
+HZJ_M125	\
+VVTo2L2Nu	\
+WWG	\
 "
 
 # Loop
