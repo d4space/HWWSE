@@ -20,8 +20,8 @@ void ConnectTree(TChain* tree, TString theSample, Bool_t runAtLxplus){
   }else if (theSample == "DataRun2015_C") {
   }else if (theSample == "DataRun2015_D") {
   }else if (theSample == "DataRun2016_B") {
-    // Luminosity 2.791 + 1.546 + 1.549 +  0.378  (21June + 05Jul + 08Jul + 08Jul_Run2016C) fb^-1 from Twiki,
-    // https://twiki.cern.ch/twiki/bin/viewauth/CMS/LatinosTreesRun2
+    // Luminosity 2.791 + 1.546 + 1.549 +  0.378  (21June + 05Jul + 08Jul + 08Jul_Run2016C) fb^-1 from Xavier's mail,
+    // https://groups.cern.ch/group/latinos-hep/Lists/Archive/Flat.aspx?RootFolder=%2Fgroup%2Flatinos%2Dhep%2FLists%2FArchive%2F6fb%2D1%20of%20data%20post%2Dprocessed&FolderCTID=0x012002005F41232413B3A741AEE1524B81D499EF
   	tree->Add( filesPathData_21Jun + "latino_Run2016B_PromptReco_SingleMuon.root");
   	tree->Add( filesPathData_05Jul + "latino_Run2016B_PromptReco_SingleMuon.root");
   	tree->Add( filesPathData_08Jul + "latino_Run2016B_PromptReco_SingleMuon.root");
@@ -82,7 +82,7 @@ void ConnectTree(TChain* tree, TString theSample, Bool_t runAtLxplus){
   }else if (theSample == "TTbar") {
   }else if (theSample == "TW") {
   }else if (theSample == "DY") {
-    	//tree->Add( filesPathMC + "latino_DYJetsToLL_M-10to50.root");
+    	tree->Add( filesPathMC + "latino_DYJetsToLL_M-10to50.root");
   	tree->Add( filesPathMC + "latino_DYJetsToLL_M-50_0000__part0.root");
   	tree->Add( filesPathMC + "latino_DYJetsToLL_M-50_0000__part1.root");
   	tree->Add( filesPathMC + "latino_DYJetsToLL_M-50_0000__part2.root");
@@ -95,6 +95,7 @@ void ConnectTree(TChain* tree, TString theSample, Bool_t runAtLxplus){
   	tree->Add( filesPathMC + "latino_DYJetsToLL_M-50_0001__part4.root");
   	tree->Add( filesPathMC + "latino_DYJetsToLL_M-50_0002__part0.root");
   }else if (theSample == "WgammaNoStar") {
+  	tree->Add( filesPathMC + "latino_Wg_MADGRAPHMLM.root");
   	tree->Add( filesPathMC + "latino_Wg500.root");
   }else if (theSample == "WgammaStarToLNuMuMu") {
   	tree->Add( filesPathMC + "latino_WgStarLNuMuMu.root");
