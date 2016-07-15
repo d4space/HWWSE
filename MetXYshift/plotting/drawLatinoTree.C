@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "TSystem.h"
 #include <TFile.h>
 #include <TTree.h>
 #include <TH1D.h>
@@ -13,7 +14,12 @@
 #include <TStyle.h>
 
   vector<float>   *std_vector_lepton_pt;
+
+
 void drawLatinoTree(const TString inputFileName = "Wenu_p_select.root") {
+
+
+  TH1::SetDefaultSumw2();
 
   //
   // Settings
@@ -26,6 +32,10 @@ void drawLatinoTree(const TString inputFileName = "Wenu_p_select.root") {
   //
   TFile* inputFile = new TFile(inputFileName);
   TTree* inputTree = (TTree*)inputFile->Get("latino");
+
+  TString path = Form("Results");
+  gSystem->mkdir(path, kTRUE);
+  TFile* outFile = new TFile(path + "/out.root", "recreate");
 
   //
   // Declare variables to read in ntuple
@@ -92,11 +102,11 @@ void drawLatinoTree(const TString inputFileName = "Wenu_p_select.root") {
     totalEvents += nEvents;
 
 
-    if (std_vector_lepton_pt->size() < 2) continue;
-    if ( (*std_vector_lepton_pt)[0] < 20) continue;
-    if ( (*std_vector_lepton_pt)[1] < 10) continue;
+    //if (std_vector_lepton_pt->size() < 2) continue;
+    //if ( (*std_vector_lepton_pt)[0] < 20) continue;
+    //if ( (*std_vector_lepton_pt)[1] < 10) continue;
 
-    if( metPfType1 < 20) continue;
+    //if( metPfType1 < 20) continue;
     //
     // Fill histograms
     //
@@ -191,8 +201,8 @@ void drawLatinoTree(const TString inputFileName = "Wenu_p_select.root") {
   hMEtMeanVtx_Txy_x->Draw("samep0");
   metZeroLine->Draw("same");
   leg_Vtx_x->Draw("same");
-  tc_metVtx_x->Print("LatinPlots/MetvsVtx_x.png");
-  tc_metVtx_x->Print("LatinPlots/MetvsVtx_x.pdf");
+  tc_metVtx_x->Print(path+"/MetvsVtx_x.png");
+  tc_metVtx_x->Print(path+"/MetvsVtx_x.pdf");
 
 
   //-------------------
@@ -224,8 +234,8 @@ void drawLatinoTree(const TString inputFileName = "Wenu_p_select.root") {
   hMEtMeanVtx_Txy_y->Draw("same");
   metZeroLine->Draw("same");
   leg_Vtx_y->Draw("same");
-  tc_metVtx_y->Print("LatinPlots/MetvsVtx_y.png");
-  tc_metVtx_y->Print("LatinPlots/MetvsVtx_y.pdf");
+  tc_metVtx_y->Print(path+"/MetvsVtx_y.png");
+  tc_metVtx_y->Print(path+"/MetvsVtx_y.pdf");
 
   //---------------------
   // phi distribution
@@ -250,8 +260,8 @@ void drawLatinoTree(const TString inputFileName = "Wenu_p_select.root") {
   leg_Phi->AddEntry(hPhi,"Type1PfMet Phi","l");
   leg_Phi->AddEntry(hPhiTxy,"corrected Phi","l");
   leg_Phi->Draw("same");
-  tc_phi->Print("LatinPlots/phi.png");
-  tc_phi->Print("LatinPlots/phi.pdf");
+  tc_phi->Print(path+"/phi.png");
+  tc_phi->Print(path+"/phi.pdf");
 
   //---------------------
   // corr-org 
@@ -260,21 +270,24 @@ void drawLatinoTree(const TString inputFileName = "Wenu_p_select.root") {
   tc_metDiff->cd();
   hMetDiff->SetMarkerStyle(21);
   hMetDiff->Draw("e");
-  tc_metDiff->Print("LatinPlots/MetDiff.png");
-  tc_metDiff->Print("LatinPlots/MetDiff.pdf");
+  tc_metDiff->Print(path+"/MetDiff.png");
+  tc_metDiff->Print(path+"/MetDiff.pdf");
 
   TCanvas* tc_metPull = new TCanvas();
   tc_metPull->cd();
   hMetPull->SetMarkerStyle(21);
   hMetPull->Draw("e");
-  tc_metPull->Print("LatinPlots/MetPull.png");
-  tc_metPull->Print("LatinPlots/MetPull.pdf");
+  tc_metPull->Print(path+"/MetPull.png");
+  tc_metPull->Print(path+"/MetPull.pdf");
 
   TCanvas* tc_phiDiff = new TCanvas();
   tc_phiDiff->cd();
   hPhiDiff->SetMarkerStyle(21);
   hPhiDiff->Draw("e");
-  tc_phiDiff->Print("LatinPlots/PhiDiff.png");
-  tc_phiDiff->Print("LatinPlots/PhiDiff.pdf");
+  tc_phiDiff->Print(path+"/PhiDiff.png");
+  tc_phiDiff->Print(path+"/PhiDiff.pdf");
 
+  outFile->cd();
+  outFile->Write("", TObject::kOverwrite);
+  outFile->Close();
 }

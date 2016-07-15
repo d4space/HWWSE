@@ -12,6 +12,7 @@
 
 //#include "../../LatinoNtupleList/LatinoNtupleList_test.h"
 #include "../../LatinoNtupleList/LatinoNtupleList_80Xv2_WgStarsel__EpTCorr.h"
+//#include "../../LatinoNtupleList/LatinoNtupleList_dcap_WgStarSel_v4_EpTCorr.h" // for 76X
 
 //typedef ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double> > LorentzVector;
 // Constants
@@ -329,10 +330,13 @@ void LatinosTreeScript(Float_t luminosity,
   }Cuts;
 
   int TotNtry=tree->GetEntries();
-  //TotNtry=500;
   cout<<"Total number of event to process: "<<TotNtry<<endl;
 
   int Nzgstar(0);
+
+
+
+  TotNtry=10;
   for (int ievent=0; ievent<TotNtry; ievent++) {
     if(ievent%100000 ==0) cout<<"Processing "<<ievent<<"th event"<<endl; 
 
@@ -359,7 +363,7 @@ void LatinosTreeScript(Float_t luminosity,
     //vMuon_4d_rec=0;
     // dump variable
     tree->GetEntry(ievent);
-    //cout<<" baseW: "<<baseW<<"\t"<<"channel: "<<channel<<endl;
+    cout<<" baseW: "<<baseW<<"\t"<<"channel: "<<channel<<endl;
     //cout<<"Lepton flavor:          pt"<<endl;
     //for(int iLept(0); iLept<std_vector_lepton_flavour->size();iLept++)
     //{

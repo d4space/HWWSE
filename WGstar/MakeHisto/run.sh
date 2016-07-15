@@ -18,43 +18,47 @@ NJETS=$1
 CHANNELS="MuMu"
 
 SAMPLES="          \
-DataRun2016_B	\
-WJetsLNu	\
-WJetsLNu_HT	\
-ggWWto2L	\
-WWTo2L2Nu	\
-WZ		\
-WZ2Q       \
-WZ3LNu       \
-ZZ       \
-TTbar       \
-TW       \
-DY       \
-DY_HT       \
 WgammaNoStar       \
-WgammaStarToLNuMuMu       \
-WgammaStarToLNuEE       \
-HWW125       \
-Zgamma       \
-QCD       \
-TTWJetsLNu	\
-TTWJets2Q	\
-TTZjet		\
-WWW	\
-WWZ	\
-WZZ	\
-ZZZ	\	
-WW	\
-WpWpJJ	\
-bbHWWTo2L2Nu_M125	\
-ggZH_HToWW_M125	\
-ST	\
-ggHToTauTau_M125	\
-HWJ_M125	\
-HZJ_M125	\
-VVTo2L2Nu	\
-WWG	\
 "
+
+#SAMPLES="          \
+#DataRun2016_B	\
+#WJetsLNu	\
+#WJetsLNu_HT	\
+#ggWWto2L	\
+#WWTo2L2Nu	\
+#WZ		\
+#WZ2Q       \
+#WZ3LNu       \
+#ZZ       \
+#TTbar       \
+#TW       \
+#DY       \
+#DY_HT       \
+#WgammaNoStar       \
+#WgammaStarToLNuMuMu       \
+#WgammaStarToLNuEE       \
+#HWW125       \
+#Zgamma       \
+#QCD       \
+#TTWJetsLNu	\
+#TTWJets2Q	\
+#TTZjet		\
+#WWW	\
+#WWZ	\
+#WZZ	\
+#ZZZ	\	
+#WW	\
+#WpWpJJ	\
+#bbHWWTo2L2Nu_M125	\
+#ggZH_HToWW_M125	\
+#ST	\
+#ggHToTauTau_M125	\
+#HWJ_M125	\
+#HZJ_M125	\
+#VVTo2L2Nu	\
+#WWG	\
+#"
 
 # Loop
 for CHANNEL in $CHANNELS; do
