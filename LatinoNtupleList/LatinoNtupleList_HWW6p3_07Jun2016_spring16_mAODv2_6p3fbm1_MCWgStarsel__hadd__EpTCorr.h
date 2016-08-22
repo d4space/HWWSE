@@ -1,32 +1,18 @@
 
 void ConnectTree(TChain* tree, TString theSample, Bool_t runAtLxplus){
 
-  TString filesPathData_21Jun;
-  TString filesPathData_05Jul;
-  TString filesPathData_08Jul;
-  TString filesPathData_08Jul_Run2016C;
   TString filesPathMC;
   
   //filesPathData = "dcap://cluster142.knu.ac.kr//pnfs/knu.ac.kr/data/cms/store/user/spak/Latino_CernBox/80Xv2/07Jun2016_Run2016B_PromptReco/l2loose16bis__hadd__l2tight/";
   //filesPathMC = "dcap://cluster142.knu.ac.kr//pnfs/knu.ac.kr/data/cms/store/user/spak/Latino_CernBox/80Xv2/07Jun2016_spring16__mAODv2/MCl2loose__hadd__bSFLepEff__l2tight/";
-  filesPathData_21Jun = "/u/user/sangilpark/Latino_CernBox/80Xv2/HWWTightMu/21Jun2016_Run2016B_PromptReco/WgStarsel__hadd__EpTCorr/";
-  filesPathData_05Jul = "/u/user/sangilpark/Latino_CernBox/80Xv2/HWWTightMu/05Jul2016_Run2016B_PromptReco/WgStarsel__hadd__EpTCorr/";
-  filesPathData_08Jul = "/u/user/sangilpark/Latino_CernBox/80Xv2/HWWTightMu/08Jul2016_Run2016B_PromptReco/WgStarsel__hadd__EpTCorr/";
-  filesPathData_08Jul_Run2016C = "/u/user/sangilpark/Latino_CernBox/80Xv2/HWWTightMu/08Jul2016_Run2016C_PromptReco/WgStarsel__hadd__EpTCorr/";
-  filesPathMC = "/u/user/sangilpark/Latino_CernBox/80Xv2/HWWTightMu/07Jun2016_spring16_mAODv2_4p0fbm1/MCWgStarsel__hadd__EpTCorr/";
+  filesPathMC = "/u/user/sangilpark/Latino_CernBox/80Xv2/HWW6p3/07Jun2016_spring16_mAODv2_6p3fbm1/MCWgStarsel__hadd__EpTCorr/";
   
   // l2sel
   if (theSample == "DataRun2015") {
   }else if (theSample == "DataRun2015_C") {
   }else if (theSample == "DataRun2015_D") {
   }else if (theSample == "DataRun2016_B") {
-    // Luminosity 2.791 + 1.546 + 1.549 +  0.378  (21June + 05Jul + 08Jul + 08Jul_Run2016C) fb^-1 from Xavier's mail,
-    // https://groups.cern.ch/group/latinos-hep/Lists/Archive/Flat.aspx?RootFolder=%2Fgroup%2Flatinos%2Dhep%2FLists%2FArchive%2F6fb%2D1%20of%20data%20post%2Dprocessed&FolderCTID=0x012002005F41232413B3A741AEE1524B81D499EF
-  	tree->Add( filesPathData_21Jun + "latino_Run2016B_PromptReco_SingleMuon.root");
-  	tree->Add( filesPathData_05Jul + "latino_Run2016B_PromptReco_SingleMuon.root");
-  	tree->Add( filesPathData_08Jul + "latino_Run2016B_PromptReco_SingleMuon.root");
   }else if (theSample == "DataRun2016_C") {
-  	tree->Add( filesPathData_08Jul_Run2016C + "latino_Run2016B_PromptReco_SingleMuon.root");
   }else if (theSample == "WJetsLNu") {
   }else if (theSample == "WJetsLNu_HT") { 
   }else if (theSample == "ggWWto2L") {

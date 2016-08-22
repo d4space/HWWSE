@@ -1,22 +1,18 @@
 
 void ConnectTree(TChain* tree, TString theSample, Bool_t runAtLxplus){
 
-  TString filesPathData;
   TString filesPathMC;
   
   //filesPathData = "dcap://cluster142.knu.ac.kr//pnfs/knu.ac.kr/data/cms/store/user/spak/Latino_CernBox/80Xv2/07Jun2016_Run2016B_PromptReco/l2loose16bis__hadd__l2tight/";
   //filesPathMC = "dcap://cluster142.knu.ac.kr//pnfs/knu.ac.kr/data/cms/store/user/spak/Latino_CernBox/80Xv2/07Jun2016_spring16__mAODv2/MCl2loose__hadd__bSFLepEff__l2tight/";
-  filesPathData = "/u/user/sangilpark/Latino_CernBox/80Xv2/21Jun2016_Run2016B_PromptReco/l2loose__hadd__EpTCorr__l2tight/";
-  filesPathMC = "/u/user/sangilpark/Latino_CernBox/80Xv2/07Jun2016_spring16_mAODv2/MCl2loose__hadd__bSFL2pTEff__l2tight_Jonatan/";
+  filesPathMC = "/u/user/sangilpark/Latino_CernBox/80Xv2/HWW6p3/07Jun2016_spring16_mAODv2_6p3fbm1/MCl2loose__hadd__bSFL2pTEff__l2tight/";
   
   // l2sel
   if (theSample == "DataRun2015") {
   }else if (theSample == "DataRun2015_C") {
   }else if (theSample == "DataRun2015_D") {
   }else if (theSample == "DataRun2016_B") {
-    // Luminosity 2.6 fb^-1 from Xavier mail,
-    // https://groups.cern.ch/group/latinos-hep/Lists/Archive/Flat.aspx?RootFolder=%2Fgroup%2Flatinos%2Dhep%2FLists%2FArchive%2FPost%20processing%20for%202%2E6%20fb%2D1%20DONE%20%28AND%20CLOSED%29&FolderCTID=0x012002005F41232413B3A741AEE1524B81D499EF
-  	tree->Add( filesPathData + "latino_Run2016B_PromptReco_SingleMuon.root");
+  }else if (theSample == "DataRun2016_C") {
   }else if (theSample == "WJetsLNu") {
         tree->Add( filesPathMC + "latino_WJetsToLNu.root");
   }else if (theSample == "WJetsLNu_HT") { 
@@ -159,7 +155,6 @@ void ConnectTree(TChain* tree, TString theSample, Bool_t runAtLxplus){
   	//tree->Add( filesPathMC + "latino_DY2JetsToLL__part2.root");
   	//tree->Add( filesPathMC + "latino_DY2JetsToLL__part3.root");
   	//tree->Add( filesPathMC + "latino_DY2JetsToLL__part4.root");
-  	//tree->Add( filesPathMC + "latino_DY2JetsToLL__part5.root");
   	//tree->Add( filesPathMC + "latino_DY2JetsToLL__part6.root");
   	//tree->Add( filesPathMC + "latino_DY3JetsToLL.root");
   	//tree->Add( filesPathMC + "latino_DY4JetsToLL.root");
