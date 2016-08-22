@@ -11,7 +11,9 @@
 #include "TLorentzVector.h"
 
 //#include "../../LatinoNtupleList/LatinoNtupleList_test.h"
-#include "../../LatinoNtupleList/LatinoNtupleList_80Xv2_WgStarsel__EpTCorr.h"
+#include "../../LatinoNtupleList/LatinoNtupleList_dcap_WgStarSel_v4_EpTCorr.h"
+//#include "../../LatinoNtupleList/LatinoNtupleList_HWWTightMu_07Jun2016_spring16_mAODv2_4p0fbm1_MCl2loose__hadd__bSFL2pTEff__l2tight.h"
+//#include "../../LatinoNtupleList/LatinoNtupleList_HWWTightMu_07Jun2016_spring16_mAODv2_4p0fbm1_MCWgStarsel__hadd__EpTCorr.h"
 //#include "../../LatinoNtupleList/LatinoNtupleList_dcap_WgStarSel_v4_EpTCorr.h" // for 76X
 
 //typedef ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double> > LorentzVector;
@@ -76,7 +78,7 @@ double M_Muon(0.105);
 //------------------------------------------------------------------------------
    Float_t baseW;
    Float_t puW;
-   //Float_t GEN_weight_SM;
+   Float_t GEN_weight_SM;
    Float_t fakeW;
    Float_t channel;
    Float_t gen_mll;
@@ -363,7 +365,7 @@ void LatinosTreeScript(Float_t luminosity,
     //vMuon_4d_rec=0;
     // dump variable
     tree->GetEntry(ievent);
-    cout<<" baseW: "<<baseW<<"\t"<<"channel: "<<channel<<endl;
+    cout<<" baseW: "<<baseW<<"\t"<<"GEN_weight_SM: "<<GEN_weight_SM<<" channel: "<<channel<<endl;
     //cout<<"Lepton flavor:          pt"<<endl;
     //for(int iLept(0); iLept<std_vector_lepton_flavour->size();iLept++)
     //{

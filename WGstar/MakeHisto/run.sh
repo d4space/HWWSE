@@ -18,7 +18,7 @@ NJETS=$1
 CHANNELS="MuMu"
 
 SAMPLES="          \
-WgammaNoStar       \
+WgammaStarToLNuMuMu       \
 "
 
 #SAMPLES="          \
