@@ -1,5 +1,13 @@
+
+#include <TSystem.h>
+
 void DrawRange(std::string var, int nbin, float min, float max)
 {
+  TString outDir=var+"Plot";
+  //TSystem *mySys;
+  gSystem->mkdir(outDir);
+  TString fileName= outDir+"/"+var+".root";
+  TFile *myFile= new TFile(fileName,"recreate");
   if(var != "ZGstarDimu_DelaR"){
   gStyle->SetOptStat(0);
   TCanvas *myCan=new TCanvas();
@@ -10,14 +18,16 @@ void DrawRange(std::string var, int nbin, float min, float max)
   TString toDraw_0 = Form ("%s >> h_0", var.c_str());
   myTree->Draw(toDraw_0.Data());
   //myTree->Draw(toDraw_0.Data(),"weightNominalLHE","");
-  float normalization_0 = h_0 -> Integral(-1,-1);
-  h_0->Scale(1./normalization_0);
-  h_0->SetFillColor(kBlue);
+  //float normalization_0 = h_0 -> Integral(-1,-1);
+  //h_0->Scale(1./normalization_0);
+  //h_0->SetFillColor(kBlue);
   //h_0->SetFillColorAlpha(kBlue, 0.35);
   h_0->Draw("hist");
 
   TString plotName = Form ("%s", var.c_str());
-  myCan->SaveAs("Plots/"+plotName +".pdf");
+  myCan->SaveAs(outDir+"/"+plotName +".pdf");
+
+  myFile->Write();
 
 
   // For ZGstarDimu_DelaR =========================
