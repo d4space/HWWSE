@@ -1,2 +1,2 @@
 loacation:
-/sangil.....
+/u/user/sangilpark/Latino_CernBox/80Xv2/HWW12fb_v2/07Jun2016_spring16_mAODv2_12pXfbm1/MCl2loose__hadd__bSFL2pTEff__l2tight
