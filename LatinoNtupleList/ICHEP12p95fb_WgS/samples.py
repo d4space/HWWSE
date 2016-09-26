@@ -296,7 +296,6 @@ samples['ZH_hww']  = {    'name': ['latino_HZJ_HToWW_M125.root'],
                            'weight' : 'puW*baseW*effTrigW*bPogSF*std_vector_lepton_idisoW[0]*std_vector_lepton_idisoW[1]*std_vector_lepton_recoW[0]*std_vector_lepton_recoW[1]*std_vector_lepton_genmatched[0]*std_vector_lepton_genmatched[1]*GEN_weight_SM/abs(GEN_weight_SM)',          
                   }
 
-
 samples['DATA']  = {   'name': [
                  ##
                  #'std_vector_trigger[8]  || std_vector_trigger[6]',           MuEG
@@ -304,90 +303,61 @@ samples['DATA']  = {   'name': [
                  #'std_vector_trigger[42] || std_vector_trigger[43]',          SingleMu
                  #'std_vector_trigger[46]',                                    DoubleEle
                  #'std_vector_trigger[47] || std_vector_trigger[56]',          SingleEle
-                 #
-                 '../../../HWW6p3/21Jun2016_v2_Run2016B_PromptReco/l2loose__hadd__EpTCorr__l2tight/latino_Run2016B_PromptReco_MuonEG.root', 
-                 '../../../HWW6p3/21Jun2016_v2_Run2016B_PromptReco/l2loose__hadd__EpTCorr__l2tight/latino_Run2016B_PromptReco_DoubleMuon.root', 
-                 '../../../HWW6p3/21Jun2016_v2_Run2016B_PromptReco/l2loose__hadd__EpTCorr__l2tight/latino_Run2016B_PromptReco_SingleMuon.root', 
-                 '../../../HWW6p3/21Jun2016_v2_Run2016B_PromptReco/l2loose__hadd__EpTCorr__l2tight/latino_Run2016B_PromptReco_DoubleEG.root', 
-                 '../../../HWW6p3/21Jun2016_v2_Run2016B_PromptReco/l2loose__hadd__EpTCorr__l2tight/latino_Run2016B_PromptReco_SingleElectron.root', 
+                 #'../../../HWW6p3/21Jun2016_v2_Run2016B_PromptReco/WgStarsel__hadd__EpTCorr/latino_Run2016B_PromptReco_DoubleMuon.root', 
+                 '../../../HWW6p3/21Jun2016_v2_Run2016B_PromptReco/WgStarsel__hadd__EpTCorr/latino_Run2016B_PromptReco_SingleMuon.root', 
+                 #'../../../HWW6p3/21Jun2016_v2_Run2016B_PromptReco/WgStarsel__hadd__EpTCorr/latino_Run2016B_PromptReco_SingleElectron.root', 
                  #../../../../../../../../../../           
-                 '../../../HWW6p3/05Jul2016_Run2016B_PromptReco/l2loose__hadd__EpTCorr__l2tight/latino_Run2016B_PromptReco_MuonEG.root', 
-                 '../../../HWW6p3/05Jul2016_Run2016B_PromptReco/l2loose__hadd__EpTCorr__l2tight/latino_Run2016B_PromptReco_DoubleMuon.root', 
-                 '../../../HWW6p3/05Jul2016_Run2016B_PromptReco/l2loose__hadd__EpTCorr__l2tight/latino_Run2016B_PromptReco_SingleMuon.root', 
-                 '../../../HWW6p3/05Jul2016_Run2016B_PromptReco/l2loose__hadd__EpTCorr__l2tight/latino_Run2016B_PromptReco_DoubleEG.root', 
-                 '../../../HWW6p3/05Jul2016_Run2016B_PromptReco/l2loose__hadd__EpTCorr__l2tight/latino_Run2016B_PromptReco_SingleElectron.root', 
+                 #'../../../HWW6p3/05Jul2016_Run2016B_PromptReco/WgStarsel__hadd__EpTCorr/latino_Run2016B_PromptReco_DoubleMuon.root', 
+                 '../../../HWW6p3/05Jul2016_Run2016B_PromptReco/WgStarsel__hadd__EpTCorr/latino_Run2016B_PromptReco_SingleMuon.root', 
+                 #'../../../HWW6p3/05Jul2016_Run2016B_PromptReco/WgStarsel__hadd__EpTCorr/latino_Run2016B_PromptReco_SingleElectron.root', 
                  #../../../../../../../../../../         
-                 '../../../HWW6p3/08Jul2016_Run2016B_PromptReco/l2loose__hadd__EpTCorr__l2tight/latino_Run2016B_PromptReco_MuonEG.root', 
-                 '../../../HWW6p3/08Jul2016_Run2016B_PromptReco/l2loose__hadd__EpTCorr__l2tight/latino_Run2016B_PromptReco_DoubleMuon.root', 
-                 '../../../HWW6p3/08Jul2016_Run2016B_PromptReco/l2loose__hadd__EpTCorr__l2tight/latino_Run2016B_PromptReco_SingleMuon.root', 
-                 '../../../HWW6p3/08Jul2016_Run2016B_PromptReco/l2loose__hadd__EpTCorr__l2tight/latino_Run2016B_PromptReco_DoubleEG.root', 
-                 '../../../HWW6p3/08Jul2016_Run2016B_PromptReco/l2loose__hadd__EpTCorr__l2tight/latino_Run2016B_PromptReco_SingleElectron.root', 
+                 #'../../../HWW6p3/08Jul2016_Run2016B_PromptReco/WgStarsel__hadd__EpTCorr/latino_Run2016B_PromptReco_DoubleMuon.root', 
+                 '../../../HWW6p3/08Jul2016_Run2016B_PromptReco/WgStarsel__hadd__EpTCorr/latino_Run2016B_PromptReco_SingleMuon.root', 
+                 #'../../../HWW6p3/08Jul2016_Run2016B_PromptReco/WgStarsel__hadd__EpTCorr/latino_Run2016B_PromptReco_SingleElectron.root', 
                  #../../../../../../../../../../         
-                 '../../../HWW6p3/08Jul2016_Run2016C_PromptReco/l2loose__hadd__EpTCorr__l2tight/latino_Run2016C_PromptReco_MuonEG.root', 
-                 '../../../HWW6p3/08Jul2016_Run2016C_PromptReco/l2loose__hadd__EpTCorr__l2tight/latino_Run2016C_PromptReco_SingleMuon.root', 
-                 '../../../HWW6p3/08Jul2016_Run2016C_PromptReco/l2loose__hadd__EpTCorr__l2tight/latino_Run2016C_PromptReco_DoubleMuon.root', 
-                 '../../../HWW6p3/08Jul2016_Run2016C_PromptReco/l2loose__hadd__EpTCorr__l2tight/latino_Run2016C_PromptReco_DoubleEG.root', 
-                 '../../../HWW6p3/08Jul2016_Run2016C_PromptReco/l2loose__hadd__EpTCorr__l2tight/latino_Run2016C_PromptReco_SingleElectron.root', 
+                 #'../../../HWW6p3/08Jul2016_Run2016C_PromptReco/WgStarsel__hadd__EpTCorr/latino_Run2016C_PromptReco_DoubleMuon.root', 
+                 '../../../HWW6p3/08Jul2016_Run2016C_PromptReco/WgStarsel__hadd__EpTCorr/latino_Run2016C_PromptReco_SingleMuon.root', 
+                 #'../../../HWW6p3/08Jul2016_Run2016C_PromptReco/WgStarsel__hadd__EpTCorr/latino_Run2016C_PromptReco_SingleElectron.root', 
+      		 #../../../../../../../../../../           
+      		 #'../../../HWW12fb/11Jul2016_Run2016C_PromptReco/WgStarsel__hadd__ICHEPjson__EpTCorr/latino_Run2016C_PromptReco_DoubleMuon.root', 
+      		 '../../../HWW12fb/11Jul2016_Run2016C_PromptReco/WgStarsel__hadd__ICHEPjson__EpTCorr/latino_Run2016C_PromptReco_SingleMuon.root', 
+      		 #'../../../HWW12fb/11Jul2016_Run2016C_PromptReco/WgStarsel__hadd__ICHEPjson__EpTCorr/latino_Run2016C_PromptReco_SingleElectron.root', 
       		 #../../../../../../../../../../            
-      		 '../../../HWW12fb/11Jul2016_Run2016C_PromptReco/l2loose__hadd__ICHEPjson__EpTCorr__l2tight/latino_Run2016C_PromptReco_MuonEG.root', 
-      		 '../../../HWW12fb/11Jul2016_Run2016C_PromptReco/l2loose__hadd__ICHEPjson__EpTCorr__l2tight/latino_Run2016C_PromptReco_DoubleMuon.root', 
-      		 '../../../HWW12fb/11Jul2016_Run2016C_PromptReco/l2loose__hadd__ICHEPjson__EpTCorr__l2tight/latino_Run2016C_PromptReco_SingleMuon.root', 
-      		 '../../../HWW12fb/11Jul2016_Run2016C_PromptReco/l2loose__hadd__ICHEPjson__EpTCorr__l2tight/latino_Run2016C_PromptReco_DoubleEG.root', 
-      		 '../../../HWW12fb/11Jul2016_Run2016C_PromptReco/l2loose__hadd__ICHEPjson__EpTCorr__l2tight/latino_Run2016C_PromptReco_SingleElectron.root', 
+      		 #'../../../HWW12fb/15Jul2016_Run2016C_PromptReco/WgStarsel__hadd__ICHEPjson__EpTCorr/latino_Run2016C_PromptReco_DoubleMuon.root', 
+      		 '../../../HWW12fb/15Jul2016_Run2016C_PromptReco/WgStarsel__hadd__ICHEPjson__EpTCorr/latino_Run2016C_PromptReco_SingleMuon.root', 
+      		 #'../../../HWW12fb/15Jul2016_Run2016C_PromptReco/WgStarsel__hadd__ICHEPjson__EpTCorr/latino_Run2016C_PromptReco_SingleElectron.root', 
       		 #../../../../../../../../../../            
-      		 '../../../HWW12fb/15Jul2016_Run2016C_PromptReco/l2loose__hadd__ICHEPjson__EpTCorr__l2tight/latino_Run2016C_PromptReco_MuonEG.root', 
-      		 '../../../HWW12fb/15Jul2016_Run2016C_PromptReco/l2loose__hadd__ICHEPjson__EpTCorr__l2tight/latino_Run2016C_PromptReco_DoubleMuon.root', 
-      		 '../../../HWW12fb/15Jul2016_Run2016C_PromptReco/l2loose__hadd__ICHEPjson__EpTCorr__l2tight/latino_Run2016C_PromptReco_SingleMuon.root', 
-      		 '../../../HWW12fb/15Jul2016_Run2016C_PromptReco/l2loose__hadd__ICHEPjson__EpTCorr__l2tight/latino_Run2016C_PromptReco_DoubleEG.root', 
-      		 '../../../HWW12fb/15Jul2016_Run2016C_PromptReco/l2loose__hadd__ICHEPjson__EpTCorr__l2tight/latino_Run2016C_PromptReco_SingleElectron.root', 
+      		 #'../../../HWW12fb/15Jul2016_Run2016D_PromptReco/WgStarsel__hadd__ICHEPjson__EpTCorr/latino_Run2016D_PromptReco_DoubleMuon.root', 
+      		 '../../../HWW12fb/15Jul2016_Run2016D_PromptReco/WgStarsel__hadd__ICHEPjson__EpTCorr/latino_Run2016D_PromptReco_SingleMuon.root', 
+      		 #'../../../HWW12fb/15Jul2016_Run2016D_PromptReco/WgStarsel__hadd__ICHEPjson__EpTCorr/latino_Run2016D_PromptReco_SingleElectron.root', 
       		 #../../../../../../../../../../            
-      		 '../../../HWW12fb/15Jul2016_Run2016D_PromptReco/l2loose__hadd__ICHEPjson__EpTCorr__l2tight/latino_Run2016D_PromptReco_MuonEG.root', 
-      		 '../../../HWW12fb/15Jul2016_Run2016D_PromptReco/l2loose__hadd__ICHEPjson__EpTCorr__l2tight/latino_Run2016D_PromptReco_DoubleMuon.root', 
-      		 '../../../HWW12fb/15Jul2016_Run2016D_PromptReco/l2loose__hadd__ICHEPjson__EpTCorr__l2tight/latino_Run2016D_PromptReco_SingleMuon.root', 
-      		 '../../../HWW12fb/15Jul2016_Run2016D_PromptReco/l2loose__hadd__ICHEPjson__EpTCorr__l2tight/latino_Run2016D_PromptReco_DoubleEG.root', 
-      		 '../../../HWW12fb/15Jul2016_Run2016D_PromptReco/l2loose__hadd__ICHEPjson__EpTCorr__l2tight/latino_Run2016D_PromptReco_SingleElectron.root', 
-      		 #../../../../../../../../../../            
-      		 '../../../HWW12fb/26Jul2016_Run2016D_PromptReco/l2loose__hadd__ICHEPjson__EpTCorr__l2tight/latino_Run2016D_PromptReco_MuonEG.root', 
-      		 '../../../HWW12fb/26Jul2016_Run2016D_PromptReco/l2loose__hadd__ICHEPjson__EpTCorr__l2tight/latino_Run2016D_PromptReco_DoubleMuon.root', 
-      		 '../../../HWW12fb/26Jul2016_Run2016D_PromptReco/l2loose__hadd__ICHEPjson__EpTCorr__l2tight/latino_Run2016D_PromptReco_SingleMuon.root', 
-      		 '../../../HWW12fb/26Jul2016_Run2016D_PromptReco/l2loose__hadd__ICHEPjson__EpTCorr__l2tight/latino_Run2016D_PromptReco_DoubleEG.root', 
-      		 '../../../HWW12fb/26Jul2016_Run2016D_PromptReco/l2loose__hadd__ICHEPjson__EpTCorr__l2tight/latino_Run2016D_PromptReco_SingleElectron.root', 
+      		 #'../../../HWW12fb/26Jul2016_Run2016D_PromptReco/WgStarsel__hadd__ICHEPjson__EpTCorr/latino_Run2016D_PromptReco_DoubleMuon.root', 
+      		 '../../../HWW12fb/26Jul2016_Run2016D_PromptReco/WgStarsel__hadd__ICHEPjson__EpTCorr/latino_Run2016D_PromptReco_SingleMuon.root', 
+      		 #'../../../HWW12fb/26Jul2016_Run2016D_PromptReco/WgStarsel__hadd__ICHEPjson__EpTCorr/latino_Run2016D_PromptReco_SingleElectron.root', 
                  #
                  ],
                  #'weight' : 'trigger',
                  'weight' : '1',
                  #'weight' : 'std_vector_trigger[1]',
-                 'weights' : [
+                 #'weights' : [
+                 #      #
+                 #      '!(std_vector_trigger[8]  || std_vector_trigger[6]) &&  (std_vector_trigger[13] || std_vector_trigger[11])',
+                 #      '!(std_vector_trigger[8]  || std_vector_trigger[6]) && !(std_vector_trigger[13] || std_vector_trigger[11]) &&  (std_vector_trigger[42] || std_vector_trigger[43])',
+                 #      '!(std_vector_trigger[8]  || std_vector_trigger[6]) && !(std_vector_trigger[13] || std_vector_trigger[11]) && !(std_vector_trigger[42] || std_vector_trigger[43]) && !(std_vector_trigger[46])  && (std_vector_trigger[47] || std_vector_trigger[56])',
+                 #      #
+                 #      '!(std_vector_trigger[8]  || std_vector_trigger[6]) &&  (std_vector_trigger[13] || std_vector_trigger[11])',
+                 #      '!(std_vector_trigger[8]  || std_vector_trigger[6]) && !(std_vector_trigger[13] || std_vector_trigger[11]) &&  (std_vector_trigger[42] || std_vector_trigger[43])',
+                 #      '!(std_vector_trigger[8]  || std_vector_trigger[6]) && !(std_vector_trigger[13] || std_vector_trigger[11]) && !(std_vector_trigger[42] || std_vector_trigger[43]) && !(std_vector_trigger[46])  && (std_vector_trigger[47] || std_vector_trigger[56])',
+                 #      #
+                 #      '!(std_vector_trigger[8]  || std_vector_trigger[6]) &&  (std_vector_trigger[13] || std_vector_trigger[11])',
+                 #      '!(std_vector_trigger[8]  || std_vector_trigger[6]) && !(std_vector_trigger[13] || std_vector_trigger[11]) &&  (std_vector_trigger[42] || std_vector_trigger[43])',
+                 #      '!(std_vector_trigger[8]  || std_vector_trigger[6]) && !(std_vector_trigger[13] || std_vector_trigger[11]) && !(std_vector_trigger[42] || std_vector_trigger[43]) && !(std_vector_trigger[46])  && (std_vector_trigger[47] || std_vector_trigger[56])',
+                 #      #
+                 #      '!(std_vector_trigger[8]  || std_vector_trigger[6]) &&  (std_vector_trigger[13] || std_vector_trigger[11])',
+                 #      '!(std_vector_trigger[8]  || std_vector_trigger[6]) && !(std_vector_trigger[13] || std_vector_trigger[11]) &&  (std_vector_trigger[42] || std_vector_trigger[43])',
+                 #      '!(std_vector_trigger[8]  || std_vector_trigger[6]) && !(std_vector_trigger[13] || std_vector_trigger[11]) && !(std_vector_trigger[42] || std_vector_trigger[43]) && !(std_vector_trigger[46])  && (std_vector_trigger[47] || std_vector_trigger[56])',
+                 #      #
                        #
-                       'std_vector_trigger[8]  || std_vector_trigger[6]',
-                       '!(std_vector_trigger[8]  || std_vector_trigger[6]) &&  (std_vector_trigger[13] || std_vector_trigger[11])',
-                       '!(std_vector_trigger[8]  || std_vector_trigger[6]) && !(std_vector_trigger[13] || std_vector_trigger[11]) &&  (std_vector_trigger[42] || std_vector_trigger[43])',
-                       '!(std_vector_trigger[8]  || std_vector_trigger[6]) && !(std_vector_trigger[13] || std_vector_trigger[11]) && !(std_vector_trigger[42] || std_vector_trigger[43]) &&  (std_vector_trigger[46])',
-                       '!(std_vector_trigger[8]  || std_vector_trigger[6]) && !(std_vector_trigger[13] || std_vector_trigger[11]) && !(std_vector_trigger[42] || std_vector_trigger[43]) && !(std_vector_trigger[46])  && (std_vector_trigger[47] || std_vector_trigger[56])',
-                       #
-                       'std_vector_trigger[8]  || std_vector_trigger[6]',
-                       '!(std_vector_trigger[8]  || std_vector_trigger[6]) &&  (std_vector_trigger[13] || std_vector_trigger[11])',
-                       '!(std_vector_trigger[8]  || std_vector_trigger[6]) && !(std_vector_trigger[13] || std_vector_trigger[11]) &&  (std_vector_trigger[42] || std_vector_trigger[43])',
-                       '!(std_vector_trigger[8]  || std_vector_trigger[6]) && !(std_vector_trigger[13] || std_vector_trigger[11]) && !(std_vector_trigger[42] || std_vector_trigger[43]) &&  (std_vector_trigger[46])',
-                       '!(std_vector_trigger[8]  || std_vector_trigger[6]) && !(std_vector_trigger[13] || std_vector_trigger[11]) && !(std_vector_trigger[42] || std_vector_trigger[43]) && !(std_vector_trigger[46])  && (std_vector_trigger[47] || std_vector_trigger[56])',
-                       #
-                       'std_vector_trigger[8]  || std_vector_trigger[6]',
-                       '!(std_vector_trigger[8]  || std_vector_trigger[6]) &&  (std_vector_trigger[13] || std_vector_trigger[11])',
-                       '!(std_vector_trigger[8]  || std_vector_trigger[6]) && !(std_vector_trigger[13] || std_vector_trigger[11]) &&  (std_vector_trigger[42] || std_vector_trigger[43])',
-                       '!(std_vector_trigger[8]  || std_vector_trigger[6]) && !(std_vector_trigger[13] || std_vector_trigger[11]) && !(std_vector_trigger[42] || std_vector_trigger[43]) &&  (std_vector_trigger[46])',
-                       '!(std_vector_trigger[8]  || std_vector_trigger[6]) && !(std_vector_trigger[13] || std_vector_trigger[11]) && !(std_vector_trigger[42] || std_vector_trigger[43]) && !(std_vector_trigger[46])  && (std_vector_trigger[47] || std_vector_trigger[56])',
-                       #
-                       'std_vector_trigger[8]  || std_vector_trigger[6]',
-                       '!(std_vector_trigger[8]  || std_vector_trigger[6]) &&  (std_vector_trigger[13] || std_vector_trigger[11])',
-                       '!(std_vector_trigger[8]  || std_vector_trigger[6]) && !(std_vector_trigger[13] || std_vector_trigger[11]) &&  (std_vector_trigger[42] || std_vector_trigger[43])',
-                       '!(std_vector_trigger[8]  || std_vector_trigger[6]) && !(std_vector_trigger[13] || std_vector_trigger[11]) && !(std_vector_trigger[42] || std_vector_trigger[43]) &&  (std_vector_trigger[46])',
-                       '!(std_vector_trigger[8]  || std_vector_trigger[6]) && !(std_vector_trigger[13] || std_vector_trigger[11]) && !(std_vector_trigger[42] || std_vector_trigger[43]) && !(std_vector_trigger[46])  && (std_vector_trigger[47] || std_vector_trigger[56])',
-                       #
-                       #
-                       #
-                       #
-                       #
-		       ],
+		 #     ],
                  'isData': ['all'],
 		 }
-
