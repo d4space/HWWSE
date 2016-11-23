@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-#define PtlIdx 14 // 13 hHFPlus
+#define PtlIdx 0 // 13 hHFPlus
 #define PtlTT 16
 void ctlMetXY()
 {
@@ -18,7 +18,7 @@ void ctlMetXY()
   int vtxBin(5);
    TChain * fChain = new TChain("metPhiCorrInfoWriter/Events","");
    //fChain->Add("histo_data.root/metPhiCorrInfoWriter/Events");
-   fChain->Add("histo_Run2016B.root/metPhiCorrInfoWriter/Events");
+   fChain->Add("~/WorkDir/MetPhiCorrection/CMSSW_8_0_9/src/MetTools/MetPhiCorrections/test/histo_Run2016B_noMetcut.root/metPhiCorrInfoWriter/Events");
 
    if (fChain == 0) return;
 
@@ -133,13 +133,13 @@ void ctlMetXY()
    for(int i(0); i<metBin;i++){
      name = Form("pr_MEx_vtx_pfMetT%d", (i+1)*metBin);
      pr_MEx_vtx_pfMetT[i]  = new TProfile(name,name,20,0,40);
-     pr_MEx_vtx_pfMetT[i]->SetMaximum(7);
-     pr_MEx_vtx_pfMetT[i]->SetMinimum(-1);
+     pr_MEx_vtx_pfMetT[i]->SetMaximum(5);
+     pr_MEx_vtx_pfMetT[i]->SetMinimum(-3);
 
      name = Form("pr_MEy_vtx_pfMetT%d", (i+1)*metBin);
      pr_MEy_vtx_pfMetT[i]  = new TProfile(name,name,20,0,40);
      pr_MEy_vtx_pfMetT[i]->SetMaximum(5);
-     pr_MEy_vtx_pfMetT[i]->SetMinimum(-1);
+     pr_MEy_vtx_pfMetT[i]->SetMinimum(-3);
    }
    TH1D *h_pfMetT                = new TH1D("h_pfMetT","h_pfMetT",50,0,100);
 
@@ -182,11 +182,11 @@ void ctlMetXY()
       // if (Cut(ientry) < 0) continue;
    }
    pr_MEx_vtx->Draw();
-   myCan->SaveAs("prTest_MEx_vtx.pdf");
+   myCan->SaveAs("prTest_MEx_vtx.png");
    h_pfMetT->Draw();
-   myCan->SaveAs("h_pfMetT.pdf");
+   myCan->SaveAs("h_pfMetT.png");
    pr_MEx_pfMetT->Draw();
-   myCan->SaveAs("pr_MEx_pfMetT.pdf");
+   myCan->SaveAs("pr_MEx_pfMetT.png");
 
    TLegend *leg = new TLegend(0.5373563,0.7097458,0.8577586,0.8474576,NULL,"brNDC");
    leg->SetTextFont(62);
@@ -208,10 +208,10 @@ void ctlMetXY()
    }
 
    leg->Draw("same");
-   name = Form("pr_MEx_pfMetT_vtxes.pdf");
+   name = Form("pr_MEx_pfMetT_vtxes.png");
    myCan->SaveAs(name);
 
-   TLegend *l_MEx_vtx = new TLegend(0.1373563,0.6097458,0.4577586,0.8474576,NULL,"brNDC");
+   TLegend *l_MEx_vtx = new TLegend(0.2373563,0.6097458,0.5577586,0.8474576,NULL,"brNDC");
    l_MEx_vtx->SetTextFont(62);
    l_MEx_vtx->SetTextSize(0.03330866);
    l_MEx_vtx->SetLineColor(1);
@@ -247,10 +247,10 @@ void ctlMetXY()
    l_MEx_vtx->AddEntry(pr_MEx_vtx,"all","lp");
 
    l_MEx_vtx->Draw("same");
-   name = Form("pr_MEx_vtx_pfMetTes.pdf");
+   name = Form("pr_MEx_vtx_pfMetTes.png");
    myCan->SaveAs(name);
 
-   TLegend *l_MEy_vtx = new TLegend(0.1373563,0.6097458,0.4577586,0.8474576,NULL,"brNDC");
+   TLegend *l_MEy_vtx = new TLegend(0.2373563,0.6097458,0.5577586,0.8474576,NULL,"brNDC");
    l_MEy_vtx->SetTextFont(62);
    l_MEy_vtx->SetTextSize(0.03330866);
    l_MEy_vtx->SetLineColor(1);
@@ -268,7 +268,7 @@ void ctlMetXY()
      pr_MEy_vtx_pfMetT[i]->SetMarkerSize(1);
 
      if(i == 0){
-       pr_MEy_vtx_pfMetT[i]->SetTitle("<MetX> vs vtx");
+       pr_MEy_vtx_pfMetT[i]->SetTitle("<MetY> vs vtx");
        pr_MEy_vtx_pfMetT[i]->Draw();
      }else pr_MEy_vtx_pfMetT[i]->Draw("same");
 
@@ -285,7 +285,7 @@ void ctlMetXY()
    l_MEy_vtx->AddEntry(pr_MEy_vtx,"all","lp");
 
    l_MEy_vtx->Draw("same");
-   name = Form("pr_MEy_vtx_pfMetTes.pdf");
+   name = Form("pr_MEy_vtx_pfMetTes.png");
    myCan->SaveAs(name);
    
 }
