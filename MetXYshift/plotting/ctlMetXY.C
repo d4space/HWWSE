@@ -5,13 +5,20 @@
 #include <TChain.h>
 #include <TFile.h>
 #include <TProfile.h>
+#include <TLegend.h>
 
 #include <iostream>
+
+#define PtlIdx 14 // 13 hHFPlus
+#define PtlTT 16
 void ctlMetXY()
 {
+  gStyle->SetOptStat(0);
+  int metBin(6);
+  int vtxBin(5);
    TChain * fChain = new TChain("metPhiCorrInfoWriter/Events","");
-   fChain->Add("histo_data.root/metPhiCorrInfoWriter/Events");
-   //fChain->Add("histo_Run2016B.root/metPhiCorrInfoWriter/Events");
+   //fChain->Add("histo_data.root/metPhiCorrInfoWriter/Events");
+   fChain->Add("histo_Run2016B.root/metPhiCorrInfoWriter/Events");
 
    if (fChain == 0) return;
 
@@ -112,13 +119,27 @@ void ctlMetXY()
    Long64_t nbytes = 0, nb = 0;
 
    TCanvas *myCan = new TCanvas("myCan","myCan");
-   TProfile *pr_MEx_vtx         = new TProfile("pr_MEx_vtx","pr_MEx_vtx",15,0,30);
-   TProfile *pr_MEx_pfMetT_vtx[5];
+   TProfile *pr_MEx_vtx         = new TProfile("pr_MEx_vtx","pr_MEx_vtx",20,0,40);
+   TProfile *pr_MEy_vtx         = new TProfile("pr_MEy_vtx","pr_MEy_vtx",20,0,40);
+   TProfile *pr_MEx_pfMetT_vtx[vtxBin];
+   TProfile *pr_MEx_vtx_pfMetT[metBin];
+   TProfile *pr_MEy_vtx_pfMetT[metBin];
    TProfile *pr_MEx_pfMetT = new TProfile("pr_MEx_pfMetT","pr_MEx_pfMetT",30,0,90);
    TString name;
-   for(int i(0);i<5;i++){
-     name = Form("pr_MEx_pfMetT_vtx%d", (i+1)*5);
+   for(int i(0);i<vtxBin;i++){
+     name = Form("pr_MEx_pfMetT_vtx%d", (i+1)*metBin);
      pr_MEx_pfMetT_vtx[i]  = new TProfile(name,name,30,0,90);
+   }
+   for(int i(0); i<metBin;i++){
+     name = Form("pr_MEx_vtx_pfMetT%d", (i+1)*metBin);
+     pr_MEx_vtx_pfMetT[i]  = new TProfile(name,name,20,0,40);
+     pr_MEx_vtx_pfMetT[i]->SetMaximum(7);
+     pr_MEx_vtx_pfMetT[i]->SetMinimum(-1);
+
+     name = Form("pr_MEy_vtx_pfMetT%d", (i+1)*metBin);
+     pr_MEy_vtx_pfMetT[i]  = new TProfile(name,name,20,0,40);
+     pr_MEy_vtx_pfMetT[i]->SetMaximum(5);
+     pr_MEy_vtx_pfMetT[i]->SetMinimum(-1);
    }
    TH1D *h_pfMetT                = new TH1D("h_pfMetT","h_pfMetT",50,0,100);
 
@@ -128,13 +149,31 @@ void ctlMetXY()
       nb = fChain->GetEntry(jentry);   nbytes += nb;
       //cout<<"size catagory: "<<nVtx_catagory->size()<<endl; // size 16
       for(unsigned i(0); i < nVtx_catagory->size(); i++){
-	if( (*nVtx_catagory)[i] % 16 == 12){ // 12(hHFMinus)
+	if( (*nVtx_catagory)[i] % PtlTT == PtlIdx){ // 12(hHFMinus)
 	  h_pfMetT->Fill((*nVtx_pfMetT)[i]);
 	  pr_MEx_vtx->Fill((*nVtx_nVtx)[i],(*nVtx_MetX)[i]);
+	  pr_MEy_vtx->Fill((*nVtx_nVtx)[i],(*nVtx_MetY)[i]);
 	  pr_MEx_pfMetT->Fill((*nVtx_pfMetT)[i], (*nVtx_MetX)[i]);
-	  for(int j(0); j<5;j++){
+	  for(int j(0); j<vtxBin;j++){ // As a ftn of MET
 	    if((*nVtx_nVtx)[i] > j*5 && (*nVtx_nVtx)[i] <=(j+1)*5){
 	      pr_MEx_pfMetT_vtx[j]->Fill((*nVtx_pfMetT)[i], (*nVtx_MetX)[i]);
+	    }
+	  }
+
+	  for( int j(0); j<metBin; j++) // As a ftn of vtx
+	  {
+	    if(j==metBin-1){
+	      if( (*nVtx_pfMetT)[i] > j*10 )
+	      {
+	        pr_MEx_vtx_pfMetT[j]->Fill((*nVtx_nVtx)[i], (*nVtx_MetX)[i]);
+	        pr_MEy_vtx_pfMetT[j]->Fill((*nVtx_nVtx)[i], (*nVtx_MetY)[i]);
+	      }
+	    }else{
+	      if( (*nVtx_pfMetT)[i] > j*10 && (*nVtx_pfMetT)[i] < (j+1)*10 )
+	      {
+	        pr_MEx_vtx_pfMetT[j]->Fill((*nVtx_nVtx)[i], (*nVtx_MetX)[i]);
+	        pr_MEy_vtx_pfMetT[j]->Fill((*nVtx_nVtx)[i], (*nVtx_MetY)[i]);
+	      }
 	    }
 	  }
 	}
@@ -146,15 +185,107 @@ void ctlMetXY()
    myCan->SaveAs("prTest_MEx_vtx.pdf");
    h_pfMetT->Draw();
    myCan->SaveAs("h_pfMetT.pdf");
-   TLegend *leg = new TLegend(0.5373563,0.7097458,0.8577586,0.8474576,NULL,"brNDC");
-   for(int i(0);i<5;i++)
-   {
-     if(i == 0) pr_MEx_pfMetT_vtx[i]->Draw();
-     else pr_MEx_pfMetT_vtx[i]->Draw("same");
-   }
-   name = Form("pr_MEx_pfMetT_vtxes.pdf");
-   myCan->SaveAs(name);
    pr_MEx_pfMetT->Draw();
    myCan->SaveAs("pr_MEx_pfMetT.pdf");
+
+   TLegend *leg = new TLegend(0.5373563,0.7097458,0.8577586,0.8474576,NULL,"brNDC");
+   leg->SetTextFont(62);
+   leg->SetTextSize(0.03330866);
+   leg->SetLineColor(1);
+   leg->SetLineStyle(1);
+   leg->SetLineWidth(1);
+   leg->SetFillColor(0);
+   leg->SetFillStyle(1001);
+   leg->SetBorderSize(0);
+
+   for(int i(0);i<vtxBin;i++)
+   {
+     pr_MEx_pfMetT_vtx[i]->SetLineColor(i+1);
+     if(i == 0) pr_MEx_pfMetT_vtx[i]->Draw();
+     else pr_MEx_pfMetT_vtx[i]->Draw("same");
+     name = Form("pr_MEx_pfMetT_vtx_%d_%d",i*metBin, (i+1)*metBin);
+     leg->AddEntry(pr_MEx_pfMetT_vtx[i],name,"lp");
+   }
+
+   leg->Draw("same");
+   name = Form("pr_MEx_pfMetT_vtxes.pdf");
+   myCan->SaveAs(name);
+
+   TLegend *l_MEx_vtx = new TLegend(0.1373563,0.6097458,0.4577586,0.8474576,NULL,"brNDC");
+   l_MEx_vtx->SetTextFont(62);
+   l_MEx_vtx->SetTextSize(0.03330866);
+   l_MEx_vtx->SetLineColor(1);
+   l_MEx_vtx->SetLineStyle(1);
+   l_MEx_vtx->SetLineWidth(1);
+   l_MEx_vtx->SetFillColor(0);
+   l_MEx_vtx->SetFillStyle(1001);
+   l_MEx_vtx->SetBorderSize(0);
+
+   for(int i(0);i<metBin;i++)
+   {
+     pr_MEx_vtx_pfMetT[i]->SetLineColor(i+1);
+     pr_MEx_vtx_pfMetT[i]->SetMarkerColor(i+1);
+     pr_MEx_vtx_pfMetT[i]->SetMarkerStyle(22);
+     pr_MEx_vtx_pfMetT[i]->SetMarkerSize(1);
+
+     if(i == 0){
+       pr_MEx_vtx_pfMetT[i]->SetTitle("<MetX> vs vtx");
+       pr_MEx_vtx_pfMetT[i]->Draw();
+     }else pr_MEx_vtx_pfMetT[i]->Draw("same");
+
+     if(i == metBin-1){
+       name = Form("pfMetT_%d_%d",i*10, 100);
+       l_MEx_vtx->AddEntry(pr_MEx_vtx_pfMetT[i],name,"lp");
+     }else{
+       name = Form("pfMetT_%d_%d",i*10, (i+1)*10);
+       l_MEx_vtx->AddEntry(pr_MEx_vtx_pfMetT[i],name,"lp");
+     }
+
+   }
+   pr_MEx_vtx->SetMarkerStyle(20);
+   pr_MEx_vtx->Draw("same");
+   l_MEx_vtx->AddEntry(pr_MEx_vtx,"all","lp");
+
+   l_MEx_vtx->Draw("same");
+   name = Form("pr_MEx_vtx_pfMetTes.pdf");
+   myCan->SaveAs(name);
+
+   TLegend *l_MEy_vtx = new TLegend(0.1373563,0.6097458,0.4577586,0.8474576,NULL,"brNDC");
+   l_MEy_vtx->SetTextFont(62);
+   l_MEy_vtx->SetTextSize(0.03330866);
+   l_MEy_vtx->SetLineColor(1);
+   l_MEy_vtx->SetLineStyle(1);
+   l_MEy_vtx->SetLineWidth(1);
+   l_MEy_vtx->SetFillColor(0);
+   l_MEy_vtx->SetFillStyle(1001);
+   l_MEy_vtx->SetBorderSize(0);
+
+   for(int i(0);i<metBin;i++)
+   {
+     pr_MEy_vtx_pfMetT[i]->SetLineColor(i+1);
+     pr_MEy_vtx_pfMetT[i]->SetMarkerColor(i+1);
+     pr_MEy_vtx_pfMetT[i]->SetMarkerStyle(22);
+     pr_MEy_vtx_pfMetT[i]->SetMarkerSize(1);
+
+     if(i == 0){
+       pr_MEy_vtx_pfMetT[i]->SetTitle("<MetX> vs vtx");
+       pr_MEy_vtx_pfMetT[i]->Draw();
+     }else pr_MEy_vtx_pfMetT[i]->Draw("same");
+
+     if(i == metBin-1){
+       name = Form("pfMetT_%d_%d",i*10, 100);
+       l_MEy_vtx->AddEntry(pr_MEy_vtx_pfMetT[i],name,"lp");
+     }else{
+       name = Form("pfMetT_%d_%d",i*10, (i+1)*10);
+       l_MEy_vtx->AddEntry(pr_MEy_vtx_pfMetT[i],name,"lp");
+     }
+   }
+   pr_MEy_vtx->SetMarkerStyle(20);
+   pr_MEy_vtx->Draw("same");
+   l_MEy_vtx->AddEntry(pr_MEy_vtx,"all","lp");
+
+   l_MEy_vtx->Draw("same");
+   name = Form("pr_MEy_vtx_pfMetTes.pdf");
+   myCan->SaveAs(name);
    
 }
