@@ -16,11 +16,12 @@ process.load("FWCore.MessageLogger.MessageLogger_cfi")
 process.MessageLogger.cerr.FwkReport.reportEvery = 1000
 
 process.source = cms.Source("PoolSource",
+    fileNames = cms.untracked.vstring('file:pickedOutPut_2212.root'),
     #fileNames = cms.untracked.vstring('file:../../../../DataRunII/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIISpring15MiniAODv2-74X_mcRun2_asymptotic_v2-v1/MINIAODSIM/041705A6-6F6F-E511-AC9C-001E6757F1D4.root'),
     #fileNames = cms.untracked.vstring('file:../../../../RunIIData/testSample/WGstarToLNu2E_TuneZ2star_8TeV-madgraph-tauola/Summer12_DR53X/2C549E1A-4DDC-E111-97CE-001A9281170E.root'),
     #fileNames = cms.untracked.vstring('file:../../../../RunIIData/testSample/DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIIFall15MiniAODv1/02137088-4CA0-E511-BA41-002590775158.root'),
     #fileNames = cms.untracked.vstring('file:../../../../RunIIData/testSample/WZJets_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIIFall15MiniAODv1/006DEE0F-A49F-E511-B06C-0CC47A009E26.root'),
-    fileNames = cms.untracked.vstring('file:/afs/cern.ch/user/s/spak/public/RunIISample/RunIIFall15MiniAODv2/WGToLNuG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/042C25F7-DBB8-E511-9178-2C600CAFEF7C.root'),
+    #fileNames = cms.untracked.vstring('file:/afs/cern.ch/user/s/spak/public/RunIISample/RunIIFall15MiniAODv2/WGToLNuG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/042C25F7-DBB8-E511-9178-2C600CAFEF7C.root'),
     #fileNames = cms.untracked.vstring('file:/u/user/sangilpark/RunIIData/testSample/WGstarToLNuMuMu_012Jets_13TeV-madgraph/RunIIFall15MiniAODv2/1A55058C-32E5-E511-B619-0025905A48F0.root'),
     #fileNames = cms.untracked.vstring('file:/u/user/sangilpark/RunIIData/testSample/WGstarToLNuMuMu_012Jets_13TeV-madgraph/RunIIFall15MiniAODv2/1A55058C-32E5-E511-B619-0025905A48F0.root'),
     #fileNames = cms.untracked.vstring('file:/u/user/sangilpark/RunIIData/testSample/TTTo2L2Nu_13TeV-powheg/RunIIFall15MiniAODv2/02A468DA-E8B9-E511-942C-0022195E688C.root'),
